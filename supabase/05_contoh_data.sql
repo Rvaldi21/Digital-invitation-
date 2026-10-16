@@ -18,11 +18,11 @@ with inv as (
 ev as (
   insert into public.invitation_events
     (invitation_id, title, starts_at, ends_at, venue_name, address, maps_url, sort_order)
-  select id, 'Akad nikah', '2026-12-20 08:00+07', '2026-12-20 10:00+07',
+  select id, 'Akad nikah', '2026-12-20 08:00+07'::timestamptz, '2026-12-20 10:00+07'::timestamptz,
          'Masjid Raya Al-Falah', 'Jl. Melati No. 12, Kota Bandung', 'https://maps.google.com/?q=Bandung', 1
   from inv
   union all
-  select id, 'Resepsi', '2026-12-20 11:00+07', '2026-12-20 14:00+07',
+  select id, 'Resepsi', '2026-12-20 11:00+07'::timestamptz, '2026-12-20 14:00+07'::timestamptz,
          'Gedung Sasana Budaya', 'Jl. Kenanga No. 8, Kota Bandung', 'https://maps.google.com/?q=Bandung', 2
   from inv
   returning 1
