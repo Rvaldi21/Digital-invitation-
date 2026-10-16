@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Undangan Pernikahan</title>
+  <meta name="description" content="Undangan pernikahan digital">
+  <meta name="theme-color" content="#1F2A44">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/undangan.css">
+</head>
+<body class="is-locked">
+
+  <!-- Status: memuat / tidak ditemukan / gagal -->
+  <div id="status" class="status" role="status">
+    <span class="kawung-mark" aria-hidden="true"></span>
+    <p id="status-text">Memuat undangan…</p>
+  </div>
+
+  <!-- SAMPUL -->
+  <header id="cover" class="cover" hidden>
+    <div class="cover__inner">
+      <p class="cover__lead">Undangan pernikahan</p>
+      <h1 class="cover__names">
+        <span id="cover-groom"></span>
+        <span class="cover__amp" aria-hidden="true">&amp;</span>
+        <span id="cover-bride"></span>
+      </h1>
+      <div class="cover__guest">
+        <p id="cover-greeting"></p>
+        <p id="cover-guest" class="cover__guest-name"></p>
+      </div>
+      <button id="open-btn" class="btn btn--light" type="button"></button>
+    </div>
+  </header>
+
+  <main id="main" hidden>
+
+    <section class="section section--intro">
+      <img id="cover-photo" class="intro__photo" alt="" hidden>
+      <p id="opening" class="intro__text"></p>
+      <div class="couple">
+        <div class="person">
+          <h2 id="groom-name" class="person__name"></h2>
+          <p id="groom-parents" class="person__parents"></p>
+        </div>
+        <span class="couple__amp" aria-hidden="true">&amp;</span>
+        <div class="person">
+          <h2 id="bride-name" class="person__name"></h2>
+          <p id="bride-parents" class="person__parents"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="countdown-section" class="section section--dark" hidden>
+      <h2 id="countdown-title" class="section__title"></h2>
+      <p id="countdown-date" class="countdown__date"></p>
+      <div class="countdown" aria-live="off">
+        <div><span id="cd-days">0</span><small>hari</small></div>
+        <div><span id="cd-hours">0</span><small>jam</small></div>
+        <div><span id="cd-mins">0</span><small>menit</small></div>
+        <div><span id="cd-secs">0</span><small>detik</small></div>
+      </div>
+    </section>
+
+    <section id="events-section" class="section" hidden>
+      <h2 id="events-title" class="section__title"></h2>
+      <div id="events" class="events"></div>
+    </section>
+
+    <section id="gallery-section" class="section" hidden>
+      <h2 id="gallery-title" class="section__title"></h2>
+      <div id="gallery" class="gallery"></div>
+    </section>
+
+    <section id="gift-section" class="section" hidden>
+      <h2 id="gift-title" class="section__title"></h2>
+      <p id="gift-intro" class="section__lead"></p>
+      <div id="gifts" class="gifts"></div>
+    </section>
+
+    <section id="rsvp-section" class="section">
+      <h2 id="rsvp-title" class="section__title"></h2>
+      <form id="rsvp-form" class="rsvp" novalidate>
+        <label class="field">
+          <span>Nama</span>
+          <input id="rsvp-name" name="name" type="text" maxlength="100" autocomplete="name" required>
+        </label>
+        <fieldset class="field">
+          <legend>Kehadiran</legend>
+          <div id="rsvp-attendance" class="choice"></div>
+        </fieldset>
+        <label id="rsvp-count-field" class="field">
+          <span>Jumlah tamu</span>
+          <select id="rsvp-count" name="count"></select>
+        </label>
+        <label class="field">
+          <span>Ucapan dan doa <small>(opsional)</small></span>
+          <textarea id="rsvp-message" name="message" rows="3"></textarea>
+        </label>
+        <p id="rsvp-error" class="form-msg form-msg--error" role="alert" hidden></p>
+        <p id="rsvp-ok" class="form-msg form-msg--ok" role="status" hidden></p>
+        <button id="rsvp-submit" class="btn" type="submit"></button>
+      </form>
+      <p id="rsvp-closed" class="section__lead" hidden></p>
+
+      <h3 id="messages-title" class="messages__title"></h3>
+      <ul id="messages" class="messages"></ul>
+    </section>
+
+    <footer class="section section--dark closing">
+      <span class="kawung-mark kawung-mark--light" aria-hidden="true"></span>
+      <p id="closing" class="closing__text"></p>
+      <p class="closing__names" id="closing-names"></p>
+    </footer>
+
+    <p id="demo-notice" class="demo-notice" hidden></p>
+  </main>
+
+  <!-- Tombol musik -->
+  <button id="music-btn" class="music-btn" type="button" aria-label="Matikan musik" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17" cy="16" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+  </button>
+  <audio id="music" loop preload="none"></audio>
+
+  <!-- Foto diperbesar -->
+  <dialog id="lightbox" class="lightbox">
+    <img id="lightbox-img" alt="">
+    <button class="lightbox__close" type="button" aria-label="Tutup">×</button>
+  </dialog>
+
+  <script src="/assets/js/config.js"></script>
+  <script src="/assets/js/demo-data.js"></script>
+  <script src="/assets/js/api.js"></script>
+  <script src="/assets/js/undangan.js"></script>
+</body>
+</html>

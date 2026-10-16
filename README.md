@@ -1,4 +1,42 @@
-# Database Undangan Digital (Supabase)
+# Undangan Digital
+
+## Struktur folder
+
+```
+supabase/   ← file SQL database (jalankan di Supabase SQL Editor)
+web/        ← website (yang di-online-kan lewat Cloudflare Pages)
+  undangan/index.html       halaman undangan untuk tamu
+  assets/js/config.js       ★ SEMUA PENGATURAN (koneksi Supabase, teks, zona waktu)
+  assets/js/undangan.js     logika tampilan undangan
+  assets/js/api.js          penghubung ke Supabase
+  assets/js/demo-data.js    data contoh untuk mode demo
+  assets/css/undangan.css   tampilan (warna & huruf di bagian :root)
+  _headers                  header keamanan Cloudflare
+```
+
+## Link undangan
+
+```
+https://<website>/undangan/?u=<slug>&to=<nama tamu>
+contoh: /undangan/?u=aldi-alfin&to=Budi%20Santoso
+```
+
+- `?u=demo` → tampilkan data contoh (tanpa database)
+- Spasi pada nama tamu ditulis `%20`
+
+## Online-kan website (Cloudflare Pages, gratis)
+
+1. Buka dash.cloudflare.com → **Workers & Pages → Create → Pages → Connect to Git**
+2. Pilih repositori ini
+3. Pengaturan build:
+   - Framework preset: **None**
+   - Build command: *(kosongkan)*
+   - Build output directory: **web**
+4. **Save and Deploy**. Setiap ada perubahan di GitHub, website otomatis diperbarui.
+
+---
+
+# Database (Supabase)
 
 Database untuk website undangan dengan panel admin, siap dipakai untuk
 **Opsi 1** (hanya kamu yang mengedit) dan bisa langsung naik ke **Opsi 2**
@@ -12,6 +50,7 @@ Database untuk website undangan dengan panel admin, siap dipakai untuk
 | `supabase/02_keamanan.sql` | Aturan akses (RLS) dan penjaga kolom penting |
 | `supabase/03_fungsi_publik.sql` | 2 fungsi untuk tamu: buka undangan & kirim RSVP (+ anti-spam) |
 | `supabase/04_storage.sql` | Tempat file foto/QRIS/musik dan aturan upload |
+| `supabase/05_contoh_data.sql` | (Opsional) satu undangan contoh dengan slug `contoh` |
 
 Angka-angka yang bisa diatur (batas karakter, anti-spam, ukuran file)
 ada di bagian **PENGATURAN** di atas tiap file.

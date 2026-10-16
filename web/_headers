@@ -1,0 +1,9 @@
+# Header keamanan untuk Cloudflare Pages (dibaca otomatis saat deploy)
+# Content-Security-Policy: hanya izinkan kode dari website ini sendiri,
+# huruf dari Google Fonts, dan data/foto dari Supabase.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.supabase.co; media-src 'self' https://*.supabase.co; connect-src 'self' https://*.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'

@@ -1,0 +1,316 @@
+/* =====================================================================
+   undangan.css — TAMPILAN TEMPLATE "KLASIK"
+   Warna & huruf diatur di :root. Ganti nilai di sana untuk tema lain.
+   ===================================================================== */
+
+:root {
+  /* Warna */
+  --nila:   #1F2A44;  /* biru nila tua: sampul, teks utama */
+  --kertas: #EEF1EC;  /* latar halaman: hijau pucat */
+  --daun:   #3E5C4A;  /* hijau daun pisang: tombol */
+  --prada:  #B08D57;  /* emas prada: motif & garis tipis */
+  --putih:  #FBFCFA;  /* kartu & kolom isian */
+  --redup:  #5D6675;  /* teks pendukung */
+  --merah:  #A33A3A;  /* pesan error */
+
+  /* Huruf */
+  --font-judul: 'Instrument Serif', Georgia, serif;
+  --font-teks:  'Plus Jakarta Sans', system-ui, sans-serif;
+
+  --lebar: 30rem;     /* lebar maksimal konten */
+  --radius: 14px;
+
+  /* Motif kawung (batik) */
+  --kawung: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23B08D57' stroke-width='1'%3E%3Cellipse cx='32' cy='16' rx='8.5' ry='14'/%3E%3Cellipse cx='32' cy='48' rx='8.5' ry='14'/%3E%3Cellipse cx='16' cy='32' rx='14' ry='8.5'/%3E%3Cellipse cx='48' cy='32' rx='14' ry='8.5'/%3E%3Ccircle cx='32' cy='32' r='2'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--kertas);
+  color: var(--nila);
+  font-family: var(--font-teks);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+body.is-locked { overflow: hidden; }
+
+img { max-width: 100%; display: block; }
+
+[hidden] { display: none !important; }
+
+:focus-visible { outline: 2px solid var(--prada); outline-offset: 3px; }
+
+/* ---------- Status memuat ---------- */
+.status {
+  min-height: 100svh;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  text-align: center;
+  color: var(--redup);
+}
+
+.kawung-mark {
+  width: 64px; height: 64px;
+  background: var(--kawung) center / contain no-repeat;
+}
+.kawung-mark--light { opacity: .7; }
+
+/* ---------- Tombol ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: .75rem 1.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--daun);
+  color: var(--putih);
+  font: 600 .95rem/1 var(--font-teks);
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn:disabled { opacity: .6; cursor: progress; }
+.btn--light { background: var(--kertas); color: var(--nila); }
+.btn--ghost {
+  background: transparent;
+  color: var(--daun);
+  border: 1px solid currentColor;
+  min-height: 40px;
+  padding: .5rem 1rem;
+  font-size: .875rem;
+}
+
+/* ---------- Sampul ---------- */
+.cover {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1.25rem calc(2rem + env(safe-area-inset-bottom));
+  background-color: var(--nila);
+  background-image: radial-gradient(ellipse at center, rgba(31,42,68,.97) 30%, rgba(31,42,68,.72) 100%), var(--kawung);
+  background-size: auto, 64px 64px;
+  color: var(--kertas);
+  text-align: center;
+  transition: transform .9s cubic-bezier(.7,0,.2,1);
+}
+.cover.is-open { transform: translateY(-100%); }
+
+.cover__inner { display: grid; gap: 2rem; justify-items: center; max-width: var(--lebar); }
+
+.cover__lead { margin: 0; font-size: .95rem; letter-spacing: .02em; opacity: .85; }
+
+.cover__names {
+  margin: 0;
+  display: grid;
+  font: 400 clamp(3.25rem, 16vw, 5rem)/.95 var(--font-judul);
+  letter-spacing: -.01em;
+}
+.cover__amp { font-style: italic; font-size: .55em; color: var(--prada); margin: .2em 0; }
+
+.cover__guest p { margin: 0; }
+.cover__guest-name { font: 400 1.6rem/1.25 var(--font-judul); margin-top: .25rem !important; }
+
+/* ---------- Bagian umum ---------- */
+.section {
+  max-width: var(--lebar);
+  margin: 0 auto;
+  padding: 4.5rem 1.25rem;
+  text-align: center;
+}
+.section + .section:not(.section--dark)::before {
+  content: '';
+  display: block;
+  width: 40px; height: 40px;
+  margin: -2.25rem auto 2.5rem;
+  background: var(--kawung) center / contain no-repeat;
+}
+
+.section--dark {
+  max-width: none;
+  background-color: var(--nila);
+  background-image: linear-gradient(rgba(31,42,68,.9), rgba(31,42,68,.9)), var(--kawung);
+  background-size: auto, 64px 64px;
+  color: var(--kertas);
+}
+
+.section__title {
+  margin: 0 0 1.5rem;
+  font: 400 2.5rem/1.1 var(--font-judul);
+}
+.section__lead { margin: -0.5rem auto 1.75rem; color: var(--redup); max-width: 26rem; }
+
+/* ---------- Pembuka & mempelai ---------- */
+.intro__photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 999px 999px var(--radius) var(--radius);
+  margin-bottom: 2.5rem;
+}
+.intro__text { margin: 0 auto 2.5rem; max-width: 26rem; color: var(--redup); }
+
+.couple { display: grid; gap: 1rem; }
+.couple__amp { font: italic 400 2.5rem/1 var(--font-judul); color: var(--prada); }
+.person__name { margin: 0; font: 400 2.75rem/1.05 var(--font-judul); }
+.person__parents { margin: .5rem 0 0; color: var(--redup); font-size: .925rem; }
+
+/* ---------- Hitung mundur ---------- */
+.section--dark .section__title { margin-bottom: .5rem; }
+.countdown__date { margin: 0 0 2rem; opacity: .85; }
+.countdown {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .5rem;
+  max-width: 22rem;
+  margin: 0 auto;
+}
+.countdown div { display: grid; }
+.countdown span { font: 400 3rem/1 var(--font-judul); font-variant-numeric: tabular-nums; }
+.countdown small { font-size: .8rem; opacity: .75; }
+
+/* ---------- Acara ---------- */
+.events { display: grid; gap: 1rem; }
+.event {
+  padding: 1.75rem 1.25rem;
+  background: var(--putih);
+  border-radius: var(--radius);
+  border-top: 3px solid var(--prada);
+}
+.event__title { margin: 0 0 .75rem; font: 400 2rem/1.1 var(--font-judul); }
+.event__date { margin: 0; font-weight: 600; }
+.event__time { margin: 0 0 1rem; }
+.event__venue { margin: 0; font-weight: 600; }
+.event__address { margin: 0 0 1.25rem; color: var(--redup); font-size: .925rem; }
+
+/* ---------- Galeri ---------- */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .5rem;
+}
+.gallery button {
+  padding: 0; border: 0; background: none; cursor: zoom-in;
+  border-radius: 10px; overflow: hidden;
+}
+.gallery img { width: 100%; aspect-ratio: 1; object-fit: cover; background: #dfe4dd; }
+/* Jumlah foto ganjil: foto pertama dibuat lebar supaya baris terakhir tetap penuh */
+.gallery--odd button:first-child { grid-column: span 2; }
+.gallery--odd button:first-child img { aspect-ratio: 3 / 2; }
+
+.lightbox {
+  padding: 0; border: 0; background: transparent; max-width: 100vw; max-height: 100svh;
+}
+.lightbox::backdrop { background: rgba(15, 20, 33, .92); }
+.lightbox img { max-width: 100vw; max-height: 90svh; object-fit: contain; }
+.lightbox__close {
+  position: fixed; top: 1rem; right: 1rem;
+  width: 44px; height: 44px; border-radius: 50%; border: 0;
+  background: var(--kertas); color: var(--nila); font-size: 1.5rem; cursor: pointer;
+}
+
+/* ---------- Amplop digital ---------- */
+.gifts { display: grid; gap: 1rem; }
+.gift {
+  padding: 1.5rem 1.25rem;
+  background: var(--putih);
+  border-radius: var(--radius);
+  display: grid;
+  gap: .25rem;
+  justify-items: center;
+}
+.gift__bank { margin: 0; font: 400 1.6rem/1.2 var(--font-judul); }
+.gift__number { margin: .25rem 0 0; font-size: 1.25rem; font-weight: 600; letter-spacing: .04em; font-variant-numeric: tabular-nums; }
+.gift__holder { margin: 0 0 .75rem; color: var(--redup); }
+.gift__qris { width: 200px; height: 200px; object-fit: contain; background: #fff; border-radius: 10px; margin: .5rem 0; }
+
+/* ---------- RSVP ---------- */
+.rsvp { display: grid; gap: 1.25rem; text-align: left; margin-bottom: 3.5rem; }
+.field { display: grid; gap: .4rem; margin: 0; padding: 0; border: 0; min-width: 0; }
+.field > span, .field legend { font-weight: 600; font-size: .925rem; padding: 0; }
+.field small { font-weight: 400; color: var(--redup); }
+.field input, .field select, .field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: .75rem 1rem;
+  border: 1px solid #c9d1c8;
+  border-radius: 10px;
+  background: var(--putih);
+  color: var(--nila);
+  font: 1rem/1.4 var(--font-teks);
+}
+.field textarea { resize: vertical; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--daun); outline-offset: 0; border-color: transparent; }
+
+.choice { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+.choice label { position: relative; }
+.choice input { position: absolute; opacity: 0; inset: 0; }
+.choice span {
+  display: grid; place-items: center; min-height: 48px; padding: .5rem;
+  border: 1px solid #c9d1c8; border-radius: 10px; background: var(--putih);
+  font-size: .875rem; text-align: center; cursor: pointer;
+}
+.choice input:checked + span { background: var(--daun); border-color: var(--daun); color: var(--putih); font-weight: 600; }
+.choice input:focus-visible + span { outline: 2px solid var(--prada); outline-offset: 2px; }
+
+.rsvp .btn { width: 100%; }
+
+.form-msg { margin: 0; padding: .75rem 1rem; border-radius: 10px; font-size: .925rem; }
+.form-msg--error { background: #f6e3e3; color: var(--merah); }
+.form-msg--ok { background: #e0ebe3; color: var(--daun); }
+
+.messages__title { margin: 0 0 1rem; font: 400 2rem/1.1 var(--font-judul); }
+.messages {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: .75rem; text-align: left;
+  max-height: 28rem; overflow-y: auto;
+}
+.message { padding: 1rem 1.125rem; background: var(--putih); border-radius: var(--radius); }
+.message__head { display: flex; flex-wrap: wrap; gap: .25rem .5rem; align-items: baseline; margin-bottom: .25rem; }
+.message__name { font-weight: 600; }
+.message__att { font-size: .8rem; color: var(--redup); }
+.message__text { margin: 0; overflow-wrap: anywhere; white-space: pre-line; }
+.messages__empty { color: var(--redup); text-align: center; }
+
+/* ---------- Penutup ---------- */
+.closing { display: grid; justify-items: center; gap: 1.25rem; padding-bottom: 6rem; }
+.closing__text { margin: 0; max-width: 24rem; opacity: .9; }
+.closing__names { margin: 0; font: 400 2.25rem/1.1 var(--font-judul); }
+
+.demo-notice {
+  margin: 0; padding: .75rem 1.25rem 5rem;
+  text-align: center; font-size: .85rem; color: var(--redup);
+}
+
+/* ---------- Tombol musik ---------- */
+.music-btn {
+  position: fixed; right: 1rem; bottom: calc(1rem + env(safe-area-inset-bottom)); z-index: 10;
+  width: 48px; height: 48px; border-radius: 50%; border: 0;
+  background: var(--nila); color: var(--kertas);
+  display: grid; place-items: center; cursor: pointer;
+  box-shadow: 0 6px 18px rgba(31, 42, 68, .3);
+}
+.music-btn svg { width: 22px; height: 22px; }
+.music-btn.is-playing svg { animation: putar 6s linear infinite; }
+@keyframes putar { to { transform: rotate(360deg); } }
+
+/* ---------- Layar besar: tetap terlihat seperti di HP ---------- */
+@media (min-width: 40rem) {
+  .section--intro { padding-top: 6rem; }
+}
+
+/* ---------- Kurangi gerakan ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .cover { transition: none; }
+  .music-btn.is-playing svg { animation: none; }
+}
