@@ -24,15 +24,15 @@ contoh: /undangan/?u=aldi-alfin&to=Budi%20Santoso
 - `?u=demo` → tampilkan data contoh (tanpa database)
 - Spasi pada nama tamu ditulis `%20`
 
-## Online-kan website (Cloudflare Pages, gratis)
+## Online-kan website (Cloudflare Workers, gratis)
 
-1. Buka dash.cloudflare.com → **Workers & Pages → Create → Pages → Connect to Git**
-2. Pilih repositori ini
-3. Pengaturan build:
-   - Framework preset: **None**
-   - Build command: *(kosongkan)*
-   - Build output directory: **web**
-4. **Save and Deploy**. Setiap ada perubahan di GitHub, website otomatis diperbarui.
+1. dash.cloudflare.com → **Compute → Workers & Pages → Create application**
+2. Pilih **Import a repository** → pilih **Digital-invitation-**
+3. **Project name:** `digital-invitation` (harus sama dengan `name` di `wrangler.jsonc`)
+4. Biarkan Build command kosong dan Deploy command `npx wrangler deploy`
+5. **Create and deploy**. Setiap perubahan di GitHub otomatis ikut terbit.
+
+Pengaturan Cloudflare ada di `wrangler.jsonc` (folder yang ditayangkan: `web`).
 
 ---
 
