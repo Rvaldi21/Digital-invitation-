@@ -12,8 +12,8 @@ window.APP_CONFIG = {
   // JANGAN PERNAH isi dengan kunci "service_role" / "secret".
   // Jika dikosongkan, website otomatis memakai DATA CONTOH (mode demo).
   // -------------------------------------------------------------------
-  SUPABASE_URL: '',   // contoh: 'https://abcdefgh.supabase.co'
-  SUPABASE_KEY: '',   // contoh: 'sb_publishable_xxxx' atau kunci 'anon'
+  SUPABASE_URL: 'https://lfeojcxdejhcqhmwkrio.supabase.co',   // contoh: 'https://abcdefgh.supabase.co'
+  SUPABASE_KEY: 'sb_publishable_8pHtZkn-mGUjgegtJsmVNg_8Y5UxjTw',   // contoh: 'sb_publishable_xxxx' atau kunci 'anon'
 
   STORAGE_BUCKET: 'undangan-media',
 

@@ -134,8 +134,9 @@ jalankan-lokal.bat             tes lokal di Windows (klik dua kali)
       Sudah ditambah `wrangler.jsonc` untuk jalur **Workers**:
       Create application → Import a repository → nama project **`digital-invitation`**
       (harus sama dengan `name` di wrangler.jsonc). Belum dicoba/diverifikasi.
-- [ ] Isi `SUPABASE_URL` dan `SUPABASE_KEY` (publishable/anon) di `config.js` —
-      pemilik belum mengirimkan nilainya.
+- [x] `SUPABASE_URL` dan `SUPABASE_KEY` (publishable) diisi di `config.js`;
+      dites: `get_invitation` menjawab, baca tabel langsung oleh anon ditolak (401).
+      Belum di-commit/push ke GitHub.
 - [ ] (Opsional) jalankan `05_contoh_data.sql` untuk tes dengan database asli.
 
 **Berikutnya**
