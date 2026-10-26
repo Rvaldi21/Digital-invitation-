@@ -11,6 +11,10 @@ setiap kali ada langkah besar yang selesai.**
 Usaha sampingan: **jasa website undangan digital** (utamanya pernikahan) yang
 dijual ke banyak pelanggan dari satu sistem.
 
+**Nama usaha: Njagong** (dipilih 26 Okt 2026; Jawa: "datang ke hajatan/kondangan").
+Pakai huruf kecil `njagong` untuk subdomain, domain (nanti `njagong.my.id`/`.com`),
+dan akun Instagram/TikTok.
+
 - Satu template dipakai ulang untuk banyak pelanggan; data tiap pelanggan
   (nama, tanggal, foto, lokasi, rekening) disimpan di database.
 - Pemilik mengelola semua undangan lewat **panel admin**.
