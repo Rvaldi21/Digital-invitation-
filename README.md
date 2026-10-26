@@ -11,8 +11,23 @@ web/        ← website (yang di-online-kan lewat Cloudflare Pages)
   assets/js/api.js          penghubung ke Supabase
   assets/js/demo-data.js    data contoh untuk mode demo
   assets/css/undangan.css   tampilan (warna & huruf di bagian :root)
+  admin/index.html          ★ panel admin untuk mengelola undangan
+  assets/js/admin/          kode panel admin (satu file per bagian)
+  assets/css/admin.css      tampilan panel admin
   _headers                  header keamanan Cloudflare
 ```
+
+## Panel admin
+
+Buka `https://<website>/admin/` (di komputer: http://localhost:8000/admin/),
+lalu masuk dengan email & password akun admin Supabase.
+
+- **Daftar undangan** → tekan **+ Buat**, isi nama mempelai (link dibuat otomatis)
+- Di dalam undangan ada tab **Data, Acara, Foto & musik, Amplop, RSVP, Bagikan**
+- Undangan baru berstatus **Draft**; tekan **Terbitkan** agar bisa dibuka tamu
+- Foto otomatis dikecilkan ke ±200 KB (WebP) sebelum di-upload
+- Tab **Bagikan**: tulis nama tamu satu per baris → link + tombol kirim WhatsApp
+- Pengaturan panel (ukuran foto, teks pesan WhatsApp) ada di `config.js` → `ADMIN`
 
 ## Link undangan
 

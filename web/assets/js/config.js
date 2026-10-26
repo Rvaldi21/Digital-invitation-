@@ -65,4 +65,30 @@ window.APP_CONFIG = {
 
   MAX_GUESTS: 10,      // samakan dengan batas di database
   MAX_MESSAGE: 500,
+
+  // -------------------------------------------------------------------
+  // PANEL ADMIN (/admin/)
+  // -------------------------------------------------------------------
+  ADMIN: {
+    // Alamat website untuk link undangan yang dibagikan ke tamu.
+    // Kosongkan = otomatis memakai alamat website yang sedang dibuka.
+    // contoh: 'https://digital-invitation.namakamu.workers.dev'
+    SITE_URL: '',
+
+    // Foto dikompres otomatis ke WebP sebelum di-upload (hemat kuota Supabase)
+    PHOTO_MAX_SIZE: 1600,   // sisi terpanjang foto, dalam piksel
+    PHOTO_TARGET_KB: 200,   // target ukuran tiap foto
+    QRIS_MAX_SIZE: 1200,    // QRIS jangan terlalu kecil supaya tetap bisa dipindai
+    MUSIC_MAX_MB: 5,        // samakan dengan batas di 04_storage.sql
+
+    // Pesan WhatsApp saat membagikan link.
+    // {nama}, {mempelai}, dan {link} diganti otomatis.
+    SHARE_MESSAGE:
+      'Kepada Yth.\n{nama}\n\n' +
+      'Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i ' +
+      'untuk hadir di acara pernikahan kami, {mempelai}.\n\n' +
+      'Info lengkap acara:\n{link}\n\n' +
+      'Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i ' +
+      'berkenan hadir dan memberikan doa restu.\n\nTerima kasih.',
+  },
 };

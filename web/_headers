@@ -7,3 +7,8 @@
   X-Frame-Options: DENY
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.supabase.co; media-src 'self' https://*.supabase.co; connect-src 'self' https://*.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+
+# Panel admin: jangan muncul di Google & jangan disimpan di cache
+/admin/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store

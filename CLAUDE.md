@@ -95,7 +95,17 @@ web/assets/js/api.js           penghubung Supabase
 web/assets/js/undangan.js      render halaman (pakai textContent, anti-XSS)
 web/assets/js/demo-data.js     data contoh
 web/assets/css/undangan.css    tampilan
-web/_headers                   header keamanan (CSP, dll.)
+web/admin/index.html           panel admin (/admin/), mobile-first
+web/assets/css/admin.css       tampilan panel admin
+web/assets/js/admin/           kode panel admin, tanpa library:
+  ui.js        pembantu tampilan (el, toast, dialog, zona waktu)
+  auth.js      login Supabase Auth via fetch, sesi di localStorage, refresh otomatis
+  db.js        REST + Storage dengan token login (RLS tetap berlaku)
+  gambar.js    kompres foto → WebP di browser
+  halaman-*.js login, daftar, baru, edit
+  tab-*.js     isi tab edit: data, acara, media, amplop, rsvp, bagikan
+  app.js       router hash: #/  #/baru  #/u/<id>/<tab>
+web/_headers                   header keamanan (CSP, dll.); /admin/* noindex + no-store
 wrangler.jsonc                 pengaturan Cloudflare Workers (folder "web")
 jalankan-lokal.bat             tes lokal di Windows (klik dua kali)
 ```
@@ -128,22 +138,26 @@ jalankan-lokal.bat             tes lokal di Windows (klik dua kali)
 - [x] Halaman undangan tamu + mode demo; diuji 23 skenario di layar HP (Playwright,
       Supabase disimulasikan) — semua lulus
 - [x] Kode di GitHub: Rvaldi21/Digital-invitation- (public)
+- [x] `config.js` tersambung ke Supabase (kunci publishable); dites: `get_invitation`
+      menjawab, baca tabel langsung oleh anon ditolak (401)
+- [x] **Panel admin** `/admin/`: login, daftar + cari, buat undangan (slug otomatis),
+      tab Data / Acara (jam dalam zona config) / Foto & musik (kompres WebP otomatis,
+      urutkan galeri) / Amplop (rekening + QRIS) / RSVP (rekap, saring, sembunyikan,
+      hapus) / Bagikan (link per tamu + pesan WA dari `ADMIN.SHARE_MESSAGE`),
+      terbitkan/draft, hapus undangan (wajib ketik slug; file storage ikut dihapus).
+      Diuji 63 skenario di layar HP 390px (Playwright + Chrome, Supabase tiruan) —
+      semua lulus. **Belum dicoba login dengan akun admin asli.**
 
 **Belum / sedang dikerjakan**
 - [ ] **Deploy ke Cloudflare** — jalur Pages tidak ketemu di dashboard (HP).
       Sudah ditambah `wrangler.jsonc` untuk jalur **Workers**:
       Create application → Import a repository → nama project **`digital-invitation`**
       (harus sama dengan `name` di wrangler.jsonc). Belum dicoba/diverifikasi.
-- [x] `SUPABASE_URL` dan `SUPABASE_KEY` (publishable) diisi di `config.js`;
-      dites: `get_invitation` menjawab, baca tabel langsung oleh anon ditolak (401).
-      Belum di-commit/push ke GitHub.
-- [ ] (Opsional) jalankan `05_contoh_data.sql` untuk tes dengan database asli.
+- [ ] Pemilik mencoba panel admin dengan akun admin asli (buat undangan sendiri).
 
 **Berikutnya**
-1. Website online + tersambung ke Supabase, tes `?u=contoh` dari HP.
-2. **Panel admin** (mobile-first, login Supabase Auth): daftar undangan, tambah/edit,
-   acara, upload foto (kompres WebP otomatis), rekening/QRIS, publish/draft,
-   lihat & sembunyikan RSVP, generator link per nama tamu.
+1. Website online di Cloudflare, tes panel admin & undangan dari HP.
+2. Pratinjau undangan berstatus draft (sekarang hanya bisa dilihat setelah terbit).
 3. Template kedua/ketiga.
 4. Halaman beranda untuk promosi jasa (`web/index.html` masih sementara).
 5. Opsi 2: dashboard pelanggan.
