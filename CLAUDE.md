@@ -146,14 +146,16 @@ jalankan-lokal.bat             tes lokal di Windows (klik dua kali)
       hapus) / Bagikan (link per tamu + pesan WA dari `ADMIN.SHARE_MESSAGE`),
       terbitkan/draft, hapus undangan (wajib ketik slug; file storage ikut dihapus).
       Diuji 63 skenario di layar HP 390px (Playwright + Chrome, Supabase tiruan) —
-      semua lulus. **Belum dicoba login dengan akun admin asli.**
+      semua lulus. Login dengan akun admin asli berhasil (26 Okt 2026).
+      Password admin pernah lupa → direset lewat SQL Editor (`extensions.crypt`).
+      Catatan lokal: browser bisa memakai config.js lama dari cache → Ctrl+F5.
 
 **Belum / sedang dikerjakan**
 - [ ] **Deploy ke Cloudflare** — jalur Pages tidak ketemu di dashboard (HP).
       Sudah ditambah `wrangler.jsonc` untuk jalur **Workers**:
       Create application → Import a repository → nama project **`digital-invitation`**
       (harus sama dengan `name` di wrangler.jsonc). Belum dicoba/diverifikasi.
-- [ ] Pemilik mencoba panel admin dengan akun admin asli (buat undangan sendiri).
+- [ ] Pemilik membuat undangan pertama (pernikahannya sendiri) lewat panel admin.
 
 **Berikutnya**
 1. Website online di Cloudflare, tes panel admin & undangan dari HP.
