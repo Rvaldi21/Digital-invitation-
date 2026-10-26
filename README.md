@@ -24,6 +24,15 @@ contoh: /undangan/?u=aldi-alfin&to=Budi%20Santoso
 - `?u=demo` → tampilkan data contoh (tanpa database)
 - Spasi pada nama tamu ditulis `%20`
 
+## Jalankan di komputer sendiri (Windows)
+
+1. GitHub → **Code → Download ZIP**, lalu extract
+2. Pastikan Python terpasang (python.org, centang "Add python.exe to PATH")
+3. Klik dua kali **`jalankan-lokal.bat`**. Browser akan terbuka otomatis.
+
+Mac/Linux: buka Terminal di folder `web`, jalankan `python3 -m http.server 8000`,
+lalu buka http://localhost:8000/undangan/?u=demo
+
 ## Online-kan website (Cloudflare Workers, gratis)
 
 1. dash.cloudflare.com → **Compute → Workers & Pages → Create application**
