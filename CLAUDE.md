@@ -159,10 +159,17 @@ jalankan-lokal.bat             tes lokal di Windows (klik dua kali)
 
 **Berikutnya**
 1. Website online di Cloudflare, tes panel admin & undangan dari HP.
-2. Pratinjau undangan berstatus draft (sekarang hanya bisa dilihat setelah terbit).
-3. Template kedua/ketiga.
+2. **4 template baru** (diputuskan pemilik 26 Okt 2026), selain "klasik":
+   `rustic` (krem/cokelat, bunga & daun kering), `islami` (hijau zamrud & emas,
+   ornamen geometris, QS Ar-Rum 21), `jawa` (cokelat sogan & emas, gunungan/parang),
+   `modern` (putih/hitam minimalis). Rencana: isi HTML sama, tiap template = file CSS
+   sendiri yang dipilih dari kolom `invitations.template`; pilihan template + contoh
+   gambar di tab Data panel admin; demo per template `?u=demo&t=<nama>` sebagai katalog.
+3. Pratinjau undangan berstatus draft (sekarang hanya bisa dilihat setelah terbit).
 4. Halaman beranda untuk promosi jasa (`web/index.html` masih sementara).
-5. Opsi 2: dashboard pelanggan.
+5. Opsi 2 (pelanggan login & edit sendiri) — dibahas 26 Okt 2026, ditunda sampai
+   ada pelanggan. Perlu: tampilan khusus pelanggan di panel (sekarang non-admin
+   ditolak di app.js), isian "email pemilik" untuk `owner_id`, cara buat akun pelanggan.
 
 ---
 
