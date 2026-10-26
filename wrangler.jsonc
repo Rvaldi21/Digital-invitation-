@@ -1,7 +1,7 @@
 // Pengaturan Cloudflare Workers: menayangkan isi folder "web" sebagai website.
 // "name" harus SAMA dengan nama Worker yang kamu isi di dashboard Cloudflare.
 {
-  "name": "digital-invitation",
+  "name": "undangan",
   "compatibility_date": "2025-09-01",
   "assets": {
     "directory": "./web"

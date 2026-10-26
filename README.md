@@ -52,7 +52,7 @@ lalu buka http://localhost:8000/undangan/?u=demo
 
 1. dash.cloudflare.com → **Compute → Workers & Pages → Create application**
 2. Pilih **Import a repository** → pilih **Digital-invitation-**
-3. **Project name:** `digital-invitation` (harus sama dengan `name` di `wrangler.jsonc`)
+3. **Project name:** `undangan` (harus sama dengan `name` di `wrangler.jsonc`)
 4. Biarkan Build command kosong dan Deploy command `npx wrangler deploy`
 5. **Create and deploy**. Setiap perubahan di GitHub otomatis ikut terbit.
 

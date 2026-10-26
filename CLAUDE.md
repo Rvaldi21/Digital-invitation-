@@ -157,7 +157,7 @@ jalankan-lokal.bat             tes lokal di Windows (klik dua kali)
 **Belum / sedang dikerjakan**
 - [ ] **Deploy ke Cloudflare** — jalur Pages tidak ketemu di dashboard (HP).
       Sudah ditambah `wrangler.jsonc` untuk jalur **Workers**:
-      Create application → Import a repository → nama project **`digital-invitation`**
+      Create application → Import a repository → nama project **`undangan`** (alamat: undangan.njagong.workers.dev)
       (harus sama dengan `name` di wrangler.jsonc). Belum dicoba/diverifikasi.
 - [ ] Pemilik membuat undangan pertama (pernikahannya sendiri) lewat panel admin.
 
