@@ -72,7 +72,7 @@ window.APP_CONFIG = {
   ADMIN: {
     // Alamat website untuk link undangan yang dibagikan ke tamu.
     // Kosongkan = otomatis memakai alamat website yang sedang dibuka.
-    // contoh: 'https://njagong.namaakun.workers.dev'
+    // contoh: 'https://ayo.njagong.workers.dev'
     SITE_URL: '',
 
     // Foto dikompres otomatis ke WebP sebelum di-upload (hemat kuota Supabase)
