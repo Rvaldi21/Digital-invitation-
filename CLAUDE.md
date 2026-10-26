@@ -154,15 +154,19 @@ jalankan-lokal.bat             tes lokal di Windows (klik dua kali)
       Password admin pernah lupa → direset lewat SQL Editor (`extensions.crypt`).
       Catatan lokal: browser bisa memakai config.js lama dari cache → Ctrl+F5.
 
+- [x] **ONLINE: https://ayo.njagong.workers.dev** (26 Okt 2026) — Cloudflare Workers,
+      project **`ayo`** (= `name` di wrangler.jsonc) + subdomain akun **`njagong`**
+      ("Ayo njagong"). Terhubung ke GitHub: setiap push ke `main` otomatis terbit.
+      Saklar "Production" di Settings → Domains & Routes → Worker URL harus MENYALA.
+      Dicek: semua halaman 200, `_headers`/`wrangler.jsonc` tidak bisa diakses (404),
+      CSP & header keamanan aktif, `/admin/` noindex + no-store, demo & login admin
+      jalan di Chrome HP tanpa error CSP. Favicon belum ada (404, tidak berbahaya).
+
 **Belum / sedang dikerjakan**
-- [ ] **Deploy ke Cloudflare** — jalur Pages tidak ketemu di dashboard (HP).
-      Sudah ditambah `wrangler.jsonc` untuk jalur **Workers**:
-      Create application → Import a repository → nama project **`ayo`** + subdomain akun **`njagong`** → alamat **ayo.njagong.workers.dev** ("Ayo njagong")
-      (harus sama dengan `name` di wrangler.jsonc). Belum dicoba/diverifikasi.
 - [ ] Pemilik membuat undangan pertama (pernikahannya sendiri) lewat panel admin.
 
 **Berikutnya**
-1. Website online di Cloudflare, tes panel admin & undangan dari HP.
+1. Tes panel admin & undangan asli dari HP lewat alamat online.
 2. **4 template baru** (diputuskan pemilik 26 Okt 2026), selain "klasik":
    `rustic` (krem/cokelat, bunga & daun kering), `islami` (hijau zamrud & emas,
    ornamen geometris, QS Ar-Rum 21), `jawa` (cokelat sogan & emas, gunungan/parang),
