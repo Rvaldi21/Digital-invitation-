@@ -373,14 +373,26 @@
 
   // Elemen ber-atribut data-anim muncul (bergeser/membesar) saat terlihat di layar.
   // Elemen dalam satu bagian muncul bergantian, jaraknya 0,12 detik.
-  function setupAnimations() {
-    if (reduceMotion || !('IntersectionObserver' in window)) return;
+  // Perangkat yang meminta "kurangi gerakan" (mis. efek animasi Windows dimatikan,
+  // mode hemat baterai di HP): isi tetap muncul perlahan, tapi tanpa bergeser.
+  //
+  // Dua tahap: prepareAnimations() menyembunyikan elemen sejak awal (masih tertutup
+  // sampul), startAnimations() mulai mengamati setelah tombol buka ditekan. Kalau
+  // keduanya dilakukan bersamaan, browser tidak sempat menggerakkan elemen.
+  function prepareAnimations() {
+    if (!('IntersectionObserver' in window)) return false;
     const main = $('main');
     for (const section of main.querySelectorAll('.section')) {
       section.querySelectorAll('[data-anim]').forEach((node, i) => {
         node.style.setProperty('--tunda', `${Math.min(i, 6) * 0.12}s`);
       });
     }
+    main.classList.add('anim');
+    if (reduceMotion) main.classList.add('anim--lembut');
+    return true;
+  }
+
+  function startAnimations() {
     const observer = new IntersectionObserver((entries) => {
       for (const entry of entries) {
         if (!entry.isIntersecting) continue;
@@ -388,8 +400,7 @@
         observer.unobserve(entry.target);
       }
     }, { rootMargin: '0px 0px -8% 0px' });
-    main.querySelectorAll('[data-anim]').forEach((node) => observer.observe(node));
-    main.classList.add('anim');
+    $('main').querySelectorAll('[data-anim]').forEach((node) => observer.observe(node));
   }
 
   // Menu bawah: hanya bagian yang tampil; tombol bagian yang sedang dilihat diberi warna
@@ -454,13 +465,14 @@
     $('main').hidden = false;
 
     setupNav();
+    const animated = prepareAnimations();
 
     $('open-btn').addEventListener('click', () => {
       $('cover').classList.add('is-open');
       document.body.classList.remove('is-locked');
       document.documentElement.classList.add('is-snap');
       $('navigasi').hidden = false;
-      setupAnimations();   // dimulai sekarang, supaya animasi layar pertama terlihat
+      if (animated) startAnimations();   // dimulai sekarang, supaya animasi layar pertama terlihat
       if (audio) audio.play().catch(() => { /* browser menolak autoplay: biarkan */ });
       setTimeout(() => { $('cover').hidden = true; }, 950);
       $('main').focus?.();

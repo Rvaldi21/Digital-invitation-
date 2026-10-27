@@ -528,9 +528,14 @@ img { max-width: 100%; display: block; }
 @keyframes putar { to { transform: rotate(360deg); } }
 
 /* ---------- Kurangi gerakan ---------- */
+/* Perangkat meminta "kurangi gerakan": tanpa gerakan bergeser/berputar,
+   tapi isi tetap muncul memudar supaya undangan tidak terasa kaku */
+.anim--lembut [data-anim]:not(.tampil) { transform: none !important; }
+@keyframes pudar { from { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
-  .cover { transition: none; }
-  html.is-snap { scroll-snap-type: none; }
-  *, *::before, *::after { animation: none !important; }
+  .cover { transition: transform .5s ease; }
+  html.is-snap { scroll-snap-type: none; scroll-behavior: auto; }
+  .layar__sudut, .cover .hiasan__sudut, .hero__foto, .hero__gulir, .music-btn.is-playing svg { animation: none; }
+  .cover__inner > *, .navigasi { animation-name: pudar; }
   .layar__kelopak { display: none; }
 }

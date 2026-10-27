@@ -132,7 +132,12 @@ Semua harus memakai paket gratis sampai ada pemasukan.
   - **Animasi**: elemen ber-`data-anim="naik|turun|kiri|kanan|zoom|pudar"` muncul saat
     terlihat (IntersectionObserver di undangan.js, dimulai setelah tombol buka ditekan,
     bergantian 0,12 dtk). Sampul: isi muncul satu per satu; hiasan sudut bergoyang;
-    foto pembuka zoom pelan. Mode "kurangi gerakan" di HP → tanpa animasi.
+    foto pembuka zoom pelan. Mode "kurangi gerakan" (efek animasi Windows mati, hemat
+    baterai di HP) → isi tetap MEMUDAR masuk tapi tanpa bergeser/bergoyang/kelopak
+    (kelas `anim--lembut`). Komputer pemilik efek animasi Windows-nya MATI, jadi di sana
+    hanya terlihat versi memudar. Persiapan animasi (`prepareAnimations`) dipasang
+    sebelum sampul dibuka, pengamatan (`startAnimations`) setelah dibuka — kalau
+    bersamaan, layar pertama tidak bergerak.
     `#main` diberi `overflow-x: clip` — WAJIB: tanpa itu elemen yang masuk dari
     samping membuat halaman melebar di HP & menu bawah terdorong keluar layar.
   - **Menu bawah** `#navigasi` (Awal, Mempelai, Acara, Galeri, Hadiah, Ucapan): tombol
@@ -229,7 +234,7 @@ jalankan-lokal.bat             tes lokal di Windows (klik dua kali)
       tidak melebar, tanpa error) — semua lulus.
 
 - [x] **Undangan per layar + animasi + menu bawah + template ke-6 "Taman bunga"**
-      (28 Okt 2026). Diuji 65 skenario (tiap template: tiap bagian ≥ 1 layar, lebar
+      (28 Okt 2026). Diuji 73 skenario (tiap template: tiap bagian ≥ 1 layar, lebar
       pas HP, menu bawah lompat & aktif, semua isi tampil setelah digulir; laptop;
       mode kurangi gerakan) + semua tes lama — lulus.
 - [x] **Beranda = halaman jualan** (27 Okt 2026): hero, 8 fitur, 5 contoh template,
