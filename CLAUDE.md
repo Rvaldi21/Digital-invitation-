@@ -91,7 +91,7 @@ Semua harus memakai paket gratis sampai ada pemasukan.
   hijau daun `#3E5C4A`, emas prada `#B08D57`, motif batik **kawung**;
   huruf Instrument Serif (judul) + Plus Jakarta Sans (teks). Diatur di `:root`
   pada `web/assets/css/undangan.css`.
-- **Sistem template** (5 template: klasik, rustic, islami, jawa, modern):
+- **Sistem template** (6 template: klasik, rustic, islami, jawa, modern, taman):
   - Daftar & teks khusus tiap template di `config.js → TEMPLATES`
     (label, description, color, TEXT opsional, QUOTE opsional).
   - HTML sama untuk semua template. `undangan.css` = tampilan dasar + klasik,
@@ -111,12 +111,32 @@ Semua harus memakai paket gratis sampai ada pemasukan.
     2 sudut. Islami: gapura + lentera + siluet masjid + kaligrafi "بارك الله لكما"
     (huruf Aref Ruqaa). Jawa: gunungan + pita parang + sulur sudut + aksara Jawa
     "ꦥꦮꦶꦮꦲꦤ꧀" (Noto Sans Javanese). Modern: monogram inisial + bingkai garis.
+    Taman (terinspirasi referensi punakawandigital.in, gambar buatan sendiri):
+    bunga cat air (peach/blush/krem + daun kayu putih), gapura taman berkabut,
+    burung, kelopak berjatuhan; huruf Cormorant Garamond + Great Vibes + Quicksand.
     Aturan di file template yang menimpa `.hiasan > span` harus memakai selektor
     `.hiasan > .hiasan__x` (kalau tidak, kalah kuat).
   - **Gambar contoh** tiap template: `web/assets/contoh-template/<nama>.jpg`
     (sampul demo 390×844), dipakai di pilihan template panel admin (kartu bergambar,
     geser ke samping) & katalog beranda. Buat ulang dengan
     `alat/foto-contoh-template.js` setiap tampilan template berubah.
+  - **Undangan per layar** (28 Okt 2026, permintaan pemilik "1 layar biar fokus"):
+    setiap `<section>` di `undangan/index.html` minimal 100svh, isinya di tengah,
+    `scroll-snap-type: y proximity` setelah dibuka. Urutan layar: pembuka
+    (`#s-pembuka`: foto bingkai gapura/motif, nama, tanggal) → ayat (`#quote-section`,
+    hanya bila template punya QUOTE) → mempelai (`#s-mempelai`) → hitung mundur →
+    acara → galeri → amplop → RSVP & ucapan → penutup.
+  - **Latar diam** `.layar` (position fixed di belakang `#main`): token `--layar-gambar`,
+    `--layar-sudut` (bawaan = `--hiasan-sudut`), `--layar-atas/bawah`, `--layar-redup`,
+    `--layar-kelopak` (kelopak jatuh, hanya taman).
+  - **Animasi**: elemen ber-`data-anim="naik|turun|kiri|kanan|zoom|pudar"` muncul saat
+    terlihat (IntersectionObserver di undangan.js, dimulai setelah tombol buka ditekan,
+    bergantian 0,12 dtk). Sampul: isi muncul satu per satu; hiasan sudut bergoyang;
+    foto pembuka zoom pelan. Mode "kurangi gerakan" di HP → tanpa animasi.
+    `#main` diberi `overflow-x: clip` — WAJIB: tanpa itu elemen yang masuk dari
+    samping membuat halaman melebar di HP & menu bawah terdorong keluar layar.
+  - **Menu bawah** `#navigasi` (Awal, Mempelai, Acara, Galeri, Hadiah, Ucapan): tombol
+    bagian yang tersembunyi dihapus otomatis; bagian yang sedang dilihat diberi warna.
   - `?t=<nama>` hanya berlaku di demo & pratinjau. Katalog: beranda `/` + `?u=demo&t=`.
   - Template baru: tambah entri di TEMPLATES + buat file template-<nama>.css.
 - **Pratinjau draft**: `/undangan/?u=<slug>&pratinjau=1[&t=<nama>]` — api.js
@@ -136,7 +156,7 @@ web/assets/js/api.js           penghubung Supabase
 web/assets/js/undangan.js      render halaman (pakai textContent, anti-XSS)
 web/assets/js/demo-data.js     data contoh
 web/assets/css/undangan.css    tampilan dasar + template klasik
-web/assets/css/template-*.css  template rustic, islami, jawa, modern
+web/assets/css/template-*.css  template rustic, islami, jawa, modern, taman
 web/index.html                 beranda = halaman jualan (hero, fitur, template, paket, cara pesan, FAQ)
 web/assets/css/beranda.css     tampilan beranda (nila + emas)
 web/assets/js/beranda.js       isi beranda dari config.js (TEMPLATES + BERANDA)
@@ -208,6 +228,10 @@ jalankan-lokal.bat             tes lokal di Windows (klik dua kali)
       Diuji 29 skenario di layar HP 390px (tiap template: tampil, teks khusus,
       tidak melebar, tanpa error) — semua lulus.
 
+- [x] **Undangan per layar + animasi + menu bawah + template ke-6 "Taman bunga"**
+      (28 Okt 2026). Diuji 65 skenario (tiap template: tiap bagian ≥ 1 layar, lebar
+      pas HP, menu bawah lompat & aktif, semua isi tampil setelah digulir; laptop;
+      mode kurangi gerakan) + semua tes lama — lulus.
 - [x] **Beranda = halaman jualan** (27 Okt 2026): hero, 8 fitur, 5 contoh template,
       3 paket (Hemat Rp49rb, Lengkap Rp89rb, Eksklusif Rp149rb — harga usulan, bisa
       diubah), cara pesan, FAQ, tombol WhatsApp. Semua isi di `config.js` → `BERANDA`.
@@ -219,7 +243,7 @@ jalankan-lokal.bat             tes lokal di Windows (klik dua kali)
 
 **Berikutnya**
 1. Tes panel admin & undangan asli dari HP lewat alamat online.
-2. Pemilik menilai 5 template dari HP; sesuaikan warna/huruf sesuai selera.
+2. Pemilik menilai 6 template (terutama Taman & tampilan per layar) dari HP; sesuaikan warna/huruf sesuai selera.
 3. Pemilik meninjau harga & isi paket di beranda.
 4. Opsi 2 (pelanggan login & edit sendiri) — dibahas 26 Okt 2026, ditunda sampai
    ada pelanggan. Perlu: tampilan khusus pelanggan di panel (sekarang non-admin

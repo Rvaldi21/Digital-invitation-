@@ -49,6 +49,18 @@
   --bingkai-garis: 1px solid rgba(176,141,87,.45);   /* garis bingkai sampul */
   --ikon-sampul: none;       /* gambar besar di atas nama (mis. gunungan) */
   --ikon-tinggi: 0px;
+
+  /* Latar diam di belakang semua layar (.layar). "none" = tidak dipakai */
+  --layar-gambar: none;                  /* gambar besar (mis. pemandangan), menempel di bawah */
+  --layar-gambar-ukuran: auto 100%;
+  --layar-sudut: var(--hiasan-sudut);    /* hiasan di 4 sudut layar */
+  --layar-sudut-ukuran: calc(var(--sudut-ukuran) * .7);
+  --layar-atas: none;
+  --layar-atas-tinggi: 0px;
+  --layar-bawah: none;
+  --layar-bawah-tinggi: 0px;
+  --layar-redup: .45;                    /* ketebalan hiasan latar (0–1) */
+  --layar-kelopak: none;                 /* kelopak/daun yang berjatuhan */
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -65,6 +77,9 @@ body {
 }
 
 body.is-locked { overflow: hidden; }
+
+/* Setelah undangan dibuka: gulir berhenti pas di awal tiap layar */
+html.is-snap { scroll-snap-type: y proximity; scroll-behavior: smooth; }
 
 img { max-width: 100%; display: block; }
 
@@ -172,17 +187,27 @@ img { max-width: 100%; display: block; }
 .cover__guest-name { font: 400 1.6rem/1.25 var(--font-judul); margin-top: .25rem !important; }
 
 /* ---------- Bagian umum ---------- */
+/* Setiap bagian memenuhi satu layar HP; isinya di tengah layar.
+   Bagian yang isinya panjang (mis. ucapan) boleh lebih tinggi dari layar. */
 .section {
+  position: relative;
   max-width: var(--lebar);
+  min-height: 100vh;
+  min-height: 100svh;
   margin: 0 auto;
-  padding: 4.5rem 1.25rem;
+  padding: 4.5rem 1.5rem calc(6.5rem + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
+  scroll-snap-align: start;
 }
-.section + .section:not(.section--dark)::before {
+.section:not(.section--dark):not(.section--hero)::before {
   content: '';
   display: block;
+  flex: none;
   width: min(var(--pemisah-lebar), 100%); height: var(--pemisah-tinggi);
-  margin: -2.25rem auto 2.5rem;
+  margin: 0 auto 1.75rem;
   background: var(--pemisah) center / contain no-repeat;
 }
 
@@ -217,18 +242,37 @@ img { max-width: 100%; display: block; }
 }
 .section__lead { margin: -0.5rem auto 1.75rem; color: var(--redup); max-width: 26rem; }
 
-/* ---------- Pembuka & mempelai ---------- */
-.intro__photo {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
+/* ---------- Layar pembuka: foto, nama, tanggal ---------- */
+.section--hero { align-items: center; gap: 1rem; }
+.hero__bingkai {
+  position: relative;
+  width: min(68vw, 17rem, 30svh);   /* layar pendek (laptop, HP kecil) → foto mengecil */
+  aspect-ratio: 3 / 4;
+  margin-bottom: .75rem;
   border-radius: var(--foto-sudut);
-  margin-bottom: 2.5rem;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px var(--aksen), 0 0 0 7px var(--latar), 0 0 0 8px var(--aksen), 0 18px 40px rgba(0,0,0,.18);
 }
+.hero__foto { width: 100%; height: 100%; object-fit: cover; animation: napas 14s ease-in-out infinite alternate; }
+/* Tanpa foto: bingkai berisi motif template */
+.hero__hiasan { position: absolute; inset: 0; background: var(--gelap) var(--motif) center / var(--motif-ukuran); }
+.hero__hiasan::after { content: ''; position: absolute; inset: 30%; background: var(--ornamen) center / contain no-repeat; filter: brightness(1.4); }
+.hero__foto:not([hidden]) + .hero__hiasan { display: none; }
+.hero__lead { margin: 0; font-size: .95rem; letter-spacing: .04em; color: var(--redup); }
+.hero__names { margin: 0; display: grid; font: 400 clamp(2.75rem, 13vw, 4rem)/1 var(--font-judul); }
+.hero__amp { font-style: italic; font-size: .55em; color: var(--aksen); margin: .15em 0; }
+.hero__date { margin: 0; letter-spacing: .06em; color: var(--redup); }
+.hero__gulir {
+  margin: .75rem 0 0; font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--redup);
+  animation: gulir 2.2s ease-in-out infinite;
+}
+.hero__gulir::after { content: '\2304'; display: block; font-size: 1.1rem; line-height: .6; }
+
+/* ---------- Mempelai ---------- */
 .intro__text { margin: 0 auto 2.5rem; max-width: 26rem; color: var(--redup); }
 
-/* Kutipan pembuka (mis. ayat). Isinya diatur per template di config.js */
-.quote { margin: 0 auto 2.5rem; max-width: 26rem; }
+/* Kutipan pembuka (mis. ayat), satu layar sendiri. Isinya diatur per template di config.js */
+.quote { margin: 0 auto; max-width: 26rem; }
 .quote__arab { margin: 0 0 1rem; font-size: 1.75rem; line-height: 2; color: var(--aksen); }
 .quote__text { margin: 0; font-style: italic; color: var(--redup); }
 .quote__source { display: block; margin-top: .5rem; font-size: .85rem; font-style: normal; font-weight: 600; color: var(--utama); }
@@ -358,7 +402,7 @@ img { max-width: 100%; display: block; }
 /* ---------- Penutup ---------- */
 .closing {
   position: relative;   /* wadah hiasan */
-  display: grid; justify-items: center; gap: 1.25rem;
+  display: grid; justify-items: center; align-content: center; gap: 1.25rem;
   padding-top: calc(var(--sudut-ukuran) * .6);
   padding-bottom: calc(6rem + var(--bawah-tinggi));
 }
@@ -371,9 +415,109 @@ img { max-width: 100%; display: block; }
   text-align: center; font-size: .85rem; color: var(--redup);
 }
 
+/* ---------- Latar diam di belakang semua layar ---------- */
+.layar { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.layar > span { position: absolute; background-repeat: no-repeat; background-position: center; background-size: contain; }
+.layar > .layar__gambar { inset: 0; background: var(--layar-gambar) center bottom / var(--layar-gambar-ukuran) no-repeat; }
+.layar__atas  { top: 0; left: 0; right: 0; height: var(--layar-atas-tinggi); background-image: var(--layar-atas); opacity: var(--layar-redup); }
+.layar__bawah { bottom: 0; left: 0; right: 0; height: var(--layar-bawah-tinggi); background-image: var(--layar-bawah); opacity: var(--layar-redup); }
+.layar__sudut {
+  width: var(--layar-sudut-ukuran); height: var(--layar-sudut-ukuran);
+  background-image: var(--layar-sudut); opacity: var(--layar-redup);
+  animation: goyang 7s ease-in-out infinite alternate;
+}
+.layar__sudut--kiri-atas   { top: 0; left: 0; }
+.layar__sudut--kanan-atas  { top: 0; right: 0; transform: scaleX(-1); animation-delay: -2s; }
+.layar__sudut--kiri-bawah  { bottom: 0; left: 0; transform: scaleY(-1); animation-delay: -4s; }
+.layar__sudut--kanan-bawah { bottom: 0; right: 0; transform: scale(-1); animation-delay: -6s; }
+/* Kelopak berjatuhan (hanya template yang mengisi --layar-kelopak) */
+.layar__kelopak {
+  top: -40px; width: 18px; height: 18px;
+  background-image: var(--layar-kelopak);
+  animation: jatuh 14s linear infinite;
+}
+.layar__kelopak:nth-of-type(8)  { left: 8%;  animation-delay: 0s; }
+.layar__kelopak:nth-of-type(9)  { left: 28%; animation-delay: -5s;  animation-duration: 17s; width: 14px; height: 14px; }
+.layar__kelopak:nth-of-type(10) { left: 47%; animation-delay: -9s;  animation-duration: 15s; }
+.layar__kelopak:nth-of-type(11) { left: 64%; animation-delay: -2s;  animation-duration: 19s; width: 12px; height: 12px; }
+.layar__kelopak:nth-of-type(12) { left: 80%; animation-delay: -11s; animation-duration: 16s; }
+.layar__kelopak:nth-of-type(13) { left: 92%; animation-delay: -7s;  animation-duration: 21s; width: 14px; height: 14px; }
+
+/* Isi undangan di atas latar diam */
+/* overflow-x: elemen yang bergeser dari samping saat animasi tidak boleh
+   membuat halaman melebar (di HP, halaman jadi mengecil & menu bawah keluar layar) */
+#main { position: relative; z-index: 1; overflow-x: hidden; overflow-x: clip; }
+
+/* ---------- Animasi saat bagian muncul di layar ----------
+   Kelas "anim" dipasang oleh undangan.js (tidak dipasang bila HP meminta
+   "kurangi gerakan"), lalu "tampil" ditambahkan saat elemen terlihat. */
+.anim [data-anim] {
+  transition: opacity .9s ease, transform 1s cubic-bezier(.2,.7,.2,1);
+  transition-delay: var(--tunda, 0s);
+}
+.anim [data-anim]:not(.tampil) { opacity: 0; }
+.anim [data-anim="naik"]:not(.tampil)  { transform: translateY(32px); }
+.anim [data-anim="turun"]:not(.tampil) { transform: translateY(-24px); }
+.anim [data-anim="kiri"]:not(.tampil)  { transform: translateX(-48px); }
+.anim [data-anim="kanan"]:not(.tampil) { transform: translateX(48px); }
+.anim [data-anim="zoom"]:not(.tampil)  { transform: scale(.82); }
+
+/* Isi sampul muncul satu per satu saat halaman terbuka */
+.cover__inner > * { animation: masuk 1s cubic-bezier(.2,.7,.2,1) backwards; }
+.cover__inner > :nth-child(2) { animation-delay: .15s; }
+.cover__inner > :nth-child(3) { animation-delay: .3s; }
+.cover__inner > :nth-child(4) { animation-delay: .45s; }
+.cover__inner > :nth-child(5) { animation-delay: .6s; }
+.cover__inner > :nth-child(6) { animation-delay: .75s; }
+.cover__inner > :nth-child(7) { animation-delay: .9s; }
+.cover__inner > :nth-child(8) { animation-delay: 1.05s; }
+.cover__inner > :nth-child(9) { animation-delay: 1.2s; }
+.cover .hiasan__sudut { animation: goyang 7s ease-in-out infinite alternate; }
+.cover .hiasan__sudut--kanan-atas  { animation-delay: -2s; }
+.cover .hiasan__sudut--kiri-bawah  { animation-delay: -4s; }
+.cover .hiasan__sudut--kanan-bawah { animation-delay: -6s; }
+
+@keyframes masuk  { from { opacity: 0; transform: translateY(18px); } }
+@keyframes goyang { from { rotate: -1.5deg; } to { rotate: 1.5deg; } }
+@keyframes napas  { to { scale: 1.08; } }
+@keyframes gulir  { 50% { translate: 0 6px; opacity: .55; } }
+@keyframes jatuh {
+  0%   { translate: 0 0; rotate: 0deg; opacity: 0; }
+  10%  { opacity: .9; }
+  50%  { translate: -30px 55vh; rotate: 200deg; }
+  90%  { opacity: .8; }
+  100% { translate: 20px 110vh; rotate: 400deg; opacity: 0; }
+}
+
+/* ---------- Menu bawah ---------- */
+.navigasi {
+  position: fixed; z-index: 10;
+  left: 50%; bottom: calc(.75rem + env(safe-area-inset-bottom));
+  translate: -50% 0;
+  display: flex; gap: .1rem;
+  width: max-content; max-width: calc(100% - 1.5rem);
+  padding: .35rem;
+  border-radius: 999px;
+  background: var(--kartu);
+  background: color-mix(in srgb, var(--kartu) 88%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 26px rgba(0,0,0,.16), inset 0 0 0 1px var(--garis);
+  animation: masuk .8s .4s cubic-bezier(.2,.7,.2,1) backwards;
+}
+.navigasi a {
+  display: grid; justify-items: center; gap: .1rem;
+  min-width: 48px; padding: .35rem .3rem .3rem;
+  border-radius: 999px;
+  color: var(--redup); text-decoration: none;
+  font-size: .62rem; font-weight: 600; letter-spacing: .02em;
+  transition: background-color .3s, color .3s;
+}
+.navigasi svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
+.navigasi a.is-aktif { background: var(--utama); color: var(--kartu); }
+
 /* ---------- Tombol musik ---------- */
 .music-btn {
-  position: fixed; right: 1rem; bottom: calc(1rem + env(safe-area-inset-bottom)); z-index: 10;
+  position: fixed; right: 1rem; bottom: calc(5.25rem + env(safe-area-inset-bottom)); z-index: 10;
   width: 48px; height: 48px; border-radius: 50%; border: 0;
   background: var(--gelap); color: var(--latar);
   display: grid; place-items: center; cursor: pointer;
@@ -383,13 +527,10 @@ img { max-width: 100%; display: block; }
 .music-btn.is-playing svg { animation: putar 6s linear infinite; }
 @keyframes putar { to { transform: rotate(360deg); } }
 
-/* ---------- Layar besar: tetap terlihat seperti di HP ---------- */
-@media (min-width: 40rem) {
-  .section--intro { padding-top: 6rem; }
-}
-
 /* ---------- Kurangi gerakan ---------- */
 @media (prefers-reduced-motion: reduce) {
   .cover { transition: none; }
-  .music-btn.is-playing svg { animation: none; }
+  html.is-snap { scroll-snap-type: none; }
+  *, *::before, *::after { animation: none !important; }
+  .layar__kelopak { display: none; }
 }

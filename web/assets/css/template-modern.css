@@ -57,9 +57,9 @@
 .cover .btn--light { background: var(--gelap); color: var(--latar); }
 
 /* Judul tipis, kapital, berjarak */
-.cover__names { font-weight: 300; text-transform: uppercase; letter-spacing: .08em; font-size: clamp(2.4rem, 12vw, 3.75rem); line-height: 1.05; }
-.cover__amp, .couple__amp { font-style: normal; font-weight: 300; }
-.cover__lead { text-transform: uppercase; letter-spacing: .2em; font-size: .75rem; }
+.cover__names, .hero__names { font-weight: 300; text-transform: uppercase; letter-spacing: .08em; font-size: clamp(2.4rem, 12vw, 3.75rem); line-height: 1.05; }
+.cover__amp, .hero__amp, .couple__amp { font-style: normal; font-weight: 300; }
+.cover__lead, .hero__lead { text-transform: uppercase; letter-spacing: .2em; font-size: .75rem; }
 .section__title, .messages__title { font-weight: 300; text-transform: uppercase; letter-spacing: .14em; font-size: 1.5rem; }
 .person__name { font-weight: 300; font-size: 2.1rem; line-height: 1.15; }
 .event__title { font-weight: 400; text-transform: uppercase; letter-spacing: .12em; font-size: 1.15rem; }
@@ -71,3 +71,8 @@
 .event { border-top: 1px solid var(--gelap); }
 .gallery button, .gift__qris, .form-msg,
 .field input, .field select, .field textarea, .choice span { border-radius: 0; }
+
+/* Bingkai foto pembuka tanpa foto: abu muda dengan garis tipis */
+.hero__hiasan { background: var(--kartu); }
+.hero__hiasan::after { filter: none; }
+.hero__bingkai { box-shadow: 0 0 0 1px var(--gelap); }

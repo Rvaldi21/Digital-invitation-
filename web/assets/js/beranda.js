@@ -60,6 +60,9 @@
     katalog.append(li);
   }
 
+  const jumlahTemplate = Object.keys(cfg.TEMPLATES).length;
+  document.getElementById('jumlah-template').textContent = jumlahTemplate;
+
   // ---------- Paket ----------
   const daftar = document.getElementById('daftar-paket');
   for (const p of B.PAKET) {
@@ -77,7 +80,7 @@
     const ul = el('ul', 'paket__fitur');
     for (const f of p.fitur) {
       const li = el('li');
-      li.append(ikon('centang'), el('span', null, f));
+      li.append(ikon('centang'), el('span', null, f.replace('{jumlah}', jumlahTemplate)));
       ul.append(li);
     }
     kartu.append(ul);

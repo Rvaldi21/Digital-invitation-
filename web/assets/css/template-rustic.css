@@ -47,9 +47,9 @@
 .cover .btn--light { background: var(--utama); color: var(--kartu); }
 
 /* Nama & judul memakai huruf miring yang lembut */
-.cover__names, .person__name, .closing__names { font-style: italic; font-weight: 500; }
+.cover__names, .hero__names, .person__name, .closing__names { font-style: italic; font-weight: 500; }
 .section__title, .event__title, .messages__title, .gift__bank { font-weight: 500; }
-.cover__amp, .couple__amp { font-weight: 400; }
+.cover__amp, .hero__amp, .couple__amp { font-weight: 400; }
 
 /* Kartu berbingkai tipis */
 .event, .gift, .message { border: 1px solid var(--garis); }

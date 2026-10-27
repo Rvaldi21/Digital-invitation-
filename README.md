@@ -32,7 +32,9 @@ lalu masuk dengan email & password akun admin Supabase.
 
 ## Template
 
-Ada 5 template: **Klasik, Rustic, Islami elegan, Adat Jawa, Modern minimalis**.
+Ada 6 template: **Klasik, Rustic, Islami elegan, Adat Jawa, Modern minimalis, Taman bunga**.
+Setiap bagian undangan tampil satu layar penuh dengan animasi saat digulir, plus menu bawah
+untuk lompat ke bagian tertentu.
 Pilih di panel admin → tab **Data** → bagian **Template**.
 
 - Halaman beranda `/` = halaman jualan (contoh template, paket & harga, FAQ, tombol WA).

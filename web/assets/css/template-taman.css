@@ -1,0 +1,79 @@
+/* =====================================================================
+   template-taman.css — TEMPLATE "TAMAN BUNGA"
+   Biru kabut & krem, bunga cat air, gapura taman, kelopak berjatuhan.
+   Dimuat SETELAH undangan.css: cukup menimpa nilai :root (warna, huruf,
+   motif) dan beberapa gaya khusus template ini.
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Great+Vibes&family=Quicksand:wght@400;500;600&display=swap');
+
+:root {
+  /* Warna */
+  --gelap:  #3F5B69;  /* biru kabut tua: teks utama & bagian gelap */
+  --latar:  #F4F1EA;  /* krem: latar halaman & sampul */
+  --utama:  #557684;  /* biru kabut: tombol */
+  --aksen:  #C08F69;  /* peach tua: tanda "&" & garis */
+  --kartu:  #FFFDF9;  /* kartu & kolom isian */
+  --redup:  #5E6F76;  /* teks pendukung */
+  --garis:  #DCD8CE;  /* garis tepi */
+
+  /* Huruf */
+  --font-judul: 'Cormorant Garamond', Georgia, serif;
+  --font-teks:  'Quicksand', system-ui, sans-serif;
+
+  --radius: 18px;
+  --foto-sudut: 999px 999px 18px 18px;
+
+  /* Tanpa motif berulang; ikon kecil berupa bunga */
+  --motif: none;
+  --ornamen: url("/assets/hiasan/taman-ikon.svg");
+
+  /* Sampul terang, bagian gelap biru kabut */
+  --sampul-latar: var(--latar);
+  --sampul-teks:  var(--gelap);
+  --sampul-lapis: none;
+  --gelap-lapis:  linear-gradient(rgba(63,91,105,.95), rgba(63,91,105,.95));
+
+  /* Hiasan: rangkaian bunga cat air di sudut */
+  --pemisah: url("/assets/hiasan/taman-pemisah.svg");
+  --pemisah-lebar: 220px;
+  --pemisah-tinggi: 44px;
+  --hiasan-sudut: url("/assets/hiasan/taman-bunga.svg");
+  --sudut-ukuran: clamp(150px, 46vw, 240px);
+  --bingkai-garis: none;
+
+  /* Latar diam: gapura taman berkabut + bunga di sudut atas + kelopak berjatuhan */
+  --layar-gambar: url("/assets/hiasan/taman-latar.svg");
+  --layar-sudut-ukuran: clamp(120px, 36vw, 190px);
+  --layar-redup: .95;
+  --layar-kelopak: url("/assets/hiasan/taman-kelopak.svg");
+}
+
+/* Sampul: pemandangan taman yang sama dengan latar */
+.cover { background: var(--latar) url("/assets/hiasan/taman-latar.svg") center bottom / auto 100% no-repeat; }
+.cover .hiasan__sudut--kiri-bawah, .cover .hiasan__sudut--kanan-bawah { display: none; }
+
+/* Di latar diam, bunga hanya di sudut atas (bagian bawah sudah ada semak bunga) */
+.layar__sudut--kiri-bawah, .layar__sudut--kanan-bawah { display: none; }
+
+/* Bingkai foto tanpa foto: krem dengan bunga */
+.hero__hiasan { background: #E9EEEE; }
+.hero__hiasan::after { inset: 22%; filter: none; }
+.hero__bingkai { box-shadow: 0 0 0 6px var(--kartu), 0 0 0 7px var(--garis), 0 20px 44px rgba(63,91,105,.2); }
+
+/* Tulisan tegak bersambung untuk "The Wedding of" */
+.cover__lead, .hero__lead {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.1rem; line-height: 1.1; letter-spacing: 0;
+  color: var(--aksen); opacity: 1;
+}
+.cover__names, .hero__names, .person__name, .closing__names { font-weight: 500; }
+.cover__amp, .hero__amp, .couple__amp { font-family: 'Great Vibes', cursive; font-style: normal; }
+.section__title, .event__title, .messages__title, .gift__bank { font-weight: 600; }
+
+/* Tombol biru kabut di sampul terang */
+.cover .btn--light { background: var(--utama); color: var(--kartu); box-shadow: 0 8px 20px rgba(63,91,105,.25); }
+
+/* Kartu lembut berbayang */
+.event, .gift, .message { border: 1px solid var(--garis); box-shadow: 0 10px 28px rgba(63,91,105,.08); }
+.event { border-top: 1px solid var(--garis); }

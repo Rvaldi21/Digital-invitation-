@@ -128,6 +128,12 @@ window.APP_CONFIG = {
       color: '#FFFFFF',
       TEXT: { coverLead: 'We are getting married' },
     },
+    taman: {
+      label: 'Taman bunga',
+      description: 'Biru kabut & krem, bunga cat air, gapura taman, kelopak berjatuhan.',
+      color: '#F4F1EA',
+      TEXT: { coverLead: 'The Wedding of' },
+    },
   },
 
   ATTENDANCE_LABELS: {
@@ -195,7 +201,7 @@ window.APP_CONFIG = {
         catatan: 'Cukup untuk acara sederhana',
         populer: false,
         fitur: [
-          'Pilih 1 dari 5 template',
+          'Pilih 1 dari {jumlah} template',   // {jumlah} = jumlah template, otomatis
           'Nama tamu di setiap link',
           'Info acara + petunjuk lokasi (Maps)',
           'Hitung mundur hari-H',

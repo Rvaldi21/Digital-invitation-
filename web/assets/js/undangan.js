@@ -115,22 +115,30 @@
     document.title = `${firstName(inv.groom_name)} & ${firstName(inv.bride_name)} | Undangan Pernikahan`;
   }
 
-  function renderQuote(quote) {
-    if (!quote) return;
-    setText('quote-arab', quote.arab);
-    setText('quote-text', quote.text);
-    setText('quote-source', quote.source);
-    $('quote-arab').hidden = !quote.arab;
-    $('quote').hidden = false;
-  }
-
-  function renderIntro(inv) {
+  // Layar pertama setelah sampul dibuka: foto, nama, tanggal
+  function renderHero(inv) {
     if (inv.cover_photo_path) {
       const img = $('cover-photo');
       img.src = API.mediaUrl(inv.cover_photo_path);
       img.alt = `${inv.groom_name} dan ${inv.bride_name}`;
       img.hidden = false;
     }
+    setText('hero-lead', T.coverLead);
+    setText('hero-groom', firstName(inv.groom_name));
+    setText('hero-bride', firstName(inv.bride_name));
+    setText('hero-date', inv.events.length ? fmtDate.format(new Date(inv.events[0].starts_at)) : '');
+  }
+
+  function renderQuote(quote) {
+    if (!quote) return;
+    setText('quote-arab', quote.arab);
+    setText('quote-text', quote.text);
+    setText('quote-source', quote.source);
+    $('quote-arab').hidden = !quote.arab;
+    $('quote-section').hidden = false;
+  }
+
+  function renderIntro(inv) {
     setText('opening', inv.opening_text || T.openingDefault);
     setText('groom-name', inv.groom_name);
     setText('bride-name', inv.bride_name);
@@ -169,7 +177,7 @@
     setText('events-title', T.eventsTitle);
     const box = $('events');
     for (const ev of inv.events) {
-      box.append(el('article', { class: 'event' },
+      box.append(el('article', { class: 'event', 'data-anim': 'naik' },
         el('h3', { class: 'event__title' }, ev.title),
         el('p', { class: 'event__date' }, fmtDate.format(new Date(ev.starts_at))),
         el('p', { class: 'event__time' }, timeRange(ev)),
@@ -199,6 +207,7 @@
           $('lightbox-img').alt = alt;
           lightbox.showModal();
         },
+        'data-anim': 'zoom',
       }, el('img', { src, alt, loading: 'lazy', decoding: 'async' })));
     });
     lightbox.addEventListener('click', () => lightbox.close());
@@ -233,7 +242,7 @@
       const number = (g.account_number || '').replace(/[\s-]/g, '');
       const copyBtn = number && el('button', { class: 'btn btn--ghost', type: 'button' }, T.copy);
       if (copyBtn) copyBtn.addEventListener('click', () => copyText(number, copyBtn));
-      box.append(el('div', { class: 'gift' },
+      box.append(el('div', { class: 'gift', 'data-anim': 'naik' },
         g.bank_name && el('p', { class: 'gift__bank' }, g.bank_name),
         g.qris_path && el('img', { class: 'gift__qris', src: API.mediaUrl(g.qris_path), alt: `QRIS ${g.account_holder || ''}`.trim(), loading: 'lazy' }),
         g.account_number && el('p', { class: 'gift__number' }, g.account_number),
@@ -358,6 +367,51 @@
     return audio;
   }
 
+  // ---------- Animasi & menu bawah ----------
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Elemen ber-atribut data-anim muncul (bergeser/membesar) saat terlihat di layar.
+  // Elemen dalam satu bagian muncul bergantian, jaraknya 0,12 detik.
+  function setupAnimations() {
+    if (reduceMotion || !('IntersectionObserver' in window)) return;
+    const main = $('main');
+    for (const section of main.querySelectorAll('.section')) {
+      section.querySelectorAll('[data-anim]').forEach((node, i) => {
+        node.style.setProperty('--tunda', `${Math.min(i, 6) * 0.12}s`);
+      });
+    }
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add('tampil');
+        observer.unobserve(entry.target);
+      }
+    }, { rootMargin: '0px 0px -8% 0px' });
+    main.querySelectorAll('[data-anim]').forEach((node) => observer.observe(node));
+    main.classList.add('anim');
+  }
+
+  // Menu bawah: hanya bagian yang tampil; tombol bagian yang sedang dilihat diberi warna
+  function setupNav() {
+    const nav = $('navigasi');
+    const links = [...nav.querySelectorAll('a')];
+    for (const a of links) {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (!target || target.hidden) a.remove();
+    }
+    if (!('IntersectionObserver' in window)) return;
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        for (const a of nav.querySelectorAll('a')) {
+          a.classList.toggle('is-aktif', a.getAttribute('href') === `#${entry.target.id}`);
+        }
+      }
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    for (const a of nav.querySelectorAll('a')) observer.observe(document.querySelector(a.getAttribute('href')));
+  }
+
   // ---------- Mulai ----------
 
   async function start() {
@@ -380,6 +434,7 @@
     await loadTemplate(templateKey);
 
     renderCover(inv, cfg.TEMPLATES[templateKey]);
+    renderHero(inv);
     renderQuote(cfg.TEMPLATES[templateKey].QUOTE);
     renderIntro(inv);
     renderCountdown(inv);
@@ -398,9 +453,14 @@
     $('cover').hidden = false;
     $('main').hidden = false;
 
+    setupNav();
+
     $('open-btn').addEventListener('click', () => {
       $('cover').classList.add('is-open');
       document.body.classList.remove('is-locked');
+      document.documentElement.classList.add('is-snap');
+      $('navigasi').hidden = false;
+      setupAnimations();   // dimulai sekarang, supaya animasi layar pertama terlihat
       if (audio) audio.play().catch(() => { /* browser menolak autoplay: biarkan */ });
       setTimeout(() => { $('cover').hidden = true; }, 950);
       $('main').focus?.();

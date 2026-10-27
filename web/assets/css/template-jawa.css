@@ -55,8 +55,8 @@
 .cover__script { font-family: 'Noto Sans Javanese', serif; font-size: 1.6rem; margin: 0; }
 
 /* Cinzel lebar & berhuruf kapital: ukuran dikecilkan supaya muat di HP */
-.cover__names { font-size: clamp(2.25rem, 11vw, 3.5rem); line-height: 1.15; letter-spacing: .04em; }
-.cover__amp, .couple__amp { font-family: var(--font-teks); }
+.cover__names, .hero__names { font-size: clamp(2.25rem, 11vw, 3.5rem); line-height: 1.15; letter-spacing: .04em; }
+.cover__amp, .hero__amp, .couple__amp { font-family: var(--font-teks); }
 .cover__guest-name { font-size: 1.3rem; }
 .person__name { font-size: 1.85rem; line-height: 1.2; letter-spacing: .03em; }
 .section__title { font-size: 1.85rem; line-height: 1.2; letter-spacing: .04em; }

@@ -35,6 +35,7 @@ const templates = Object.keys(sandbox.window.APP_CONFIG.TEMPLATES);
     await page.goto(`${BASE}/undangan/?u=demo&t=${key}&to=Tamu%20Undangan`, { waitUntil: 'networkidle' });
     await page.waitForSelector('#cover:not([hidden])');
     await page.evaluate(() => document.fonts.ready);
+    await page.waitForTimeout(2500);   // tunggu animasi sampul selesai
     const file = path.join(OUT, `${key}.jpg`);
     await page.screenshot({ path: file, type: 'jpeg', quality: 78 });
     console.log('dibuat', path.relative(WEB, file), Math.round(fs.statSync(file).size / 1024), 'KB');

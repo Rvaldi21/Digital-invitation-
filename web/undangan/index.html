@@ -51,23 +51,55 @@
     </div>
   </header>
 
+  <!-- Latar yang diam di belakang semua layar (hiasan diatur di file CSS template) -->
+  <div class="layar" aria-hidden="true">
+    <span class="layar__gambar"></span>
+    <span class="layar__atas"></span>
+    <span class="layar__bawah"></span>
+    <span class="layar__sudut layar__sudut--kiri-atas"></span>
+    <span class="layar__sudut layar__sudut--kanan-atas"></span>
+    <span class="layar__sudut layar__sudut--kiri-bawah"></span>
+    <span class="layar__sudut layar__sudut--kanan-bawah"></span>
+    <span class="layar__kelopak"></span><span class="layar__kelopak"></span><span class="layar__kelopak"></span>
+    <span class="layar__kelopak"></span><span class="layar__kelopak"></span><span class="layar__kelopak"></span>
+  </div>
+
+  <!-- Isi undangan: setiap <section> memenuhi satu layar HP.
+       data-anim = animasi saat bagian itu muncul (naik, turun, kiri, kanan, zoom, pudar) -->
   <main id="main" hidden>
 
-    <section class="section section--intro">
-      <img id="cover-photo" class="intro__photo" alt="" hidden>
-      <figure id="quote" class="quote" hidden>
-        <p id="quote-arab" class="quote__arab" lang="ar" dir="rtl"></p>
-        <blockquote id="quote-text" class="quote__text"></blockquote>
-        <figcaption id="quote-source" class="quote__source"></figcaption>
+    <section id="s-pembuka" class="section section--hero">
+      <div class="hero__bingkai" data-anim="zoom">
+        <img id="cover-photo" class="hero__foto" alt="" hidden>
+        <span id="hero-hiasan" class="hero__hiasan"></span>
+      </div>
+      <p id="hero-lead" class="hero__lead" data-anim="naik"></p>
+      <h2 class="hero__names" data-anim="naik">
+        <span id="hero-groom"></span>
+        <span class="hero__amp" aria-hidden="true">&amp;</span>
+        <span id="hero-bride"></span>
+      </h2>
+      <p id="hero-date" class="hero__date" data-anim="naik"></p>
+      <p class="hero__gulir" aria-hidden="true">Gulir ke bawah</p>
+    </section>
+
+    <section id="quote-section" class="section section--ayat" hidden>
+      <figure id="quote" class="quote">
+        <p id="quote-arab" class="quote__arab" lang="ar" dir="rtl" data-anim="pudar"></p>
+        <blockquote id="quote-text" class="quote__text" data-anim="naik"></blockquote>
+        <figcaption id="quote-source" class="quote__source" data-anim="naik"></figcaption>
       </figure>
-      <p id="opening" class="intro__text"></p>
+    </section>
+
+    <section id="s-mempelai" class="section section--intro">
+      <p id="opening" class="intro__text" data-anim="naik"></p>
       <div class="couple">
-        <div class="person">
+        <div class="person" data-anim="kiri">
           <h2 id="groom-name" class="person__name"></h2>
           <p id="groom-parents" class="person__parents"></p>
         </div>
-        <span class="couple__amp" aria-hidden="true">&amp;</span>
-        <div class="person">
+        <span class="couple__amp" aria-hidden="true" data-anim="zoom">&amp;</span>
+        <div class="person" data-anim="kanan">
           <h2 id="bride-name" class="person__name"></h2>
           <p id="bride-parents" class="person__parents"></p>
         </div>
@@ -75,9 +107,9 @@
     </section>
 
     <section id="countdown-section" class="section section--dark" hidden>
-      <h2 id="countdown-title" class="section__title"></h2>
-      <p id="countdown-date" class="countdown__date"></p>
-      <div class="countdown" aria-live="off">
+      <h2 id="countdown-title" class="section__title" data-anim="turun"></h2>
+      <p id="countdown-date" class="countdown__date" data-anim="pudar"></p>
+      <div class="countdown" aria-live="off" data-anim="zoom">
         <div><span id="cd-days">0</span><small>hari</small></div>
         <div><span id="cd-hours">0</span><small>jam</small></div>
         <div><span id="cd-mins">0</span><small>menit</small></div>
@@ -86,24 +118,24 @@
     </section>
 
     <section id="events-section" class="section" hidden>
-      <h2 id="events-title" class="section__title"></h2>
+      <h2 id="events-title" class="section__title" data-anim="turun"></h2>
       <div id="events" class="events"></div>
     </section>
 
     <section id="gallery-section" class="section" hidden>
-      <h2 id="gallery-title" class="section__title"></h2>
+      <h2 id="gallery-title" class="section__title" data-anim="turun"></h2>
       <div id="gallery" class="gallery"></div>
     </section>
 
     <section id="gift-section" class="section" hidden>
-      <h2 id="gift-title" class="section__title"></h2>
-      <p id="gift-intro" class="section__lead"></p>
+      <h2 id="gift-title" class="section__title" data-anim="turun"></h2>
+      <p id="gift-intro" class="section__lead" data-anim="pudar"></p>
       <div id="gifts" class="gifts"></div>
     </section>
 
     <section id="rsvp-section" class="section">
-      <h2 id="rsvp-title" class="section__title"></h2>
-      <form id="rsvp-form" class="rsvp" novalidate>
+      <h2 id="rsvp-title" class="section__title" data-anim="turun"></h2>
+      <form id="rsvp-form" class="rsvp" novalidate data-anim="naik">
         <label class="field">
           <span>Nama</span>
           <input id="rsvp-name" name="name" type="text" maxlength="100" autocomplete="name" required>
@@ -126,8 +158,8 @@
       </form>
       <p id="rsvp-closed" class="section__lead" hidden></p>
 
-      <h3 id="messages-title" class="messages__title"></h3>
-      <ul id="messages" class="messages"></ul>
+      <h3 id="messages-title" class="messages__title" data-anim="naik"></h3>
+      <ul id="messages" class="messages" data-anim="naik"></ul>
     </section>
 
     <footer class="section section--dark closing">
@@ -138,13 +170,23 @@
         <span class="hiasan__sudut hiasan__sudut--kiri-bawah"></span>
         <span class="hiasan__sudut hiasan__sudut--kanan-bawah"></span>
       </div>
-      <span class="kawung-mark kawung-mark--light" aria-hidden="true"></span>
-      <p id="closing" class="closing__text"></p>
-      <p class="closing__names" id="closing-names"></p>
+      <span class="kawung-mark kawung-mark--light" aria-hidden="true" data-anim="zoom"></span>
+      <p id="closing" class="closing__text" data-anim="naik"></p>
+      <p class="closing__names" id="closing-names" data-anim="naik"></p>
     </footer>
 
     <p id="demo-notice" class="demo-notice" hidden></p>
   </main>
+
+  <!-- Menu bawah: lompat ke bagian undangan -->
+  <nav id="navigasi" class="navigasi" aria-label="Bagian undangan" hidden>
+    <a href="#s-pembuka"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5V20h-5v-5H9v5H4z"/></svg><span>Awal</span></a>
+    <a href="#s-mempelai"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><span>Mempelai</span></a>
+    <a href="#events-section"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14.5" rx="2"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></svg><span>Acara</span></a>
+    <a href="#gallery-section"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="9" cy="10" r="1.7"/><path d="m4.5 17 4.5-4 3 2.5 3-2.5 4.5 4"/></svg><span>Galeri</span></a>
+    <a href="#gift-section"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="9" width="16" height="11" rx="1.5"/><path d="M3 9h18M12 9v11M12 9c-1.5-4-6-4-5.5-1.5S12 9 12 9zm0 0c1.5-4 6-4 5.5-1.5S12 9 12 9z"/></svg><span>Hadiah</span></a>
+    <a href="#rsvp-section"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 5h15v11h-9l-6 4z"/><path d="M8.5 9.5h7M8.5 12.5h4"/></svg><span>Ucapan</span></a>
+  </nav>
 
   <!-- Tombol musik -->
   <button id="music-btn" class="music-btn" type="button" aria-label="Matikan musik" hidden>

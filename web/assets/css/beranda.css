@@ -179,7 +179,7 @@ em { font-style: italic; }
 .katalog li { scroll-snap-align: center; }
 @media (min-width: 40rem) { .katalog { grid-auto-columns: 30%; } }
 @media (min-width: 60rem) {
-  .katalog { grid-auto-flow: row; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: 2.5rem 0 0; padding: 0; overflow: visible; }
+  .katalog { grid-auto-flow: row; grid-template-columns: repeat(6, minmax(0, 1fr)); margin: 2.5rem 0 0; padding: 0; overflow: visible; }
 }
 .katalog__item {
   display: grid; gap: .75rem; height: 100%;
