@@ -214,7 +214,7 @@ jalankan-lokal.bat             tes lokal di Windows (klik dua kali)
       Tombol WA baru muncul setelah `BERANDA.WHATSAPP` diisi.
 
 **Belum / sedang dikerjakan**
-- [ ] Nomor WA beranda masih SEMENTARA (0709-2336-911, awalan tidak biasa: cek). Ganti dengan nomor usaha + isi akun IG/TikTok di `config.js` → `BERANDA`.
+- [ ] Nomor WA beranda masih SEMENTARA (nomor Jepang +81 70-9233-6911). Ganti dengan nomor usaha + isi akun IG/TikTok di `config.js` → `BERANDA`.
 - [ ] Pemilik membuat undangan pertama (pernikahannya sendiri) lewat panel admin.
 
 **Berikutnya**

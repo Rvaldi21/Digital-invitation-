@@ -172,7 +172,7 @@ window.APP_CONFIG = {
     // Nomor WhatsApp untuk pesanan: format internasional TANPA "+", spasi, atau "0"
     // di depan. Contoh: 0812-3456-7890 → '6281234567890'.
     // Kosong = tombol WhatsApp tidak tampil.
-    WHATSAPP: '627092336911',   // sementara (0709-2336-911)
+    WHATSAPP: '817092336911',   // sementara: nomor Jepang 070-9233-6911 (kode negara 81)
 
     // Nama akun (tanpa @). Kosong = tidak ditampilkan.
     INSTAGRAM: '',
