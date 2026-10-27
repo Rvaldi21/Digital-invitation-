@@ -1,5 +1,5 @@
 // =====================================================================
-// admin/tab-media.js — TAB "FOTO & MUSIK": foto sampul, galeri, musik.
+// admin/tab-media.js — TAB "FOTO & MUSIK": foto sampul, galeri, foto penutup, musik.
 // Foto dikompres otomatis (lihat gambar.js) lalu disimpan di Storage
 // dengan pola <id-undangan>/..., sesuai aturan 04_storage.sql.
 // =====================================================================
@@ -26,48 +26,58 @@
     }
   }
 
-  // ---------- Foto sampul ----------
+  // ---------- Foto tunggal: sampul & penutup ----------
+  // opt: column (kolom di tabel invitations), title, hint, prefix (awal nama file), alt
 
-  function coverSection(inv) {
+  function singlePhotoSection(inv, opt) {
     const box = el('div', { class: 'stack' });
+    const card = el('section', { class: 'card stack' },
+      el('h2', { class: 'card-title' }, opt.title),
+      el('p', { class: 'muted small' }, opt.hint),
+      box,
+    );
 
-    async function setCover(path) {
-      const old = inv.cover_photo_path;
-      Object.assign(inv, await db.update('invitations', inv.id, { cover_photo_path: path }));
+    // Kolom belum ada di database (SQL tambahan belum dijalankan)
+    if (!(opt.column in inv)) {
+      box.append(el('p', { class: 'small' },
+        'Belum aktif. Jalankan file supabase/06_cerita_foto_penutup.sql di Supabase (SQL Editor → Run), lalu muat ulang.'));
+      return card;
+    }
+
+    async function setPhoto(path) {
+      const old = inv[opt.column];
+      Object.assign(inv, await db.update('invitations', inv.id, { [opt.column]: path }));
       db.storage.forget(old);
       draw();
     }
 
     function draw() {
-      const remove = inv.cover_photo_path && el('button', { class: 'btn btn--ghost btn--danger-text', type: 'button' }, 'Hapus');
+      const current = inv[opt.column];
+      const remove = current && el('button', { class: 'btn btn--ghost btn--danger-text', type: 'button' }, 'Hapus');
       if (remove) remove.addEventListener('click', async () => {
-        if (!await ui.confirmBox('Hapus foto sampul?')) return;
-        await ui.busy(remove, 'Menghapus…', async () => { await setCover(null); ui.toast('Foto sampul dihapus.'); });
+        if (!await ui.confirmBox(`Hapus ${opt.title.toLowerCase()}?`)) return;
+        await ui.busy(remove, 'Menghapus…', async () => { await setPhoto(null); ui.toast(`${opt.title} dihapus.`); });
       });
 
-      const picker = ui.filePicker(inv.cover_photo_path ? 'Ganti foto' : 'Pilih foto', 'image/*', async ([file], label) => {
+      const picker = ui.filePicker(current ? 'Ganti foto' : 'Pilih foto', 'image/*', async ([file], label) => {
         label('Mengompres…');
         const img = await compressPhoto(file);
         label('Mengunggah…');
-        const path = `${inv.id}/sampul-${ui.uniqueName()}.${img.ext}`;
-        await uploadThenSave(path, img.blob, img.type, () => setCover(path));
-        ui.toast(`Foto sampul disimpan (${ui.kb(img.blob.size)}).`);
+        const path = `${inv.id}/${opt.prefix}-${ui.uniqueName()}.${img.ext}`;
+        await uploadThenSave(path, img.blob, img.type, () => setPhoto(path));
+        ui.toast(`${opt.title} disimpan (${ui.kb(img.blob.size)}).`);
       });
 
       box.replaceChildren(
-        inv.cover_photo_path
-          ? el('img', { class: 'cover-preview', src: API.mediaUrl(inv.cover_photo_path), alt: 'Foto sampul' })
-          : el('p', { class: 'muted' }, 'Belum ada foto sampul.'),
+        current
+          ? el('img', { class: 'cover-preview', src: API.mediaUrl(current), alt: opt.title })
+          : el('p', { class: 'muted' }, `Belum ada ${opt.title.toLowerCase()}.`),
         el('div', { class: 'actions' }, remove, picker),
       );
     }
 
     draw();
-    return el('section', { class: 'card stack' },
-      el('h2', { class: 'card-title' }, 'Foto sampul'),
-      el('p', { class: 'muted small' }, 'Tampil di bagian atas undangan. Foto tegak (portrait) paling bagus.'),
-      box,
-    );
+    return card;
   }
 
   // ---------- Galeri ----------
@@ -198,6 +208,17 @@
   }
 
   window.Admin.tabs.media = async function (inv, body) {
-    body.append(coverSection(inv), await gallerySection(inv), musicSection(inv));
+    body.append(
+      singlePhotoSection(inv, {
+        column: 'cover_photo_path', title: 'Foto sampul', prefix: 'sampul',
+        hint: 'Tampil di layar pembuka undangan. Foto tegak (portrait) paling bagus.',
+      }),
+      await gallerySection(inv),
+      singlePhotoSection(inv, {
+        column: 'closing_photo_path', title: 'Foto penutup', prefix: 'penutup',
+        hint: 'Foto mempelai di layar terima kasih (paling bawah). Foto tegak paling bagus.',
+      }),
+      musicSection(inv),
+    );
   };
 })();

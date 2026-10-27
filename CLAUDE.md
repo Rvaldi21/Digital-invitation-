@@ -155,6 +155,8 @@ supabase/02_keamanan.sql       RLS, trigger penjaga kolom, hak akses
 supabase/03_fungsi_publik.sql  get_invitation, submit_rsvp (+ anti-spam)
 supabase/04_storage.sql        bucket "undangan-media" + aturan upload
 supabase/05_contoh_data.sql    (opsional) undangan contoh slug "contoh"
+supabase/06_cerita_foto_penutup.sql  tambahan: kolom love_story + closing_photo_path,
+                               get_invitation diperbarui (01 & 03 juga sudah memuatnya)
 web/undangan/index.html        halaman tamu
 web/assets/js/config.js        ★ semua pengaturan
 web/assets/js/api.js           penghubung Supabase
@@ -242,7 +244,19 @@ jalankan-lokal.bat             tes lokal di Windows (klik dua kali)
       diubah), cara pesan, FAQ, tombol WhatsApp. Semua isi di `config.js` → `BERANDA`.
       Tombol WA baru muncul setelah `BERANDA.WHATSAPP` diisi.
 
+- [x] **Love story, foto penutup, promosi Njagong** (28 Okt 2026).
+      - Kolom `invitations.love_story` (jsonb array `{date,title,story}`, maks 8) &
+        `closing_photo_path`. Admin: tab **Cerita** (tab-cerita.js) + kartu "Foto penutup"
+        di tab Foto & musik. Kolom belum ada → panel menampilkan petunjuk menjalankan SQL 06.
+      - Undangan: layar "Kisah kami" (`#story-section`, garis waktu, setelah Acara),
+        tombol "Cerita" di menu bawah, foto mempelai di layar penutup (`#closing-photo`).
+      - Promosi di bawah layar penutup: `config.js → PROMO` (teks, ajakan, pesan WA);
+        WA/IG/TikTok diambil dari `BERANDA`. `PROMO.TAMPIL: false` untuk mematikan.
+      - Diuji 25 skenario baru (admin + undangan + XSS di judul cerita) — lulus.
+
 **Belum / sedang dikerjakan**
+- [ ] **Pemilik menjalankan `supabase/06_cerita_foto_penutup.sql` di Supabase** (wajib,
+      tanpa ini tab Cerita & Foto penutup hanya menampilkan petunjuk).
 - [ ] Nomor WA beranda masih SEMENTARA (nomor Jepang +81 70-9233-6911). Ganti dengan nomor usaha + isi akun IG/TikTok di `config.js` → `BERANDA`.
 - [ ] Pemilik membuat undangan pertama (pernikahannya sendiri) lewat panel admin.
 

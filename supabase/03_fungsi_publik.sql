@@ -70,6 +70,8 @@ begin
     'cover_photo_path', v_inv.cover_photo_path,
     'music_path',       v_inv.music_path,
     'rsvp_enabled',     v_inv.rsvp_enabled,
+    'love_story',       v_inv.love_story,
+    'closing_photo_path', v_inv.closing_photo_path,
 
     'events', coalesce((
       select jsonb_agg(jsonb_build_object(

@@ -1,7 +1,7 @@
 // =====================================================================
 // admin/halaman-edit.js — HALAMAN SATU UNDANGAN
-// Berisi kartu status (draft/terbit) dan tab-tab: Data, Acara, Foto &
-// musik, Amplop, RSVP, Bagikan. Isi tiap tab ada di file tab-*.js.
+// Berisi kartu status (draft/terbit) dan tab-tab: Data, Acara, Cerita,
+// Foto & musik, Amplop, RSVP, Bagikan. Isi tiap tab ada di file tab-*.js.
 // =====================================================================
 
 (function () {
@@ -11,6 +11,7 @@
   const TABS = [
     ['data', 'Data'],
     ['acara', 'Acara'],
+    ['cerita', 'Cerita'],
     ['media', 'Foto & musik'],
     ['amplop', 'Amplop'],
     ['rsvp', 'RSVP'],

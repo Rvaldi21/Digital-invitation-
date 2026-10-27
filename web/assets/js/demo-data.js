@@ -21,6 +21,24 @@
     cover_photo_path: null,
     music_path: null,
     rsvp_enabled: true,
+    closing_photo_path: '/assets/demo/foto-3.svg',
+    love_story: [
+      {
+        date: 'Maret 2021',
+        title: 'Awal bertemu',
+        story: 'Kami pertama kali bertemu di sebuah acara kampus. Obrolan singkat hari itu ternyata menjadi awal dari banyak cerita.',
+      },
+      {
+        date: 'Agustus 2024',
+        title: 'Lamaran',
+        story: 'Dengan restu kedua keluarga, kami memutuskan melangkah ke jenjang yang lebih serius.',
+      },
+      {
+        date: 'Desember 2026',
+        title: 'Hari bahagia',
+        story: 'Kini kami siap mengikat janji suci. Doa restu Anda adalah hadiah terindah bagi kami.',
+      },
+    ],
     events: [
       {
         title: 'Akad nikah',

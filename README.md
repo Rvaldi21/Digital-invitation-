@@ -91,6 +91,7 @@ Database untuk website undangan dengan panel admin, siap dipakai untuk
 | `supabase/03_fungsi_publik.sql` | 2 fungsi untuk tamu: buka undangan & kirim RSVP (+ anti-spam) |
 | `supabase/04_storage.sql` | Tempat file foto/QRIS/musik dan aturan upload |
 | `supabase/05_contoh_data.sql` | (Opsional) satu undangan contoh dengan slug `contoh` |
+| `supabase/06_cerita_foto_penutup.sql` | Tambahan: love story & foto penutup. **Jalankan sekali** di database yang sudah berjalan |
 
 Angka-angka yang bisa diatur (batas karakter, anti-spam, ukuran file)
 ada di bagian **PENGATURAN** di atas tiap file.

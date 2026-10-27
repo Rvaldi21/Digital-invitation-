@@ -40,6 +40,7 @@ window.APP_CONFIG = {
     countdownTitle: 'Menuju hari bahagia',
     eventsTitle: 'Waktu dan tempat',
     openMaps: 'Buka peta',
+    storyTitle: 'Kisah kami',
     galleryTitle: 'Galeri',
     giftTitle: 'Amplop digital',
     giftIntro: 'Doa restu Anda sudah sangat berarti. Jika ingin memberi tanda kasih, bisa melalui:',
@@ -169,6 +170,19 @@ window.APP_CONFIG = {
       'Info lengkap acara:\n{link}\n\n' +
       'Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i ' +
       'berkenan hadir dan memberikan doa restu.\n\nTerima kasih.',
+  },
+
+  // -------------------------------------------------------------------
+  // PROMOSI DI BAGIAN PALING BAWAH SETIAP UNDANGAN
+  // Tamu yang tertarik bisa langsung ke website atau WhatsApp Njagong.
+  // Nomor WA & akun IG/TikTok diambil dari BERANDA di bawah.
+  // -------------------------------------------------------------------
+  PROMO: {
+    TAMPIL: true,                        // false = promosi tidak ditampilkan
+    TEKS: 'Undangan digital oleh',
+    NAMA: 'Njagong',
+    AJAKAN: 'Mau undangan seperti ini? Mulai Rp49 ribu.',
+    PESAN_WA: 'Halo Njagong, saya lihat undangan digital buatan Njagong dan tertarik pesan.',
   },
 
   // -------------------------------------------------------------------

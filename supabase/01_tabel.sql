@@ -68,6 +68,14 @@ create table public.invitations (
   cover_photo_path  text check (char_length(cover_photo_path) <= 300),
   music_path        text check (char_length(music_path) <= 300),
 
+  -- Cerita cinta: daftar [{ "title": "...", "date": "...", "story": "..." }]
+  love_story        jsonb not null default '[]'::jsonb
+                    check (jsonb_typeof(love_story) = 'array'
+                           and jsonb_array_length(love_story) <= 8
+                           and char_length(love_story::text) <= 8000),
+  -- Foto mempelai di layar penutup (terima kasih)
+  closing_photo_path text check (char_length(closing_photo_path) <= 300),
+
   rsvp_enabled      boolean not null default true,
 
   created_at        timestamptz not null default now(),

@@ -310,6 +310,32 @@ img { max-width: 100%; display: block; }
 .event__venue { margin: 0; font-weight: 600; }
 .event__address { margin: 0 0 1.25rem; color: var(--redup); font-size: .925rem; }
 
+/* ---------- Cerita cinta (garis waktu) ---------- */
+.story {
+  position: relative;
+  list-style: none; margin: 0; padding: 0 0 0 1.75rem;
+  display: grid; gap: 1rem;
+  text-align: left;
+}
+.story::before {   /* garis waktu */
+  content: ''; position: absolute; left: .45rem; top: .5rem; bottom: .5rem;
+  border-left: 1px dashed var(--aksen);
+}
+.story__item {
+  position: relative;
+  padding: 1.1rem 1.25rem 1.25rem;
+  background: var(--kartu);
+  border-radius: var(--radius);
+}
+.story__item::before {   /* titik di garis waktu */
+  content: ''; position: absolute; left: calc(-1.75rem + .45rem - 6px); top: 1.4rem;
+  width: 13px; height: 13px; border-radius: 50%;
+  background: var(--latar); border: 2px solid var(--aksen);
+}
+.story__date { margin: 0; font-size: .75rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--aksen); }
+.story__title { margin: .2rem 0 .4rem; font: 400 1.6rem/1.15 var(--font-judul); }
+.story__text { margin: 0; color: var(--redup); font-size: .93rem; white-space: pre-line; }
+
 /* ---------- Galeri ---------- */
 .gallery {
   display: grid;
@@ -409,6 +435,29 @@ img { max-width: 100%; display: block; }
 .closing > :not(.hiasan) { position: relative; }
 .closing__text { margin: 0; max-width: 24rem; opacity: .9; }
 .closing__names { margin: 0; font: 400 2.25rem/1.1 var(--font-judul); }
+/* Foto mempelai di layar terima kasih */
+.closing__foto {
+  width: min(52vw, 13rem, 28svh);
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: var(--foto-sudut);
+  box-shadow: 0 0 0 1px var(--aksen), 0 0 0 6px var(--gelap), 0 0 0 7px var(--aksen);
+}
+
+/* Promosi Njagong di bawah layar penutup */
+.promo {
+  display: grid; justify-items: center; gap: .35rem;
+  margin-top: 1.75rem; padding-top: 1.25rem;
+  border-top: 1px solid currentColor;
+  border-top-color: color-mix(in srgb, currentColor 22%, transparent);
+  font-size: .8rem;
+}
+.promo p { margin: 0; }
+.promo__teks { opacity: .8; }
+.promo__nama { color: var(--aksen); font: 400 1.2rem/1 var(--font-judul); text-decoration: none; }
+.promo__ajakan { opacity: .8; }
+.promo__tautan { display: flex; flex-wrap: wrap; justify-content: center; gap: .3rem 1rem; margin-top: .25rem !important; }
+.promo__tautan a { color: inherit; font-weight: 600; text-underline-offset: 3px; }
 
 .demo-notice {
   margin: 0; padding: .75rem 1.25rem 5rem;
@@ -506,10 +555,10 @@ img { max-width: 100%; display: block; }
 }
 .navigasi a {
   display: grid; justify-items: center; gap: .1rem;
-  min-width: 48px; padding: .35rem .3rem .3rem;
+  min-width: 44px; padding: .35rem .2rem .3rem;
   border-radius: 999px;
   color: var(--redup); text-decoration: none;
-  font-size: .62rem; font-weight: 600; letter-spacing: .02em;
+  font-size: .6rem; font-weight: 600; letter-spacing: 0;
   transition: background-color .3s, color .3s;
 }
 .navigasi svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }

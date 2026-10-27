@@ -144,6 +144,14 @@
     setText('bride-name', inv.bride_name);
     setText('groom-parents', inv.groom_parents ? `${T.sonOf} ${inv.groom_parents}` : '');
     setText('bride-parents', inv.bride_parents ? `${T.daughterOf} ${inv.bride_parents}` : '');
+    if (inv.closing_photo_path) {
+      const img = $('closing-photo');
+      img.src = API.mediaUrl(inv.closing_photo_path);
+      img.alt = `${inv.groom_name} dan ${inv.bride_name}`;
+      img.loading = 'lazy';
+      img.hidden = false;
+      $('closing-mark').hidden = true;
+    }
     setText('closing', T.closing);
     setText('closing-names', `${firstName(inv.groom_name)} & ${firstName(inv.bride_name)}`);
   }
@@ -187,6 +195,46 @@
           el('a', { class: 'btn btn--ghost', href: ev.maps_url, target: '_blank', rel: 'noopener noreferrer' }, T.openMaps),
       ));
     }
+  }
+
+  // Cerita cinta: garis waktu. Isinya dari kolom love_story (diisi di panel admin).
+  function renderStory(inv) {
+    const items = (Array.isArray(inv.love_story) ? inv.love_story : [])
+      .filter((s) => s && (s.title || s.story));
+    if (!items.length) return;
+    $('story-section').hidden = false;
+    setText('story-title', T.storyTitle);
+    const box = $('story');
+    items.forEach((s, i) => {
+      box.append(el('li', { class: 'story__item', 'data-anim': i % 2 ? 'kanan' : 'kiri' },
+        s.date && el('p', { class: 'story__date' }, String(s.date)),
+        s.title && el('h3', { class: 'story__title' }, String(s.title)),
+        s.story && el('p', { class: 'story__text' }, String(s.story)),
+      ));
+    });
+  }
+
+  // Promosi Njagong di bawah layar penutup (config.js → PROMO)
+  function renderPromo() {
+    const P = cfg.PROMO;
+    if (!P || !P.TAMPIL) return;
+    const B = cfg.BERANDA || {};
+    const site = ((cfg.ADMIN && cfg.ADMIN.SITE_URL) || location.origin).replace(/\/+$/, '') + '/';
+    setText('promo-teks', P.TEKS);
+    const nama = $('promo-nama');
+    nama.textContent = P.NAMA;
+    nama.href = site;
+    setText('promo-ajakan', P.AJAKAN);
+
+    const links = [];
+    const wa = String(B.WHATSAPP || '').replace(/\D/g, '');
+    if (wa) links.push(['WhatsApp', `https://wa.me/${wa}?text=${encodeURIComponent(P.PESAN_WA)}`]);
+    if (B.INSTAGRAM) links.push(['Instagram', `https://instagram.com/${encodeURIComponent(B.INSTAGRAM)}`]);
+    if (B.TIKTOK) links.push(['TikTok', `https://www.tiktok.com/@${encodeURIComponent(B.TIKTOK)}`]);
+    links.push(['Lihat paket', site + '#paket']);
+    $('promo-tautan').append(...links.map(([label, href]) =>
+      el('a', { href, target: '_blank', rel: 'noopener' }, label)));
+    $('promo').hidden = false;
   }
 
   function renderGallery(inv) {
@@ -450,9 +498,11 @@
     renderIntro(inv);
     renderCountdown(inv);
     renderEvents(inv);
+    renderStory(inv);
     renderGallery(inv);
     renderGifts(inv);
     renderRsvp(inv);
+    renderPromo();
     const audio = setupMusic(inv);
 
     if (API.isDemoMode(slug) || preview) {
