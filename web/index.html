@@ -3,15 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Undangan Digital</title>
+  <title>Njagong | Undangan Digital</title>
+  <meta name="description" content="Njagong: jasa undangan pernikahan digital. Lihat contoh template.">
+  <meta name="theme-color" content="#1F2A44">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Plus+Jakarta+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/undangan.css">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 </head>
 <body>
-  <!-- Halaman beranda sementara. Nanti bisa diganti jadi halaman promosi jasa. -->
-  <main class="status">
+  <!-- Halaman beranda sementara: katalog template. Nanti bisa dikembangkan jadi halaman promosi. -->
+  <main class="section katalog">
     <span class="kawung-mark" aria-hidden="true"></span>
-    <p>Undangan digital</p>
-    <a class="btn" href="/undangan/?u=demo&amp;to=Tamu%20Undangan">Lihat contoh undangan</a>
+    <h1 class="section__title">Njagong</h1>
+    <p class="section__lead">Undangan pernikahan digital. Pilih template untuk melihat contohnya.</p>
+    <ul id="katalog" class="katalog__list"></ul>
   </main>
+
+  <script src="/assets/js/config.js"></script>
+  <script src="/assets/js/katalog.js"></script>
 </body>
 </html>

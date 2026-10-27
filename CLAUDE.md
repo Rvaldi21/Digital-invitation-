@@ -85,6 +85,22 @@ Semua harus memakai paket gratis sampai ada pemasukan.
   hijau daun `#3E5C4A`, emas prada `#B08D57`, motif batik **kawung**;
   huruf Instrument Serif (judul) + Plus Jakarta Sans (teks). Diatur di `:root`
   pada `web/assets/css/undangan.css`.
+- **Sistem template** (5 template: klasik, rustic, islami, jawa, modern):
+  - Daftar & teks khusus tiap template di `config.js → TEMPLATES`
+    (label, description, color, TEXT opsional, QUOTE opsional).
+  - HTML sama untuk semua template. `undangan.css` = tampilan dasar + klasik,
+    memakai token peran di `:root` (`--gelap --latar --utama --aksen --kartu
+    --redup --garis --motif --ornamen --sampul-* --gelap-lapis --foto-sudut`).
+  - Template lain = `assets/css/template-<nama>.css` yang hanya menimpa token +
+    sedikit gaya; dimuat oleh undangan.js sesuai `invitations.template`,
+    halaman baru tampil setelah CSS-nya siap. Huruf via `@import` Google Fonts.
+  - Motif & ornamen = SVG kecil sebagai data URI di file template; kalau
+    mengubah, tulis SVG-nya lalu encode `<`→%3C, `>`→%3E, `#`→%23.
+  - `?t=<nama>` hanya berlaku di demo & pratinjau. Katalog: beranda `/` + `?u=demo&t=`.
+  - Template baru: tambah entri di TEMPLATES + buat file template-<nama>.css.
+- **Pratinjau draft**: `/undangan/?u=<slug>&pratinjau=1[&t=<nama>]` — api.js
+  membaca tabel langsung memakai sesi admin di localStorage (`undangan-admin-sesi`,
+  diperpanjang otomatis); RSVP tidak dikirim. Tombol "Pratinjau" di panel admin.
 
 ### Struktur
 ```
@@ -98,7 +114,11 @@ web/assets/js/config.js        ★ semua pengaturan
 web/assets/js/api.js           penghubung Supabase
 web/assets/js/undangan.js      render halaman (pakai textContent, anti-XSS)
 web/assets/js/demo-data.js     data contoh
-web/assets/css/undangan.css    tampilan
+web/assets/css/undangan.css    tampilan dasar + template klasik
+web/assets/css/template-*.css  template rustic, islami, jawa, modern
+web/assets/js/katalog.js       daftar template di beranda (dari TEMPLATES)
+web/index.html                 beranda = katalog template (sementara)
+web/favicon.svg                ikon Njagong (kawung emas di atas nila)
 web/admin/index.html           panel admin (/admin/), mobile-first
 web/assets/css/admin.css       tampilan panel admin
 web/assets/js/admin/           kode panel admin, tanpa library:
@@ -160,22 +180,20 @@ jalankan-lokal.bat             tes lokal di Windows (klik dua kali)
       Saklar "Production" di Settings → Domains & Routes → Worker URL harus MENYALA.
       Dicek: semua halaman 200, `_headers`/`wrangler.jsonc` tidak bisa diakses (404),
       CSP & header keamanan aktif, `/admin/` noindex + no-store, demo & login admin
-      jalan di Chrome HP tanpa error CSP. Favicon belum ada (404, tidak berbahaya).
+      jalan di Chrome HP tanpa error CSP.
+- [x] **5 template** (klasik, rustic, islami, jawa, modern) + pilihan template di tab
+      Data panel admin + katalog di beranda + **pratinjau draft** + favicon (27 Okt 2026).
+      Diuji 29 skenario di layar HP 390px (tiap template: tampil, teks khusus,
+      tidak melebar, tanpa error) — semua lulus.
 
 **Belum / sedang dikerjakan**
 - [ ] Pemilik membuat undangan pertama (pernikahannya sendiri) lewat panel admin.
 
 **Berikutnya**
 1. Tes panel admin & undangan asli dari HP lewat alamat online.
-2. **4 template baru** (diputuskan pemilik 26 Okt 2026), selain "klasik":
-   `rustic` (krem/cokelat, bunga & daun kering), `islami` (hijau zamrud & emas,
-   ornamen geometris, QS Ar-Rum 21), `jawa` (cokelat sogan & emas, gunungan/parang),
-   `modern` (putih/hitam minimalis). Rencana: isi HTML sama, tiap template = file CSS
-   sendiri yang dipilih dari kolom `invitations.template`; pilihan template + contoh
-   gambar di tab Data panel admin; demo per template `?u=demo&t=<nama>` sebagai katalog.
-3. Pratinjau undangan berstatus draft (sekarang hanya bisa dilihat setelah terbit).
-4. Halaman beranda untuk promosi jasa (`web/index.html` masih sementara).
-5. Opsi 2 (pelanggan login & edit sendiri) — dibahas 26 Okt 2026, ditunda sampai
+2. Pemilik menilai 5 template dari HP; sesuaikan warna/huruf sesuai selera.
+3. Halaman beranda untuk promosi jasa (`web/index.html` sekarang katalog sederhana).
+4. Opsi 2 (pelanggan login & edit sendiri) — dibahas 26 Okt 2026, ditunda sampai
    ada pelanggan. Perlu: tampilan khusus pelanggan di panel (sekarang non-admin
    ditolak di app.js), isian "email pemilik" untuk `owner_id`, cara buat akun pelanggan.
 

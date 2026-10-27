@@ -28,6 +28,18 @@ lalu masuk dengan email & password akun admin Supabase.
 - Foto otomatis dikecilkan ke ±200 KB (WebP) sebelum di-upload
 - Tab **Bagikan**: tulis nama tamu satu per baris → link + tombol kirim WhatsApp
 - Pengaturan panel (ukuran foto, teks pesan WhatsApp) ada di `config.js` → `ADMIN`
+- Tombol **Pratinjau** menampilkan undangan yang masih draft (hanya untuk admin)
+
+## Template
+
+Ada 5 template: **Klasik, Rustic, Islami elegan, Adat Jawa, Modern minimalis**.
+Pilih di panel admin → tab **Data** → bagian **Template**.
+
+- Contoh tiap template (katalog untuk calon pelanggan): halaman beranda `/`,
+  atau langsung `/undangan/?u=demo&t=rustic` (ganti `rustic` dengan nama template)
+- Daftar template & teks khususnya ada di `config.js` → `TEMPLATES`
+- Tampilan tiap template: `assets/css/template-<nama>.css`
+  (Klasik = tampilan dasar di `undangan.css`)
 
 ## Link undangan
 

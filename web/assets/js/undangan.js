@@ -2,6 +2,10 @@
 // undangan.js — MENAMPILKAN ISI UNDANGAN
 // Link: /undangan/?u=<slug>&to=<nama tamu>
 //   contoh: /undangan/?u=aldi-alfin&to=Budi%20Santoso
+// Tambahan:
+//   &t=<template>   ganti tampilan, hanya untuk demo & pratinjau
+//                   (contoh katalog: /undangan/?u=demo&t=rustic)
+//   &pratinjau=1    admin melihat undangan draft (butuh login di panel admin)
 //
 // KEAMANAN: semua teks dari database dimasukkan dengan textContent
 // (bukan innerHTML), jadi ucapan tamu yang berisi kode tidak akan jalan.
@@ -9,12 +13,14 @@
 
 (function () {
   const cfg = window.APP_CONFIG;
-  const T = cfg.TEXT;
+  let T = cfg.TEXT;   // diganti setelah template diketahui (teks khusus template)
   const $ = (id) => document.getElementById(id);
 
   const params = new URLSearchParams(location.search);
   const slug = (params.get('u') || 'demo').trim().toLowerCase();
   const guestName = (params.get('to') || '').trim().slice(0, 100);
+  const templateParam = (params.get('t') || '').trim().toLowerCase();
+  const preview = params.get('pratinjau') === '1' && !API.isDemoMode(slug);
 
   // ---------- Pembantu ----------
 
@@ -60,15 +66,52 @@
     $('status').hidden = false;
   }
 
+  // ---------- Template ----------
+
+  // Template dari data undangan; ?t= hanya berlaku di demo & pratinjau
+  function chooseTemplate(inv) {
+    const wanted = (API.isDemoMode(slug) || preview) && templateParam ? templateParam : inv.template;
+    return Object.prototype.hasOwnProperty.call(cfg.TEMPLATES, wanted) ? wanted : 'klasik';
+  }
+
+  // Memuat file tampilan template. Halaman baru ditampilkan setelah file
+  // ini siap, supaya tamu tidak melihat tampilan berganti-ganti.
+  function loadTemplate(key) {
+    const tpl = cfg.TEMPLATES[key];
+    T = { ...cfg.TEXT, ...(tpl.TEXT || {}) };
+    document.documentElement.dataset.template = key;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta && tpl.color) meta.content = tpl.color;
+    if (key === 'klasik') return Promise.resolve();   // memakai undangan.css saja
+
+    return new Promise((resolve) => {
+      const link = el('link', { rel: 'stylesheet', href: `/assets/css/template-${key}.css` });
+      link.addEventListener('load', resolve);
+      link.addEventListener('error', resolve);   // gagal → tetap tampil dengan gaya klasik
+      setTimeout(resolve, 5000);                 // internet lambat → jangan menunggu selamanya
+      document.head.append(link);
+    });
+  }
+
   // ---------- Bagian-bagian halaman ----------
 
   function renderCover(inv) {
+    setText('cover-lead', T.coverLead);
     setText('cover-groom', firstName(inv.groom_name));
     setText('cover-bride', firstName(inv.bride_name));
     setText('cover-greeting', T.coverGreeting);
     setText('cover-guest', guestName || T.coverDefaultGuest);
     setText('open-btn', T.coverOpen);
     document.title = `${firstName(inv.groom_name)} & ${firstName(inv.bride_name)} | Undangan Pernikahan`;
+  }
+
+  function renderQuote(quote) {
+    if (!quote) return;
+    setText('quote-arab', quote.arab);
+    setText('quote-text', quote.text);
+    setText('quote-source', quote.source);
+    $('quote-arab').hidden = !quote.arab;
+    $('quote').hidden = false;
   }
 
   function renderIntro(inv) {
@@ -268,7 +311,8 @@
       btn.disabled = true;
       btn.textContent = T.rsvpSending;
       try {
-        await API.submitRsvp(slug, data);
+        if (preview) await new Promise((r) => setTimeout(r, 400));   // pratinjau: tidak dikirim
+        else await API.submitRsvp(slug, data);
         okBox.textContent = T.rsvpThanks;
         okBox.hidden = false;
         if (data.message) {
@@ -309,10 +353,10 @@
   async function start() {
     let inv;
     try {
-      inv = await API.getInvitation(slug);
+      inv = preview ? await API.getPreview(slug) : await API.getInvitation(slug);
     } catch (err) {
       console.error(err);
-      showStatus(T.loadError);
+      showStatus(err.previewLogin ? err.message : T.loadError);
       return;
     }
     if (!inv) { showStatus(T.notFound); return; }
@@ -322,7 +366,11 @@
     inv.gifts = inv.gifts || [];
     inv.messages = inv.messages || [];
 
+    const templateKey = chooseTemplate(inv);
+    await loadTemplate(templateKey);
+
     renderCover(inv);
+    renderQuote(cfg.TEMPLATES[templateKey].QUOTE);
     renderIntro(inv);
     renderCountdown(inv);
     renderEvents(inv);
@@ -331,9 +379,9 @@
     renderRsvp(inv);
     const audio = setupMusic(inv);
 
-    if (API.isDemoMode(slug)) {
+    if (API.isDemoMode(slug) || preview) {
       $('demo-notice').hidden = false;
-      setText('demo-notice', T.demoNotice);
+      setText('demo-notice', preview ? T.previewNotice : T.demoNotice);
     }
 
     $('status').hidden = true;

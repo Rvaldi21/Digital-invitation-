@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/undangan.css">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 </head>
 <body class="is-locked">
 
@@ -22,7 +23,7 @@
   <!-- SAMPUL -->
   <header id="cover" class="cover" hidden>
     <div class="cover__inner">
-      <p class="cover__lead">Undangan pernikahan</p>
+      <p id="cover-lead" class="cover__lead"></p>
       <h1 class="cover__names">
         <span id="cover-groom"></span>
         <span class="cover__amp" aria-hidden="true">&amp;</span>
@@ -40,6 +41,11 @@
 
     <section class="section section--intro">
       <img id="cover-photo" class="intro__photo" alt="" hidden>
+      <figure id="quote" class="quote" hidden>
+        <p id="quote-arab" class="quote__arab" lang="ar" dir="rtl"></p>
+        <blockquote id="quote-text" class="quote__text"></blockquote>
+        <figcaption id="quote-source" class="quote__source"></figcaption>
+      </figure>
       <p id="opening" class="intro__text"></p>
       <div class="couple">
         <div class="person">

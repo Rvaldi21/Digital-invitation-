@@ -1,0 +1,48 @@
+/* =====================================================================
+   template-jawa.css — TEMPLATE "ADAT JAWA"
+   Cokelat sogan & emas, gunungan dan motif parang.
+   Dimuat SETELAH undangan.css: cukup menimpa nilai :root (warna, huruf,
+   motif) dan beberapa gaya khusus template ini.
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+  /* Warna */
+  --gelap:  #3A281B;  /* cokelat sogan tua: sampul & teks utama */
+  --latar:  #F1E6D2;  /* krem gading: latar halaman */
+  --utama:  #6B4A2E;  /* cokelat sogan: tombol */
+  --aksen:  #B8902F;  /* emas prada: ornamen & garis */
+  --kartu:  #FAF3E6;  /* kartu & kolom isian */
+  --redup:  #6E5E4E;  /* teks pendukung */
+  --garis:  #DCCBB0;  /* garis tepi */
+
+  /* Huruf: Cinzel (huruf kapital klasik) + Lora */
+  --font-judul: 'Cinzel', Georgia, serif;
+  --font-teks:  'Lora', Georgia, serif;
+
+  /* Motif parang & hiasan gunungan */
+  --motif: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23B8902F' stroke-width='1' stroke-linecap='round' opacity='.75'%3E %3Cpath d='M0 48 C12 44 4 32 16 32 C28 32 20 20 32 16 C44 12 36 4 48 0'/%3E %3Cpath d='M0 24 L24 0 M24 48 L48 24'/%3E%3Ccircle cx='16' cy='32' r='1.5'/%3E%3Ccircle cx='32' cy='16' r='1.5'/%3E%3C/g%3E%3C/svg%3E");
+  --motif-ukuran: 48px;
+  --ornamen: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%23B8902F' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E %3Cpath d='M20 2 C30 11 35 23 33 35 H7 C5 23 10 11 20 2Z'/%3E%3Cpath d='M20 35 V11'/%3E %3Cpath d='M20 17 l-5 -4 M20 17 l5 -4 M20 24 l-7 -5 M20 24 l7 -5 M20 30 l-8 -4 M20 30 l8 -4'/%3E%3Cpath d='M4 38 H36'/%3E%3C/g%3E%3C/svg%3E");
+
+  --sampul-lapis: radial-gradient(ellipse at center, rgba(58,40,27,.96) 30%, rgba(58,40,27,.8) 100%);
+  --gelap-lapis:  linear-gradient(rgba(58,40,27,.92), rgba(58,40,27,.92));
+}
+
+/* Cinzel lebar & berhuruf kapital: ukuran dikecilkan supaya muat di HP */
+.cover__names { font-size: clamp(2.25rem, 11vw, 3.5rem); line-height: 1.15; letter-spacing: .04em; }
+.cover__amp, .couple__amp { font-family: var(--font-teks); }
+.cover__guest-name { font-size: 1.3rem; }
+.person__name { font-size: 1.85rem; line-height: 1.2; letter-spacing: .03em; }
+.section__title { font-size: 1.85rem; line-height: 1.2; letter-spacing: .04em; }
+.event__title, .messages__title { font-size: 1.45rem; line-height: 1.2; }
+.gift__bank { font-size: 1.3rem; }
+.closing__names { font-size: 1.75rem; }
+.countdown span { font-size: 2.4rem; }
+
+/* Tombol emas di sampul */
+.cover .btn--light { background: var(--aksen); color: var(--gelap); }
+
+/* Garis emas ganda di atas kartu acara */
+.event { border-top: 4px double var(--aksen); }

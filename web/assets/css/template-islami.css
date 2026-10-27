@@ -1,0 +1,45 @@
+/* =====================================================================
+   template-islami.css — TEMPLATE "ISLAMI ELEGAN"
+   Hijau zamrud & emas, ornamen bintang geometris, ayat QS Ar-Rum: 21.
+   Dimuat SETELAH undangan.css: cukup menimpa nilai :root (warna, huruf,
+   motif) dan beberapa gaya khusus template ini.
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Nunito+Sans:wght@400;600&display=swap');
+
+:root {
+  /* Warna */
+  --gelap:  #0E3B31;  /* hijau zamrud tua: sampul & teks utama */
+  --latar:  #F4F1E8;  /* putih gading: latar halaman */
+  --utama:  #0F5A47;  /* hijau zamrud: tombol */
+  --aksen:  #C9A24A;  /* emas: ornamen & garis */
+  --kartu:  #FFFDF6;  /* kartu & kolom isian */
+  --redup:  #5C6A64;  /* teks pendukung */
+  --garis:  #DCD6C3;  /* garis tepi */
+
+  /* Huruf (Amiri juga dipakai untuk tulisan Arab) */
+  --font-judul: 'Amiri', Georgia, serif;
+  --font-teks:  'Nunito Sans', system-ui, sans-serif;
+
+  /* Motif bintang delapan */
+  --motif: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23C9A24A' stroke-width='1'%3E %3Crect x='16' y='16' width='24' height='24'/%3E%3Cpath d='M28 11 L45 28 L28 45 L11 28Z'/%3E%3Ccircle cx='28' cy='28' r='4'/%3E %3Cpath d='M0 0 L6 0 M0 0 L0 6 M56 0 L50 0 M56 0 L56 6 M0 56 L6 56 M0 56 L0 50 M56 56 L50 56 M56 56 L56 50'/%3E%3C/g%3E%3C/svg%3E");
+  --motif-ukuran: 56px;
+  --ornamen: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%23C9A24A' stroke-width='1.3'%3E %3Crect x='9' y='9' width='22' height='22'/%3E%3Cpath d='M20 4.5 L35.5 20 L20 35.5 L4.5 20Z'/%3E%3Ccircle cx='20' cy='20' r='5'/%3E%3C/g%3E %3Ccircle cx='20' cy='20' r='1.8' fill='%23C9A24A'/%3E%3C/svg%3E");
+
+  --sampul-lapis: radial-gradient(ellipse at center, rgba(14,59,49,.96) 30%, rgba(14,59,49,.78) 100%);
+  --gelap-lapis:  linear-gradient(rgba(14,59,49,.92), rgba(14,59,49,.92));
+}
+
+/* Huruf Amiri lebih tinggi: beri jarak baris lebih lega */
+.cover__names { font-size: clamp(2.75rem, 13vw, 4.25rem); line-height: 1.15; }
+.person__name, .section__title, .event__title, .messages__title, .closing__names { line-height: 1.3; }
+.quote__arab { font-family: 'Amiri', serif; }
+
+/* Tombol emas di sampul */
+.cover .btn--light { background: var(--aksen); color: var(--gelap); }
+
+/* Kartu berbingkai ganda emas */
+.event, .gift {
+  border-top: 0;
+  box-shadow: inset 0 0 0 1px var(--garis), inset 0 0 0 5px var(--kartu), inset 0 0 0 6px rgba(201,162,74,.55);
+}

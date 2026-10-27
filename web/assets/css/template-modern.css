@@ -1,0 +1,54 @@
+/* =====================================================================
+   template-modern.css — TEMPLATE "MODERN MINIMALIS"
+   Putih bersih & hitam, huruf tegas, tanpa motif.
+   Dimuat SETELAH undangan.css: cukup menimpa nilai :root (warna, huruf,
+   motif) dan beberapa gaya khusus template ini.
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400&family=Inter:wght@400;600&display=swap');
+
+:root {
+  /* Warna */
+  --gelap:  #111111;  /* hitam: teks utama & bagian gelap */
+  --latar:  #FFFFFF;  /* putih: latar halaman & sampul */
+  --utama:  #111111;  /* hitam: tombol */
+  --aksen:  #111111;  /* hitam: garis & tanda "&" */
+  --kartu:  #F5F5F4;  /* abu sangat muda: kolom isian */
+  --redup:  #6B6B6B;  /* teks pendukung */
+  --garis:  #E4E4E4;  /* garis tepi */
+
+  /* Huruf */
+  --font-judul: 'Jost', system-ui, sans-serif;
+  --font-teks:  'Inter', system-ui, sans-serif;
+
+  /* Sudut tegas, tanpa motif; pemisah berupa garis tipis */
+  --radius: 0;
+  --foto-sudut: 0;
+  --motif: none;
+  --ornamen: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M6 20 H34' stroke='%23111111' stroke-width='1'/%3E%3C/svg%3E");
+
+  --sampul-latar: var(--latar);
+  --sampul-teks:  var(--gelap);
+  --sampul-lapis: none;
+  --gelap-lapis:  none;
+}
+
+/* Tombol kotak, huruf kapital berjarak */
+.btn { border-radius: 0; text-transform: uppercase; letter-spacing: .1em; font-size: .8rem; }
+.cover .btn--light { background: var(--gelap); color: var(--latar); }
+
+/* Judul tipis, kapital, berjarak */
+.cover__names { font-weight: 300; text-transform: uppercase; letter-spacing: .08em; font-size: clamp(2.4rem, 12vw, 3.75rem); line-height: 1.05; }
+.cover__amp, .couple__amp { font-style: normal; font-weight: 300; }
+.cover__lead { text-transform: uppercase; letter-spacing: .2em; font-size: .75rem; }
+.section__title, .messages__title { font-weight: 300; text-transform: uppercase; letter-spacing: .14em; font-size: 1.5rem; }
+.person__name { font-weight: 300; font-size: 2.1rem; line-height: 1.15; }
+.event__title { font-weight: 400; text-transform: uppercase; letter-spacing: .12em; font-size: 1.15rem; }
+.closing__names { font-weight: 300; text-transform: uppercase; letter-spacing: .08em; font-size: 1.75rem; }
+.countdown span { font-weight: 300; }
+
+/* Kartu putih bergaris tipis, semua sudut tegas */
+.event, .gift, .message { background: var(--latar); border: 1px solid var(--garis); }
+.event { border-top: 1px solid var(--gelap); }
+.gallery button, .gift__qris, .form-msg,
+.field input, .field select, .field textarea, .choice span { border-radius: 0; }

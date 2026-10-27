@@ -1,16 +1,19 @@
 /* =====================================================================
-   undangan.css — TAMPILAN TEMPLATE "KLASIK"
-   Warna & huruf diatur di :root. Ganti nilai di sana untuk tema lain.
+   undangan.css — TAMPILAN DASAR UNDANGAN + TEMPLATE "KLASIK"
+   Semua template memakai file ini. Warna, huruf, dan motif diatur di
+   :root di bawah. Template lain (template-*.css) cukup menimpa nilai
+   :root itu, ditambah sedikit gaya khusus bila perlu.
    ===================================================================== */
 
 :root {
-  /* Warna */
-  --nila:   #1F2A44;  /* biru nila tua: sampul, teks utama */
-  --kertas: #EEF1EC;  /* latar halaman: hijau pucat */
-  --daun:   #3E5C4A;  /* hijau daun pisang: tombol */
-  --prada:  #B08D57;  /* emas prada: motif & garis tipis */
-  --putih:  #FBFCFA;  /* kartu & kolom isian */
+  /* Warna (dinamai menurut perannya, bukan warnanya) */
+  --gelap:  #1F2A44;  /* biru nila tua: sampul, teks utama */
+  --latar:  #EEF1EC;  /* latar halaman: hijau pucat */
+  --utama:  #3E5C4A;  /* hijau daun pisang: tombol */
+  --aksen:  #B08D57;  /* emas prada: motif & garis tipis */
+  --kartu:  #FBFCFA;  /* kartu & kolom isian */
   --redup:  #5D6675;  /* teks pendukung */
+  --garis:  #C9D1C8;  /* garis tepi kolom isian */
   --merah:  #A33A3A;  /* pesan error */
 
   /* Huruf */
@@ -18,10 +21,19 @@
   --font-teks:  'Plus Jakarta Sans', system-ui, sans-serif;
 
   --lebar: 30rem;     /* lebar maksimal konten */
-  --radius: 14px;
+  --radius: 14px;     /* sudut kartu */
+  --foto-sudut: 999px 999px var(--radius) var(--radius);   /* foto sampul berbentuk gapura */
 
-  /* Motif kawung (batik) */
-  --kawung: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23B08D57' stroke-width='1'%3E%3Cellipse cx='32' cy='16' rx='8.5' ry='14'/%3E%3Cellipse cx='32' cy='48' rx='8.5' ry='14'/%3E%3Cellipse cx='16' cy='32' rx='14' ry='8.5'/%3E%3Cellipse cx='48' cy='32' rx='14' ry='8.5'/%3E%3Ccircle cx='32' cy='32' r='2'/%3E%3C/g%3E%3C/svg%3E");
+  /* Motif kawung (batik): latar sampul & pemisah antarbagian */
+  --motif: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23B08D57' stroke-width='1'%3E%3Cellipse cx='32' cy='16' rx='8.5' ry='14'/%3E%3Cellipse cx='32' cy='48' rx='8.5' ry='14'/%3E%3Cellipse cx='16' cy='32' rx='14' ry='8.5'/%3E%3Cellipse cx='48' cy='32' rx='14' ry='8.5'/%3E%3Ccircle cx='32' cy='32' r='2'/%3E%3C/g%3E%3C/svg%3E");
+  --motif-ukuran: 64px;
+  --ornamen: var(--motif);   /* hiasan kecil di antara bagian; "none" = tanpa hiasan */
+
+  /* Sampul & bagian gelap (hitung mundur, penutup) */
+  --sampul-latar: var(--gelap);
+  --sampul-teks:  var(--latar);
+  --sampul-lapis: radial-gradient(ellipse at center, rgba(31,42,68,.97) 30%, rgba(31,42,68,.72) 100%);
+  --gelap-lapis:  linear-gradient(rgba(31,42,68,.9), rgba(31,42,68,.9));
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -30,8 +42,8 @@ html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
-  background: var(--kertas);
-  color: var(--nila);
+  background: var(--latar);
+  color: var(--gelap);
   font-family: var(--font-teks);
   font-size: 1rem;
   line-height: 1.6;
@@ -43,7 +55,7 @@ img { max-width: 100%; display: block; }
 
 [hidden] { display: none !important; }
 
-:focus-visible { outline: 2px solid var(--prada); outline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--aksen); outline-offset: 3px; }
 
 /* ---------- Status memuat ---------- */
 .status {
@@ -59,7 +71,7 @@ img { max-width: 100%; display: block; }
 
 .kawung-mark {
   width: 64px; height: 64px;
-  background: var(--kawung) center / contain no-repeat;
+  background: var(--ornamen) center / contain no-repeat;
 }
 .kawung-mark--light { opacity: .7; }
 
@@ -72,17 +84,17 @@ img { max-width: 100%; display: block; }
   padding: .75rem 1.5rem;
   border: 0;
   border-radius: 999px;
-  background: var(--daun);
-  color: var(--putih);
+  background: var(--utama);
+  color: var(--kartu);
   font: 600 .95rem/1 var(--font-teks);
   cursor: pointer;
   text-decoration: none;
 }
 .btn:disabled { opacity: .6; cursor: progress; }
-.btn--light { background: var(--kertas); color: var(--nila); }
+.btn--light { background: var(--latar); color: var(--gelap); }
 .btn--ghost {
   background: transparent;
-  color: var(--daun);
+  color: var(--utama);
   border: 1px solid currentColor;
   min-height: 40px;
   padding: .5rem 1rem;
@@ -97,10 +109,10 @@ img { max-width: 100%; display: block; }
   display: grid;
   place-items: center;
   padding: 2rem 1.25rem calc(2rem + env(safe-area-inset-bottom));
-  background-color: var(--nila);
-  background-image: radial-gradient(ellipse at center, rgba(31,42,68,.97) 30%, rgba(31,42,68,.72) 100%), var(--kawung);
-  background-size: auto, 64px 64px;
-  color: var(--kertas);
+  background-color: var(--sampul-latar);
+  background-image: var(--sampul-lapis), var(--motif);
+  background-size: auto, var(--motif-ukuran) var(--motif-ukuran);
+  color: var(--sampul-teks);
   text-align: center;
   transition: transform .9s cubic-bezier(.7,0,.2,1);
 }
@@ -116,7 +128,7 @@ img { max-width: 100%; display: block; }
   font: 400 clamp(3.25rem, 16vw, 5rem)/.95 var(--font-judul);
   letter-spacing: -.01em;
 }
-.cover__amp { font-style: italic; font-size: .55em; color: var(--prada); margin: .2em 0; }
+.cover__amp { font-style: italic; font-size: .55em; color: var(--aksen); margin: .2em 0; }
 
 .cover__guest p { margin: 0; }
 .cover__guest-name { font: 400 1.6rem/1.25 var(--font-judul); margin-top: .25rem !important; }
@@ -133,15 +145,15 @@ img { max-width: 100%; display: block; }
   display: block;
   width: 40px; height: 40px;
   margin: -2.25rem auto 2.5rem;
-  background: var(--kawung) center / contain no-repeat;
+  background: var(--ornamen) center / contain no-repeat;
 }
 
 .section--dark {
   max-width: none;
-  background-color: var(--nila);
-  background-image: linear-gradient(rgba(31,42,68,.9), rgba(31,42,68,.9)), var(--kawung);
-  background-size: auto, 64px 64px;
-  color: var(--kertas);
+  background-color: var(--gelap);
+  background-image: var(--gelap-lapis), var(--motif);
+  background-size: auto, var(--motif-ukuran) var(--motif-ukuran);
+  color: var(--latar);
 }
 
 .section__title {
@@ -155,13 +167,19 @@ img { max-width: 100%; display: block; }
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
-  border-radius: 999px 999px var(--radius) var(--radius);
+  border-radius: var(--foto-sudut);
   margin-bottom: 2.5rem;
 }
 .intro__text { margin: 0 auto 2.5rem; max-width: 26rem; color: var(--redup); }
 
+/* Kutipan pembuka (mis. ayat). Isinya diatur per template di config.js */
+.quote { margin: 0 auto 2.5rem; max-width: 26rem; }
+.quote__arab { margin: 0 0 1rem; font-size: 1.75rem; line-height: 2; color: var(--aksen); }
+.quote__text { margin: 0; font-style: italic; color: var(--redup); }
+.quote__source { display: block; margin-top: .5rem; font-size: .85rem; font-style: normal; font-weight: 600; color: var(--utama); }
+
 .couple { display: grid; gap: 1rem; }
-.couple__amp { font: italic 400 2.5rem/1 var(--font-judul); color: var(--prada); }
+.couple__amp { font: italic 400 2.5rem/1 var(--font-judul); color: var(--aksen); }
 .person__name { margin: 0; font: 400 2.75rem/1.05 var(--font-judul); }
 .person__parents { margin: .5rem 0 0; color: var(--redup); font-size: .925rem; }
 
@@ -183,9 +201,9 @@ img { max-width: 100%; display: block; }
 .events { display: grid; gap: 1rem; }
 .event {
   padding: 1.75rem 1.25rem;
-  background: var(--putih);
+  background: var(--kartu);
   border-radius: var(--radius);
-  border-top: 3px solid var(--prada);
+  border-top: 3px solid var(--aksen);
 }
 .event__title { margin: 0 0 .75rem; font: 400 2rem/1.1 var(--font-judul); }
 .event__date { margin: 0; font-weight: 600; }
@@ -203,7 +221,7 @@ img { max-width: 100%; display: block; }
   padding: 0; border: 0; background: none; cursor: zoom-in;
   border-radius: 10px; overflow: hidden;
 }
-.gallery img { width: 100%; aspect-ratio: 1; object-fit: cover; background: #dfe4dd; }
+.gallery img { width: 100%; aspect-ratio: 1; object-fit: cover; background: var(--garis); }
 /* Jumlah foto ganjil: foto pertama dibuat lebar supaya baris terakhir tetap penuh */
 .gallery--odd button:first-child { grid-column: span 2; }
 .gallery--odd button:first-child img { aspect-ratio: 3 / 2; }
@@ -216,14 +234,14 @@ img { max-width: 100%; display: block; }
 .lightbox__close {
   position: fixed; top: 1rem; right: 1rem;
   width: 44px; height: 44px; border-radius: 50%; border: 0;
-  background: var(--kertas); color: var(--nila); font-size: 1.5rem; cursor: pointer;
+  background: var(--latar); color: var(--gelap); font-size: 1.5rem; cursor: pointer;
 }
 
 /* ---------- Amplop digital ---------- */
 .gifts { display: grid; gap: 1rem; }
 .gift {
   padding: 1.5rem 1.25rem;
-  background: var(--putih);
+  background: var(--kartu);
   border-radius: var(--radius);
   display: grid;
   gap: .25rem;
@@ -243,31 +261,31 @@ img { max-width: 100%; display: block; }
   width: 100%;
   min-height: 48px;
   padding: .75rem 1rem;
-  border: 1px solid #c9d1c8;
+  border: 1px solid var(--garis);
   border-radius: 10px;
-  background: var(--putih);
-  color: var(--nila);
+  background: var(--kartu);
+  color: var(--gelap);
   font: 1rem/1.4 var(--font-teks);
 }
 .field textarea { resize: vertical; }
-.field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--daun); outline-offset: 0; border-color: transparent; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--utama); outline-offset: 0; border-color: transparent; }
 
 .choice { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; }
 .choice label { position: relative; }
 .choice input { position: absolute; opacity: 0; inset: 0; }
 .choice span {
   display: grid; place-items: center; min-height: 48px; padding: .5rem;
-  border: 1px solid #c9d1c8; border-radius: 10px; background: var(--putih);
+  border: 1px solid var(--garis); border-radius: 10px; background: var(--kartu);
   font-size: .875rem; text-align: center; cursor: pointer;
 }
-.choice input:checked + span { background: var(--daun); border-color: var(--daun); color: var(--putih); font-weight: 600; }
-.choice input:focus-visible + span { outline: 2px solid var(--prada); outline-offset: 2px; }
+.choice input:checked + span { background: var(--utama); border-color: var(--utama); color: var(--kartu); font-weight: 600; }
+.choice input:focus-visible + span { outline: 2px solid var(--aksen); outline-offset: 2px; }
 
 .rsvp .btn { width: 100%; }
 
 .form-msg { margin: 0; padding: .75rem 1rem; border-radius: 10px; font-size: .925rem; }
 .form-msg--error { background: #f6e3e3; color: var(--merah); }
-.form-msg--ok { background: #e0ebe3; color: var(--daun); }
+.form-msg--ok { background: #e0ebe3; color: var(--utama); }
 
 .messages__title { margin: 0 0 1rem; font: 400 2rem/1.1 var(--font-judul); }
 .messages {
@@ -275,7 +293,7 @@ img { max-width: 100%; display: block; }
   display: grid; gap: .75rem; text-align: left;
   max-height: 28rem; overflow-y: auto;
 }
-.message { padding: 1rem 1.125rem; background: var(--putih); border-radius: var(--radius); }
+.message { padding: 1rem 1.125rem; background: var(--kartu); border-radius: var(--radius); }
 .message__head { display: flex; flex-wrap: wrap; gap: .25rem .5rem; align-items: baseline; margin-bottom: .25rem; }
 .message__name { font-weight: 600; }
 .message__att { font-size: .8rem; color: var(--redup); }
@@ -287,6 +305,19 @@ img { max-width: 100%; display: block; }
 .closing__text { margin: 0; max-width: 24rem; opacity: .9; }
 .closing__names { margin: 0; font: 400 2.25rem/1.1 var(--font-judul); }
 
+/* ---------- Katalog template (halaman beranda) ---------- */
+.katalog { min-height: 100svh; display: grid; align-content: center; justify-items: center; }
+.katalog__list { list-style: none; margin: 0; padding: 0; width: 100%; display: grid; gap: .75rem; text-align: left; }
+.katalog__item {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem; border-radius: var(--radius);
+  background: var(--kartu); border: 1px solid var(--garis);
+  color: inherit; text-decoration: none;
+}
+.katalog__item span:last-child { display: grid; gap: .15rem; }
+.katalog__item small { color: var(--redup); font-size: .85rem; }
+.katalog__swatch { flex: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--garis); }
+
 .demo-notice {
   margin: 0; padding: .75rem 1.25rem 5rem;
   text-align: center; font-size: .85rem; color: var(--redup);
@@ -296,7 +327,7 @@ img { max-width: 100%; display: block; }
 .music-btn {
   position: fixed; right: 1rem; bottom: calc(1rem + env(safe-area-inset-bottom)); z-index: 10;
   width: 48px; height: 48px; border-radius: 50%; border: 0;
-  background: var(--nila); color: var(--kertas);
+  background: var(--gelap); color: var(--latar);
   display: grid; place-items: center; cursor: pointer;
   box-shadow: 0 6px 18px rgba(31, 42, 68, .3);
 }

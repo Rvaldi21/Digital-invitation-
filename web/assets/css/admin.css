@@ -229,6 +229,23 @@ p { margin: 0; }
 .form-msg--error { background: #f6e3e3; color: var(--merah); }
 .form-msg--warn { background: #f5ecd6; color: var(--kuning); }
 
+/* ---------- Pilihan template ---------- */
+.tpl-list { display: grid; gap: .5rem; }
+.tpl {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .75rem;
+  border: 1px solid var(--garis);
+  border-radius: 12px;
+  cursor: pointer;
+}
+.tpl:has(input:checked) { border-color: var(--daun); outline: 2px solid var(--daun); outline-offset: -2px; }
+.tpl input { width: 20px; height: 20px; accent-color: var(--daun); flex: none; }
+.tpl__swatch { flex: none; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--garis); }
+.tpl__text { display: grid; gap: .1rem; min-width: 0; }
+.tpl__text small { color: var(--redup); font-size: .825rem; }
+
 /* ---------- Label status ---------- */
 .badge {
   display: inline-block;

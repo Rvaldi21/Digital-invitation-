@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Ikon Njagong: motif kawung emas di atas biru nila -->
+  <rect width="64" height="64" rx="14" fill="#1F2A44"/>
+  <g fill="none" stroke="#B08D57" stroke-width="3">
+    <ellipse cx="32" cy="18" rx="8" ry="12"/>
+    <ellipse cx="32" cy="46" rx="8" ry="12"/>
+    <ellipse cx="18" cy="32" rx="12" ry="8"/>
+    <ellipse cx="46" cy="32" rx="12" ry="8"/>
+  </g>
+  <circle cx="32" cy="32" r="3" fill="#B08D57"/>
+</svg>

@@ -39,9 +39,13 @@
         el('p', { class: 'muted small' }, STATUS_INFO[inv.status]),
       ),
       el('div', { class: 'actions' },
-        inv.status === 'published' && el('a', {
-          class: 'btn btn--ghost btn--sm', href: ui.publicLink(inv.slug), target: '_blank', rel: 'noopener',
-        }, 'Lihat'),
+        inv.status === 'published'
+          ? el('a', { class: 'btn btn--ghost btn--sm', href: ui.publicLink(inv.slug), target: '_blank', rel: 'noopener' }, 'Lihat')
+          // Belum terbit: admin tetap bisa melihat hasilnya lewat mode pratinjau
+          : el('a', {
+            class: 'btn btn--ghost btn--sm', target: '_blank', rel: 'noopener',
+            href: `/undangan/?u=${encodeURIComponent(inv.slug)}&pratinjau=1`,
+          }, 'Pratinjau'),
         btn,
       ),
     );

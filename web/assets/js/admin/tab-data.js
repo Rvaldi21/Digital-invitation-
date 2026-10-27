@@ -31,6 +31,40 @@
     );
   }
 
+  // Pilihan template (daftar dari config.js → TEMPLATES) + link pratinjau
+  function templatePicker(inv, onChange) {
+    const current = cfg.TEMPLATES[inv.template] ? inv.template : 'klasik';
+    const previewLink = el('a', { class: 'btn btn--ghost btn--sm', target: '_blank', rel: 'noopener' },
+      'Pratinjau dengan template ini');
+    const setPreview = (key) => {
+      previewLink.href = `/undangan/?u=${encodeURIComponent(inv.slug)}&pratinjau=1&t=${encodeURIComponent(key)}`;
+    };
+
+    const options = Object.entries(cfg.TEMPLATES).map(([key, tpl]) => {
+      const swatch = el('span', { class: 'tpl__swatch', 'aria-hidden': 'true' });
+      swatch.style.background = tpl.color;
+      const radio = el('input', { type: 'radio', name: 'template', value: key, checked: key === current });
+      radio.addEventListener('change', () => { setPreview(key); onChange(key); });
+      return el('label', { class: 'tpl' },
+        radio,
+        swatch,
+        el('span', { class: 'tpl__text' }, el('strong', {}, tpl.label), el('small', {}, tpl.description)),
+      );
+    });
+
+    setPreview(current);
+    const list = el('div', { class: 'tpl-list', role: 'radiogroup', 'aria-label': 'Template' }, options);
+    return {
+      node: el('section', { class: 'card stack' },
+        el('h2', { class: 'card-title' }, 'Template'),
+        list,
+        previewLink,
+        el('small', { class: 'muted' }, 'Pratinjau memakai data yang sudah disimpan. Tekan Simpan untuk memakai template terpilih.'),
+      ),
+      value: () => list.querySelector('input:checked').value,
+    };
+  }
+
   window.Admin.tabs.data = function (inv, body) {
     const input = (value, maxlength) => el('input', { type: 'text', maxlength, value: value || '' });
 
@@ -50,7 +84,13 @@
     );
     const save = el('button', { class: 'btn btn--block', type: 'submit' }, 'Simpan');
 
+    // Teks pembuka bawaan bisa berbeda per template (mis. salam di template Islami)
+    const openingFor = (key) => ((cfg.TEMPLATES[key] || {}).TEXT || {}).openingDefault || cfg.TEXT.openingDefault;
+    const template = templatePicker(inv, (key) => { opening.placeholder = openingFor(key); });
+    opening.placeholder = openingFor(template.value());
+
     const form = el('form', { class: 'stack', novalidate: true },
+      template.node,
       el('section', { class: 'card stack' },
         el('h2', { class: 'card-title' }, 'Mempelai'),
         field('Nama lengkap mempelai pria', groom),
@@ -82,6 +122,7 @@
         rsvp_enabled: rsvp.checked,
         slug: ui.slugify(slug.value),
         status: status.value,
+        template: template.value(),
       };
       if (!row.groom_name || !row.bride_name) return ui.toast('Nama kedua mempelai wajib diisi.', 'error');
       if (!ui.isValidSlug(row.slug)) return ui.toast('Link minimal 3 karakter: huruf kecil, angka, tanda -.', 'error');

@@ -28,6 +28,7 @@ window.APP_CONFIG = {
   // TEKS BAWAAN (dipakai jika data undangan tidak mengisinya)
   // -------------------------------------------------------------------
   TEXT: {
+    coverLead: 'Undangan pernikahan',
     coverGreeting: 'Kepada Yth.',
     coverDefaultGuest: 'Bapak/Ibu/Saudara/i',
     coverOpen: 'Buka undangan',
@@ -55,6 +56,72 @@ window.APP_CONFIG = {
     notFound: 'Undangan tidak ditemukan. Periksa kembali link yang Anda terima.',
     loadError: 'Undangan gagal dimuat. Periksa koneksi internet lalu muat ulang halaman.',
     demoNotice: 'Mode demo: ini data contoh, konfirmasi tidak disimpan.',
+    previewNotice: 'Mode pratinjau: hanya admin yang melihat halaman ini. Konfirmasi tidak disimpan.',
+    previewLogin: 'Pratinjau hanya untuk admin. Buka panel admin dan login dulu, lalu tekan Pratinjau lagi.',
+  },
+
+  // -------------------------------------------------------------------
+  // TEMPLATE
+  // Tiap template punya file tampilan sendiri: assets/css/template-<nama>.css
+  // (klasik memakai tampilan dasar undangan.css). Nama di sini harus sama
+  // dengan nama file-nya. Contoh tampilan: /undangan/?u=demo&t=<nama>
+  //   label        nama yang tampil di panel admin
+  //   description  keterangan singkat untuk memilih
+  //   color        warna bilah browser di HP
+  //   TEXT         (opsional) mengganti teks bawaan di atas khusus template ini
+  //   QUOTE        (opsional) kutipan di bagian pembuka
+  // -------------------------------------------------------------------
+  TEMPLATES: {
+    klasik: {
+      label: 'Klasik',
+      description: 'Biru nila, hijau daun, emas, motif batik kawung.',
+      color: '#1F2A44',
+    },
+    rustic: {
+      label: 'Rustic',
+      description: 'Krem & cokelat hangat, ranting daun dan bunga kering.',
+      color: '#F4ECE1',
+      TEXT: { coverLead: 'The Wedding of' },
+    },
+    islami: {
+      label: 'Islami elegan',
+      description: 'Hijau zamrud & emas, ornamen geometris, ayat QS Ar-Rum: 21.',
+      color: '#0E3B31',
+      TEXT: {
+        coverLead: "Walimatul 'Ursy",
+        openingDefault:
+          "Assalamu'alaikum Warahmatullahi Wabarakatuh. Dengan memohon rahmat dan ridha " +
+          'Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami.',
+        closing:
+          'Merupakan kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i ' +
+          "berkenan hadir dan memberikan doa restu. Wassalamu'alaikum Warahmatullahi Wabarakatuh.",
+      },
+      QUOTE: {
+        arab: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
+        text:
+          'Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan-pasangan ' +
+          'untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, ' +
+          'dan Dia menjadikan di antaramu rasa kasih dan sayang.',
+        source: 'QS. Ar-Rum: 21',
+      },
+    },
+    jawa: {
+      label: 'Adat Jawa',
+      description: 'Cokelat sogan & emas, gunungan dan motif parang.',
+      color: '#3A281B',
+      TEXT: {
+        coverLead: 'Pawiwahan',
+        closing:
+          'Merupakan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan rawuh ' +
+          'dan paring pangestu. Matur nuwun.',
+      },
+    },
+    modern: {
+      label: 'Modern minimalis',
+      description: 'Putih bersih & hitam, tegas, banyak ruang kosong.',
+      color: '#FFFFFF',
+      TEXT: { coverLead: 'We are getting married' },
+    },
   },
 
   ATTENDANCE_LABELS: {
