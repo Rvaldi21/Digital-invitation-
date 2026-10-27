@@ -31,7 +31,17 @@
   --sampul-teks:  var(--gelap);
   --sampul-lapis: radial-gradient(ellipse at center, rgba(244,236,225,.97) 35%, rgba(244,236,225,.8) 100%);
   --gelap-lapis:  linear-gradient(rgba(74,55,40,.93), rgba(74,55,40,.93));
+
+  /* Hiasan: buket mawar & daun kering di sudut kiri-atas dan kanan-bawah */
+  --pemisah: url("/assets/hiasan/rustic-pemisah.svg");
+  --pemisah-lebar: 200px;
+  --hiasan-sudut: url("/assets/hiasan/rustic-buket.svg");
+  --sudut-ukuran: clamp(150px, 46vw, 240px);
+  --bingkai-garis: none;
 }
+
+/* Buket hanya di dua sudut yang berseberangan */
+.hiasan__sudut--kanan-atas, .hiasan__sudut--kiri-bawah { display: none; }
 
 /* Tombol di sampul terang */
 .cover .btn--light { background: var(--utama); color: var(--kartu); }

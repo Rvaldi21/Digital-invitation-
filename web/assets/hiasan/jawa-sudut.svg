@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150">
+  <!-- Sudut jawa: garis ganda dengan sulur ukel -->
+  <g fill="none" stroke="#C29A3B" stroke-width="1.5" stroke-linecap="round">
+    <path d="M8 140 V8 H140"/>
+    <path d="M16 100 V16 H100" stroke-width="1"/>
+    <path d="M16 64 C34 64 46 54 46 38 C46 26 36 22 30 28 C24 34 30 42 36 38"/>
+    <path d="M64 16 C64 34 54 46 38 46"/>
+    <path d="M46 38 C58 40 70 50 74 64 C76 72 70 78 64 74 C58 70 62 62 68 64"/>
+    <path d="M38 46 C40 58 50 70 64 74"/>
+  </g>
+  <path d="M30 30 l6 -10 6 10 -6 10z" fill="#C29A3B" fill-opacity=".6"/>
+  <circle cx="140" cy="8" r="2.5" fill="#C29A3B"/><circle cx="8" cy="140" r="2.5" fill="#C29A3B"/>
+</svg>

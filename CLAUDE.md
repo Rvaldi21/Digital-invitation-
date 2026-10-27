@@ -94,8 +94,23 @@ Semua harus memakai paket gratis sampai ada pemasukan.
   - Template lain = `assets/css/template-<nama>.css` yang hanya menimpa token +
     sedikit gaya; dimuat oleh undangan.js sesuai `invitations.template`,
     halaman baru tampil setelah CSS-nya siap. Huruf via `@import` Google Fonts.
-  - Motif & ornamen = SVG kecil sebagai data URI di file template; kalau
-    mengubah, tulis SVG-nya lalu encode `<`→%3C, `>`→%3E, `#`→%23.
+  - Motif latar (pola berulang) = SVG kecil sebagai data URI di file template;
+    kalau mengubah, tulis SVG-nya lalu encode `<`→%3C, `>`→%3E, `#`→%23.
+  - **Hiasan khas** tiap template = file SVG di `web/assets/hiasan/<template>-*.svg`,
+    dipasang lewat token `--pemisah`, `--hiasan-sudut`, `--hiasan-atas`,
+    `--hiasan-bawah`, `--hiasan-bingkai`, `--bingkai-garis`, `--ikon-sampul`
+    (+ ukurannya). Wadahnya: `.hiasan` di sampul & penutup, `.cover__ikon`,
+    `.cover__script` (teks dari `TEMPLATES.<nama>.SCRIPT`), `.cover__monogram`,
+    `.cover__date`. Klasik: sudut kawung + bingkai garis. Rustic: buket mawar di
+    2 sudut. Islami: gapura + lentera + siluet masjid + kaligrafi "بارك الله لكما"
+    (huruf Aref Ruqaa). Jawa: gunungan + pita parang + sulur sudut + aksara Jawa
+    "ꦥꦮꦶꦮꦲꦤ꧀" (Noto Sans Javanese). Modern: monogram inisial + bingkai garis.
+    Aturan di file template yang menimpa `.hiasan > span` harus memakai selektor
+    `.hiasan > .hiasan__x` (kalau tidak, kalah kuat).
+  - **Gambar contoh** tiap template: `web/assets/contoh-template/<nama>.jpg`
+    (sampul demo 390×844), dipakai di pilihan template panel admin (kartu bergambar,
+    geser ke samping) & katalog beranda. Buat ulang dengan
+    `alat/foto-contoh-template.js` setiap tampilan template berubah.
   - `?t=<nama>` hanya berlaku di demo & pratinjau. Katalog: beranda `/` + `?u=demo&t=`.
   - Template baru: tambah entri di TEMPLATES + buat file template-<nama>.css.
 - **Pratinjau draft**: `/undangan/?u=<slug>&pratinjau=1[&t=<nama>]` — api.js

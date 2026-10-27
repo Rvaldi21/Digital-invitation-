@@ -95,10 +95,20 @@
 
   // ---------- Bagian-bagian halaman ----------
 
-  function renderCover(inv) {
+  function renderCover(inv, tpl) {
+    // Tulisan khas template (kaligrafi Arab / aksara Jawa) dari config.js
+    if (tpl.SCRIPT) {
+      setText('cover-script', tpl.SCRIPT.text);
+      $('cover-script').lang = tpl.SCRIPT.lang;
+      $('cover-script').dir = tpl.SCRIPT.lang === 'ar' ? 'rtl' : 'auto';
+      $('cover-script').hidden = false;
+    }
     setText('cover-lead', T.coverLead);
+    setText('cover-monogram',
+      `${firstName(inv.groom_name).charAt(0)}${firstName(inv.bride_name).charAt(0)}`.toUpperCase());
     setText('cover-groom', firstName(inv.groom_name));
     setText('cover-bride', firstName(inv.bride_name));
+    setText('cover-date', inv.events.length ? fmtDate.format(new Date(inv.events[0].starts_at)) : '');
     setText('cover-greeting', T.coverGreeting);
     setText('cover-guest', guestName || T.coverDefaultGuest);
     setText('open-btn', T.coverOpen);
@@ -369,7 +379,7 @@
     const templateKey = chooseTemplate(inv);
     await loadTemplate(templateKey);
 
-    renderCover(inv);
+    renderCover(inv, cfg.TEMPLATES[templateKey]);
     renderQuote(cfg.TEMPLATES[templateKey].QUOTE);
     renderIntro(inv);
     renderCountdown(inv);

@@ -22,13 +22,27 @@
 
   <!-- SAMPUL -->
   <header id="cover" class="cover" hidden>
+    <!-- Hiasan khas template (gambarnya diatur di file CSS template) -->
+    <div class="hiasan" aria-hidden="true">
+      <span class="hiasan__bingkai"></span>
+      <span class="hiasan__atas"></span>
+      <span class="hiasan__bawah"></span>
+      <span class="hiasan__sudut hiasan__sudut--kiri-atas"></span>
+      <span class="hiasan__sudut hiasan__sudut--kanan-atas"></span>
+      <span class="hiasan__sudut hiasan__sudut--kiri-bawah"></span>
+      <span class="hiasan__sudut hiasan__sudut--kanan-bawah"></span>
+    </div>
     <div class="cover__inner">
+      <span class="cover__ikon" aria-hidden="true"></span>
+      <p id="cover-script" class="cover__script" hidden></p>
       <p id="cover-lead" class="cover__lead"></p>
+      <p id="cover-monogram" class="cover__monogram" aria-hidden="true"></p>
       <h1 class="cover__names">
         <span id="cover-groom"></span>
         <span class="cover__amp" aria-hidden="true">&amp;</span>
         <span id="cover-bride"></span>
       </h1>
+      <p id="cover-date" class="cover__date"></p>
       <div class="cover__guest">
         <p id="cover-greeting"></p>
         <p id="cover-guest" class="cover__guest-name"></p>
@@ -117,6 +131,13 @@
     </section>
 
     <footer class="section section--dark closing">
+      <div class="hiasan" aria-hidden="true">
+        <span class="hiasan__bawah"></span>
+        <span class="hiasan__sudut hiasan__sudut--kiri-atas"></span>
+        <span class="hiasan__sudut hiasan__sudut--kanan-atas"></span>
+        <span class="hiasan__sudut hiasan__sudut--kiri-bawah"></span>
+        <span class="hiasan__sudut hiasan__sudut--kanan-bawah"></span>
+      </div>
       <span class="kawung-mark kawung-mark--light" aria-hidden="true"></span>
       <p id="closing" class="closing__text"></p>
       <p class="closing__names" id="closing-names"></p>

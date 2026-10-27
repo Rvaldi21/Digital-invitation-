@@ -5,7 +5,7 @@
    motif) dan beberapa gaya khusus template ini.
    ===================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Lora:ital,wght@0,400;0,600;1,400&family=Noto+Sans+Javanese&display=swap');
 
 :root {
   /* Warna */
@@ -28,7 +28,31 @@
 
   --sampul-lapis: radial-gradient(ellipse at center, rgba(58,40,27,.96) 30%, rgba(58,40,27,.8) 100%);
   --gelap-lapis:  linear-gradient(rgba(58,40,27,.92), rgba(58,40,27,.92));
+
+  /* Hiasan: gunungan di atas nama, pita parang atas-bawah, sulur di sudut */
+  --pemisah: url("/assets/hiasan/jawa-pemisah.svg");
+  --pemisah-lebar: 200px;
+  --pemisah-tinggi: 40px;
+  --hiasan-sudut: url("/assets/hiasan/jawa-sudut.svg");
+  --sudut-ukuran: clamp(84px, 26vw, 130px);
+  --hiasan-atas: url("/assets/hiasan/jawa-parang.svg");
+  --atas-tinggi: 24px;
+  --hiasan-bawah: url("/assets/hiasan/jawa-parang.svg");
+  --bawah-tinggi: 24px;
+  --bingkai-garis: none;
+  --ikon-sampul: url("/assets/hiasan/jawa-gunungan.svg");
+  --ikon-tinggi: clamp(96px, 18svh, 150px);
 }
+
+/* Pita parang diulang mendatar; sulur sudut berada di dalam pita */
+.hiasan > .hiasan__atas, .hiasan > .hiasan__bawah { background-repeat: repeat-x; background-size: auto 100%; }
+.hiasan__sudut--kiri-atas, .hiasan__sudut--kanan-atas { top: var(--atas-tinggi); }
+.hiasan__sudut--kiri-bawah, .hiasan__sudut--kanan-bawah { bottom: var(--bawah-tinggi); }
+.cover__ikon { display: block; }
+.cover__inner { gap: 1.1rem; }
+
+/* "Pawiwahan" dalam aksara Jawa */
+.cover__script { font-family: 'Noto Sans Javanese', serif; font-size: 1.6rem; margin: 0; }
 
 /* Cinzel lebar & berhuruf kapital: ukuran dikecilkan supaya muat di HP */
 .cover__names { font-size: clamp(2.25rem, 11vw, 3.5rem); line-height: 1.15; letter-spacing: .04em; }

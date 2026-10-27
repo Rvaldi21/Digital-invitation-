@@ -5,7 +5,7 @@
    motif) dan beberapa gaya khusus template ini.
    ===================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Nunito+Sans:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Nunito+Sans:wght@400;600&display=swap');
 
 :root {
   /* Warna */
@@ -28,7 +28,26 @@
 
   --sampul-lapis: radial-gradient(ellipse at center, rgba(14,59,49,.96) 30%, rgba(14,59,49,.78) 100%);
   --gelap-lapis:  linear-gradient(rgba(14,59,49,.92), rgba(14,59,49,.92));
+
+  /* Hiasan: bingkai gapura, lentera gantung, siluet masjid */
+  --pemisah: url("/assets/hiasan/islami-pemisah.svg");
+  --pemisah-lebar: 200px;
+  --hiasan-sudut: none;
+  --hiasan-atas: url("/assets/hiasan/islami-lentera.svg");
+  --atas-tinggi: clamp(100px, 30vw, 140px);
+  --hiasan-bawah: url("/assets/hiasan/islami-kubah.svg");
+  --bawah-tinggi: clamp(80px, 25vw, 120px);
+  --hiasan-bingkai: url("/assets/hiasan/islami-gapura.svg");
+  --bingkai-garis: none;
 }
+
+.hiasan > .hiasan__atas { background-position: top center; }
+.hiasan > .hiasan__bawah { background-position: bottom center; }
+.cover .hiasan__bingkai { inset: 18px 18px 0; }
+.cover { padding-top: calc(var(--atas-tinggi) * .7); padding-bottom: calc(var(--bawah-tinggi) * .8); }
+
+/* Kaligrafi "Barakallahu lakuma" */
+.cover__script { font-family: 'Aref Ruqaa', 'Amiri', serif; font-size: 2.5rem; line-height: 1.3; }
 
 /* Huruf Amiri lebih tinggi: beri jarak baris lebih lega */
 .cover__names { font-size: clamp(2.75rem, 13vw, 4.25rem); line-height: 1.15; }

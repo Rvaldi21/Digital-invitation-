@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30">
+  <!-- Pita motif parang (diulang mendatar) -->
+  <rect width="60" height="30" fill="#2E1F15"/>
+  <g fill="none" stroke="#C29A3B" stroke-linecap="round">
+    <path d="M0 1.5 H60 M0 28.5 H60" stroke-width="1.2"/>
+    <path d="M-4 26 C6 26 8 18 15 15 C22 12 24 4 34 4 M26 26 C36 26 38 18 45 15 C52 12 54 4 64 4" stroke-width="2.2"/>
+    <path d="M-4 22 C4 22 6 16 11 13 M26 22 C34 22 36 16 41 13" stroke-width="1" opacity=".7"/>
+  </g>
+  <path d="M7 6 l3 3 -3 3 -3 -3z M37 6 l3 3 -3 3 -3 -3z M22 18 l3 3 -3 3 -3 -3z M52 18 l3 3 -3 3 -3 -3z" fill="#C29A3B"/>
+</svg>

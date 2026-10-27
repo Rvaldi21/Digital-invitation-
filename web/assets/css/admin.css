@@ -229,22 +229,56 @@ p { margin: 0; }
 .form-msg--error { background: #f6e3e3; color: var(--merah); }
 .form-msg--warn { background: #f5ecd6; color: var(--kuning); }
 
-/* ---------- Pilihan template ---------- */
-.tpl-list { display: grid; gap: .5rem; }
-.tpl {
+/* ---------- Pilihan template (kartu bergambar, geser ke samping) ---------- */
+.tpl-list {
   display: flex;
-  align-items: center;
   gap: .75rem;
-  padding: .75rem;
+  margin: 0 -1rem;
+  padding: .25rem 1rem .75rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 1rem;
+  -webkit-overflow-scrolling: touch;
+}
+.tpl {
+  position: relative;
+  flex: 0 0 9.5rem;
+  display: grid;
+  gap: .5rem;
+  align-content: start;
+  padding: .5rem;
   border: 1px solid var(--garis);
-  border-radius: 12px;
+  border-radius: 14px;
+  background: var(--putih);
+  scroll-snap-align: start;
   cursor: pointer;
 }
+.tpl__img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 390 / 844;
+  object-fit: cover;
+  border-radius: 9px;
+  box-shadow: 0 2px 8px rgba(31, 42, 68, .12);
+}
+.tpl__text { display: grid; gap: .15rem; padding: 0 .15rem .15rem; }
+.tpl__text strong { font-size: .95rem; }
+.tpl__text small { color: var(--redup); font-size: .78rem; line-height: 1.35; }
+.tpl__check {
+  position: absolute;
+  top: .9rem; right: .9rem;
+  width: 28px; height: 28px;
+  display: none;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--daun);
+  color: var(--putih);
+  font-weight: 600;
+  box-shadow: 0 0 0 2px var(--putih);
+}
 .tpl:has(input:checked) { border-color: var(--daun); outline: 2px solid var(--daun); outline-offset: -2px; }
-.tpl input { width: 20px; height: 20px; accent-color: var(--daun); flex: none; }
-.tpl__swatch { flex: none; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--garis); }
-.tpl__text { display: grid; gap: .1rem; min-width: 0; }
-.tpl__text small { color: var(--redup); font-size: .825rem; }
+.tpl:has(input:checked) .tpl__check { display: grid; }
+.tpl:has(input:focus-visible) { outline: 2px solid var(--prada); outline-offset: 2px; }
 
 /* ---------- Label status ---------- */
 .badge {

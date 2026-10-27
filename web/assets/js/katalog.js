@@ -1,7 +1,7 @@
 // =====================================================================
 // katalog.js — DAFTAR CONTOH TEMPLATE DI HALAMAN BERANDA
 // Isinya diambil dari config.js → TEMPLATES, jadi template baru otomatis
-// ikut tampil di sini.
+// ikut tampil di sini. Gambar contoh: assets/contoh-template/<nama>.jpg
 // =====================================================================
 
 (function () {
@@ -13,9 +13,14 @@
     link.className = 'katalog__item';
     link.href = `/undangan/?u=demo&t=${encodeURIComponent(key)}&to=${encodeURIComponent('Tamu Undangan')}`;
 
-    const swatch = document.createElement('span');
-    swatch.className = 'katalog__swatch';
-    swatch.style.background = tpl.color;
+    const img = document.createElement('img');
+    img.className = 'katalog__img';
+    img.src = `/assets/contoh-template/${key}.jpg`;
+    img.alt = `Contoh template ${tpl.label}`;
+    img.loading = 'lazy';
+    img.width = 390;
+    img.height = 844;
+    img.style.background = tpl.color;   // warna template selama gambar dimuat
 
     const name = document.createElement('strong');
     name.textContent = tpl.label;
@@ -23,8 +28,9 @@
     desc.textContent = tpl.description;
 
     const text = document.createElement('span');
+    text.className = 'katalog__text';
     text.append(name, desc);
-    link.append(swatch, text);
+    link.append(img, text);
 
     const li = document.createElement('li');
     li.append(link);

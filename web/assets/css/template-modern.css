@@ -31,7 +31,26 @@
   --sampul-teks:  var(--gelap);
   --sampul-lapis: none;
   --gelap-lapis:  none;
+
+  /* Hiasan: bingkai garis tipis + monogram inisial, tanpa ornamen sudut */
+  --pemisah: url("/assets/hiasan/modern-pemisah.svg");
+  --pemisah-lebar: 160px;
+  --hiasan-sudut: none;
+  --bingkai-garis: 1px solid #111111;
 }
+
+.cover .hiasan__bingkai { inset: 16px; }
+.cover__monogram {
+  display: grid;
+  place-items: center;
+  width: 84px; height: 84px;
+  border: 1px solid var(--gelap);
+  border-radius: 50%;
+  font: 300 1.5rem/1 var(--font-judul);
+  letter-spacing: .14em;
+  padding-left: .14em;   /* imbangi spasi huruf terakhir */
+}
+.cover__date { text-transform: uppercase; letter-spacing: .2em; font-size: .75rem; }
 
 /* Tombol kotak, huruf kapital berjarak */
 .btn { border-radius: 0; text-transform: uppercase; letter-spacing: .1em; font-size: .8rem; }

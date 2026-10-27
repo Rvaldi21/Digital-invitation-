@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 44">
+  <!-- Pemisah jawa: gunungan kecil di antara garis -->
+  <g fill="none" stroke="#C29A3B" stroke-width="1.3" stroke-linecap="round">
+    <path d="M14 26 H86 M134 26 H206"/>
+    <path d="M60 21 H86 M134 31 H160" opacity=".5"/>
+    <path d="M110 4 C118 12 126 22 126 34 L122 38 H98 L94 34 C94 22 102 12 110 4Z" fill="#C29A3B" fill-opacity=".15"/>
+    <path d="M110 36 V14 M110 22 l-6 -4 M110 22 l6 -4 M110 29 l-8 -4 M110 29 l8 -4"/>
+  </g>
+  <path d="M6 26 l4 -4 4 4 -4 4z M206 26 l4 -4 4 4 -4 4z" fill="#C29A3B"/>
+</svg>

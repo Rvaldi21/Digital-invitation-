@@ -31,35 +31,57 @@
     );
   }
 
-  // Pilihan template (daftar dari config.js → TEMPLATES) + link pratinjau
+  // Pilihan template bergambar (daftar dari config.js → TEMPLATES).
+  // Tiap kartu: gambar contoh sampul + nama + keterangan. Geser ke samping.
   function templatePicker(inv, onChange) {
     const current = cfg.TEMPLATES[inv.template] ? inv.template : 'klasik';
+    const chosenName = el('strong', {});
+    const demoLink = el('a', { class: 'btn btn--ghost btn--sm', target: '_blank', rel: 'noopener' },
+      'Lihat contoh lengkap');
     const previewLink = el('a', { class: 'btn btn--ghost btn--sm', target: '_blank', rel: 'noopener' },
-      'Pratinjau dengan template ini');
-    const setPreview = (key) => {
-      previewLink.href = `/undangan/?u=${encodeURIComponent(inv.slug)}&pratinjau=1&t=${encodeURIComponent(key)}`;
-    };
+      'Pratinjau dengan data ini');
 
-    const options = Object.entries(cfg.TEMPLATES).map(([key, tpl]) => {
-      const swatch = el('span', { class: 'tpl__swatch', 'aria-hidden': 'true' });
-      swatch.style.background = tpl.color;
-      const radio = el('input', { type: 'radio', name: 'template', value: key, checked: key === current });
-      radio.addEventListener('change', () => { setPreview(key); onChange(key); });
+    function select(key) {
+      chosenName.textContent = cfg.TEMPLATES[key].label;
+      demoLink.href = `/undangan/?u=demo&t=${encodeURIComponent(key)}&to=${encodeURIComponent('Tamu Undangan')}`;
+      previewLink.href = `/undangan/?u=${encodeURIComponent(inv.slug)}&pratinjau=1&t=${encodeURIComponent(key)}`;
+    }
+
+    const cards = Object.entries(cfg.TEMPLATES).map(([key, tpl]) => {
+      const radio = el('input', { type: 'radio', name: 'template', value: key, checked: key === current, class: 'visually-hidden' });
+      radio.addEventListener('change', () => { select(key); onChange(key); });
+      const thumb = el('img', {
+        class: 'tpl__img', src: `/assets/contoh-template/${key}.jpg`, alt: `Contoh template ${tpl.label}`,
+        loading: 'lazy', decoding: 'async', width: 390, height: 844,
+      });
+      thumb.style.background = tpl.color;   // warna template selama gambar dimuat
       return el('label', { class: 'tpl' },
         radio,
-        swatch,
-        el('span', { class: 'tpl__text' }, el('strong', {}, tpl.label), el('small', {}, tpl.description)),
+        thumb,
+        el('span', { class: 'tpl__text' },
+          el('strong', {}, tpl.label),
+          el('small', {}, tpl.description),
+        ),
+        el('span', { class: 'tpl__check', 'aria-hidden': 'true' }, '✓'),
       );
     });
 
-    setPreview(current);
-    const list = el('div', { class: 'tpl-list', role: 'radiogroup', 'aria-label': 'Template' }, options);
+    select(current);
+    const list = el('div', { class: 'tpl-list', role: 'radiogroup', 'aria-label': 'Template' }, cards);
+    // Gulir supaya template yang sedang dipakai terlihat
+    requestAnimationFrame(() => {
+      const checked = list.querySelector('input:checked');
+      if (checked) list.scrollLeft = checked.parentElement.offsetLeft - 16;
+    });
+
     return {
       node: el('section', { class: 'card stack' },
         el('h2', { class: 'card-title' }, 'Template'),
+        el('p', { class: 'muted small' }, 'Geser untuk melihat semua template, ketuk untuk memilih.'),
         list,
-        previewLink,
-        el('small', { class: 'muted' }, 'Pratinjau memakai data yang sudah disimpan. Tekan Simpan untuk memakai template terpilih.'),
+        el('p', { class: 'small' }, 'Terpilih: ', chosenName),
+        el('div', { class: 'actions' }, demoLink, previewLink),
+        el('small', { class: 'muted' }, 'Tekan Simpan di bawah untuk memakai template terpilih.'),
       ),
       value: () => list.querySelector('input:checked').value,
     };

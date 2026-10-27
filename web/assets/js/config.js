@@ -70,22 +70,24 @@ window.APP_CONFIG = {
   //   color        warna bilah browser di HP
   //   TEXT         (opsional) mengganti teks bawaan di atas khusus template ini
   //   QUOTE        (opsional) kutipan di bagian pembuka
+  //   SCRIPT       (opsional) tulisan khas di sampul: kaligrafi Arab / aksara Jawa
+  // Gambar contoh untuk panel admin & beranda: assets/contoh-template/<nama>.jpg
   // -------------------------------------------------------------------
   TEMPLATES: {
     klasik: {
       label: 'Klasik',
-      description: 'Biru nila, hijau daun, emas, motif batik kawung.',
+      description: 'Biru nila & emas, bingkai dan sudut batik kawung.',
       color: '#1F2A44',
     },
     rustic: {
       label: 'Rustic',
-      description: 'Krem & cokelat hangat, ranting daun dan bunga kering.',
+      description: 'Krem & cokelat hangat, buket mawar dan daun kering di sudut.',
       color: '#F4ECE1',
       TEXT: { coverLead: 'The Wedding of' },
     },
     islami: {
       label: 'Islami elegan',
-      description: 'Hijau zamrud & emas, ornamen geometris, ayat QS Ar-Rum: 21.',
+      description: 'Hijau zamrud & emas, gapura, lentera, kaligrafi, QS Ar-Rum: 21.',
       color: '#0E3B31',
       TEXT: {
         coverLead: "Walimatul 'Ursy",
@@ -96,6 +98,8 @@ window.APP_CONFIG = {
           'Merupakan kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i ' +
           "berkenan hadir dan memberikan doa restu. Wassalamu'alaikum Warahmatullahi Wabarakatuh.",
       },
+      // Kaligrafi "Barakallahu lakuma" (semoga Allah memberkahi kalian berdua)
+      SCRIPT: { text: 'بارك الله لكما', lang: 'ar' },
       QUOTE: {
         arab: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
         text:
@@ -107,8 +111,10 @@ window.APP_CONFIG = {
     },
     jawa: {
       label: 'Adat Jawa',
-      description: 'Cokelat sogan & emas, gunungan dan motif parang.',
+      description: 'Cokelat sogan & emas, gunungan, pita parang, aksara Jawa.',
       color: '#3A281B',
+      // "Pawiwahan" (pernikahan) dalam aksara Jawa
+      SCRIPT: { text: 'ꦥꦮꦶꦮꦲꦤ꧀', lang: 'jv' },
       TEXT: {
         coverLead: 'Pawiwahan',
         closing:
@@ -118,7 +124,7 @@ window.APP_CONFIG = {
     },
     modern: {
       label: 'Modern minimalis',
-      description: 'Putih bersih & hitam, tegas, banyak ruang kosong.',
+      description: 'Putih & hitam, monogram inisial, bingkai garis tipis.',
       color: '#FFFFFF',
       TEXT: { coverLead: 'We are getting married' },
     },
