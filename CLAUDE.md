@@ -15,6 +15,12 @@ dijual ke banyak pelanggan dari satu sistem.
 Pakai huruf kecil `njagong` untuk subdomain, domain (nanti `njagong.my.id`/`.com`),
 dan akun Instagram/TikTok.
 
+**Identitas visual:** logo = bunga kawung emas `#B08D57` (sama dengan `web/favicon.svg`),
+warna utama biru nila `#1F2A44`, huruf Instrument Serif. Foto profil IG & TikTok yang
+dipilih pemilik: versi **Nila** (`web/promosi/njagong-profil-nila.png`, 1080×1080;
+salinan di `G:\Digital-invitation--main\Aset Njagong\`). Varian krem & logo-saja
+juga ada di `web/promosi/`.
+
 - Satu template dipakai ulang untuk banyak pelanggan; data tiap pelanggan
   (nama, tanggal, foto, lokasi, rekening) disimpan di database.
 - Pemilik mengelola semua undangan lewat **panel admin**.
