@@ -164,4 +164,102 @@ window.APP_CONFIG = {
       'Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i ' +
       'berkenan hadir dan memberikan doa restu.\n\nTerima kasih.',
   },
+
+  // -------------------------------------------------------------------
+  // HALAMAN BERANDA (halaman jualan di alamat utama website)
+  // -------------------------------------------------------------------
+  BERANDA: {
+    // Nomor WhatsApp untuk pesanan: format internasional TANPA "+", spasi, atau "0"
+    // di depan. Contoh: 0812-3456-7890 → '6281234567890'.
+    // Kosong = tombol WhatsApp tidak tampil.
+    WHATSAPP: '',
+
+    // Nama akun (tanpa @). Kosong = tidak ditampilkan.
+    INSTAGRAM: '',
+    TIKTOK: '',
+
+    // Pesan otomatis saat calon pembeli menekan tombol pesan.
+    // {paket} diganti nama paket yang dipilih.
+    PESAN_WA: 'Halo Njagong, saya mau pesan undangan digital paket {paket}.',
+    PESAN_WA_UMUM: 'Halo Njagong, saya mau tanya-tanya soal undangan digital.',
+
+    // Daftar paket. Ubah nama, harga, dan isinya sesuka Anda.
+    //   harga  : angka saja (tanpa titik), mis. 89000
+    //   coret  : harga sebelum diskon (0 = tidak ada coretan)
+    //   populer: true = diberi tanda "Paling laris" (cukup satu paket)
+    PAKET: [
+      {
+        nama: 'Hemat',
+        harga: 49000,
+        coret: 0,
+        catatan: 'Cukup untuk acara sederhana',
+        populer: false,
+        fitur: [
+          'Pilih 1 dari 5 template',
+          'Nama tamu di setiap link',
+          'Info acara + petunjuk lokasi (Maps)',
+          'Hitung mundur hari-H',
+          'Konfirmasi kehadiran (RSVP) & ucapan',
+          'Aktif 3 bulan',
+          '1x revisi',
+        ],
+      },
+      {
+        nama: 'Lengkap',
+        harga: 89000,
+        coret: 129000,
+        catatan: 'Pilihan kebanyakan pasangan',
+        populer: true,
+        fitur: [
+          'Semua isi paket Hemat',
+          'Galeri foto (hingga 10 foto)',
+          'Musik latar',
+          'Amplop digital: rekening & QRIS',
+          'Aktif 6 bulan',
+          '3x revisi',
+        ],
+      },
+      {
+        nama: 'Eksklusif',
+        harga: 149000,
+        coret: 0,
+        catatan: 'Untuk hari yang paling istimewa',
+        populer: false,
+        fitur: [
+          'Semua isi paket Lengkap',
+          'Galeri foto (hingga 20 foto)',
+          'Dibantu menyusun kata-kata undangan',
+          'Dikerjakan paling dulu (prioritas)',
+          'Aktif 12 bulan',
+          'Revisi sepuasnya sebelum disebar',
+        ],
+      },
+    ],
+
+    // Pertanyaan yang sering ditanyakan
+    FAQ: [
+      {
+        tanya: 'Berapa lama undangan jadi?',
+        jawab: 'Biasanya 1–2 hari kerja setelah semua data dan foto kami terima.',
+      },
+      {
+        tanya: 'Data apa saja yang perlu dikirim?',
+        jawab: 'Nama lengkap mempelai & orang tua, tanggal dan lokasi acara, foto (bila ada), ' +
+          'lagu pilihan, serta nomor rekening/QRIS bila memakai amplop digital. Cukup kirim lewat WhatsApp.',
+      },
+      {
+        tanya: 'Bisa dikirim ke banyak tamu dengan nama berbeda?',
+        jawab: 'Bisa, tanpa batas. Setiap tamu mendapat link dengan namanya sendiri, ' +
+          'lengkap dengan pesan WhatsApp yang siap dikirim.',
+      },
+      {
+        tanya: 'Apakah tamu perlu memasang aplikasi?',
+        jawab: 'Tidak. Undangan dibuka langsung dari browser HP, cukup tekan link-nya.',
+      },
+      {
+        tanya: 'Bagaimana cara bayarnya?',
+        jawab: 'Lewat transfer bank atau QRIS. Pembayaran setelah contoh undangan Anda kami tunjukkan.',
+      },
+    ],
+  },
 };

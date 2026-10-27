@@ -137,8 +137,9 @@ web/assets/js/undangan.js      render halaman (pakai textContent, anti-XSS)
 web/assets/js/demo-data.js     data contoh
 web/assets/css/undangan.css    tampilan dasar + template klasik
 web/assets/css/template-*.css  template rustic, islami, jawa, modern
-web/assets/js/katalog.js       daftar template di beranda (dari TEMPLATES)
-web/index.html                 beranda = katalog template (sementara)
+web/index.html                 beranda = halaman jualan (hero, fitur, template, paket, cara pesan, FAQ)
+web/assets/css/beranda.css     tampilan beranda (nila + emas)
+web/assets/js/beranda.js       isi beranda dari config.js (TEMPLATES + BERANDA)
 web/favicon.svg                ikon Njagong (kawung emas di atas nila)
 web/admin/index.html           panel admin (/admin/), mobile-first
 web/assets/css/admin.css       tampilan panel admin
@@ -207,13 +208,19 @@ jalankan-lokal.bat             tes lokal di Windows (klik dua kali)
       Diuji 29 skenario di layar HP 390px (tiap template: tampil, teks khusus,
       tidak melebar, tanpa error) — semua lulus.
 
+- [x] **Beranda = halaman jualan** (27 Okt 2026): hero, 8 fitur, 5 contoh template,
+      3 paket (Hemat Rp49rb, Lengkap Rp89rb, Eksklusif Rp149rb — harga usulan, bisa
+      diubah), cara pesan, FAQ, tombol WhatsApp. Semua isi di `config.js` → `BERANDA`.
+      Tombol WA baru muncul setelah `BERANDA.WHATSAPP` diisi.
+
 **Belum / sedang dikerjakan**
+- [ ] Isi nomor WhatsApp (dan akun IG/TikTok) di `config.js` → `BERANDA`.
 - [ ] Pemilik membuat undangan pertama (pernikahannya sendiri) lewat panel admin.
 
 **Berikutnya**
 1. Tes panel admin & undangan asli dari HP lewat alamat online.
 2. Pemilik menilai 5 template dari HP; sesuaikan warna/huruf sesuai selera.
-3. Halaman beranda untuk promosi jasa (`web/index.html` sekarang katalog sederhana).
+3. Pemilik meninjau harga & isi paket di beranda.
 4. Opsi 2 (pelanggan login & edit sendiri) — dibahas 26 Okt 2026, ditunda sampai
    ada pelanggan. Perlu: tampilan khusus pelanggan di panel (sekarang non-admin
    ditolak di app.js), isian "email pemilik" untuk `owner_id`, cara buat akun pelanggan.

@@ -35,7 +35,9 @@ lalu masuk dengan email & password akun admin Supabase.
 Ada 5 template: **Klasik, Rustic, Islami elegan, Adat Jawa, Modern minimalis**.
 Pilih di panel admin → tab **Data** → bagian **Template**.
 
-- Contoh tiap template (katalog untuk calon pelanggan): halaman beranda `/`,
+- Halaman beranda `/` = halaman jualan (contoh template, paket & harga, FAQ, tombol WA).
+  Harga, isi paket, nomor WA, dan FAQ diatur di `config.js` → `BERANDA`.
+- Contoh tiap template: lihat di beranda,
   atau langsung `/undangan/?u=demo&t=rustic` (ganti `rustic` dengan nama template)
 - Daftar template & teks khususnya ada di `config.js` → `TEMPLATES`
 - Tampilan tiap template: `assets/css/template-<nama>.css`
