@@ -103,9 +103,11 @@
       $('cover-script').dir = tpl.SCRIPT.lang === 'ar' ? 'rtl' : 'auto';
       $('cover-script').hidden = false;
     }
-    // Foto sampul sebagai latar sampul (hanya template yang mengatur .cover--foto, mis. keraton)
+    // Foto sampul sebagai latar sampul & latar semua layar
+    // (hanya template yang mengatur .cover--foto / html.foto-sampul, mis. keraton)
     if (inv.cover_photo_path) {
-      $('cover').style.setProperty('--foto-sampul', `url("${API.mediaUrl(inv.cover_photo_path)}")`);
+      document.documentElement.style.setProperty('--foto-sampul', `url("${API.mediaUrl(inv.cover_photo_path)}")`);
+      document.documentElement.classList.add('foto-sampul');
       $('cover').classList.add('cover--foto');
     }
     setText('cover-lead', T.coverLead);

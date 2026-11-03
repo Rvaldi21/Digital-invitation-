@@ -123,6 +123,9 @@ Semua harus memakai paket gratis sampai ada pemasukan.
     layar sampul**: undangan.js memberi `#cover` kelas `cover--foto` + variabel
     `--foto-sampul` bila `cover_photo_path` ada — hanya template yang mengatur
     `.cover--foto` (sekarang keraton) yang memakainya. Tanpa foto → gunungan di tengah.
+    Di keraton, foto sampul juga jadi **latar diam semua layar** (`html.foto-sampul`,
+    lapisan gelap tembus pandang — ketebalannya diatur di template-keraton.css) dan
+    kartu acara/cerita/ucapan dibuat kaca buram tembus pandang.
     Aturan di file template yang menimpa `.hiasan > span` harus memakai selektor
     `.hiasan > .hiasan__x` (kalau tidak, kalah kuat).
   - **Gambar contoh** tiap template: `web/assets/contoh-template/<nama>.jpg`

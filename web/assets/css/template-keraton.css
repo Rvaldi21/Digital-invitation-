@@ -113,13 +113,26 @@
   place-items: end center;
   padding-bottom: calc(2.5rem + var(--bawah-tinggi) + env(safe-area-inset-bottom));
   background-image:
-    linear-gradient(180deg, rgba(11,9,7,.6) 0%, rgba(11,9,7,.1) 28%, rgba(11,9,7,.45) 52%, rgba(11,9,7,.93) 74%, var(--hitam) 100%),
+    linear-gradient(180deg, rgba(11,9,7,.45) 0%, rgba(11,9,7,0) 24%, rgba(11,9,7,.15) 45%, rgba(11,9,7,.75) 70%, rgba(11,9,7,.92) 100%),
     var(--foto-sampul);
   background-size: cover, cover;
   background-position: center, center top;
 }
 .cover--foto .cover__ikon, .cover--foto .hiasan__bingkai,
 .cover--foto .hiasan__sudut--kiri-bawah, .cover--foto .hiasan__sudut--kanan-bawah { display: none; }
+
+/* Ada foto sampul: foto mempelai juga menjadi latar diam di belakang semua layar,
+   ditutup lapisan gelap tembus pandang supaya tulisan tetap terbaca.
+   Atur ketebalan lapisan di sini (0 = foto terang, 1 = hitam penuh). */
+html.foto-sampul .layar > .layar__gambar {
+  background:
+    linear-gradient(180deg, rgba(11,9,7,.5) 0%, rgba(11,9,7,.62) 55%, rgba(11,9,7,.78) 100%),
+    var(--foto-sampul) center top / cover no-repeat;
+}
+html.foto-sampul .section--dark {
+  background-color: transparent;
+  background-image: linear-gradient(rgba(11,9,7,.45), rgba(11,9,7,.45));
+}
 
 /* Tombol emas */
 .btn { background: linear-gradient(160deg, #EDD08A, #C3954A); color: #1A130A; box-shadow: 0 8px 22px rgba(0,0,0,.35); }
@@ -202,3 +215,19 @@
 @media (prefers-reduced-motion: reduce) {
   .cover__names, .hero__names, .person__name, .section__title, .closing__names, .messages__title { animation: none; }
 }
+
+/* Ada foto sampul: kartu tembus pandang (kaca buram) supaya foto terlihat di belakangnya */
+html.foto-sampul .event,
+html.foto-sampul .story__item,
+html.foto-sampul .message {
+  background: rgba(22,17,12,.6);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+html.foto-sampul .field input, html.foto-sampul .field select, html.foto-sampul .field textarea,
+html.foto-sampul .choice span {
+  background: rgba(22,17,12,.6);
+}
+html.foto-sampul .choice input:checked + span { background: var(--utama); }
+/* Bayangan halus di belakang tulisan supaya tetap terbaca di atas foto */
+html.foto-sampul #main { text-shadow: 0 1px 10px rgba(0,0,0,.65); }
+html.foto-sampul .gift, html.foto-sampul .countdown div, html.foto-sampul .btn { text-shadow: none; }
