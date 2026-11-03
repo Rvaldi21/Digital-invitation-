@@ -103,6 +103,11 @@
       $('cover-script').dir = tpl.SCRIPT.lang === 'ar' ? 'rtl' : 'auto';
       $('cover-script').hidden = false;
     }
+    // Foto sampul sebagai latar sampul (hanya template yang mengatur .cover--foto, mis. keraton)
+    if (inv.cover_photo_path) {
+      $('cover').style.setProperty('--foto-sampul', `url("${API.mediaUrl(inv.cover_photo_path)}")`);
+      $('cover').classList.add('cover--foto');
+    }
     setText('cover-lead', T.coverLead);
     setText('cover-monogram',
       `${firstName(inv.groom_name).charAt(0)}${firstName(inv.bride_name).charAt(0)}`.toUpperCase());

@@ -1,0 +1,204 @@
+/* =====================================================================
+   template-keraton.css — TEMPLATE "KERATON" (JAWA MEWAH)
+   Hitam kopi & emas, foto mempelai sebagai sampul penuh, bingkai gapura
+   bercahaya emas, ranting melati emas, gunungan, pita batik kawung.
+   Dimuat SETELAH undangan.css: cukup menimpa nilai :root (warna, huruf,
+   motif) dan beberapa gaya khusus template ini.
+   Catatan: template ini GELAP — "--gelap" di sini dipakai untuk teks
+   (krem), sedangkan latar halaman ("--latar") hitam.
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Pinyon+Script&family=Jost:wght@400;500;600&display=swap');
+
+:root {
+  /* Warna */
+  --gelap:  #F1E4C6;  /* krem: teks utama */
+  --latar:  #110E0A;  /* hitam kopi: latar halaman */
+  --utama:  #CFA250;  /* emas: tombol */
+  --aksen:  #D8B064;  /* emas terang: tanda "&", garis, judul kecil */
+  --kartu:  #1C1711;  /* kartu & kolom isian */
+  --redup:  #B9AA8D;  /* teks pendukung */
+  --garis:  #4A3D2A;  /* garis tepi */
+  --emas-kilau: linear-gradient(100deg, #A87D36 0%, #F6E2A6 22%, #C99A4B 45%, #F8E8B6 70%, #A87D36 100%);
+  --hitam:  #0B0907;  /* bagian paling gelap: sampul, hitung mundur, penutup */
+
+  /* Huruf: Marcellus (judul) + Pinyon Script (tulisan sambung) + Jost (teks) */
+  --font-judul: 'Marcellus', Georgia, serif;
+  --font-sambung: 'Pinyon Script', cursive;
+  --font-teks:  'Jost', system-ui, sans-serif;
+
+  --radius: 12px;
+  --foto-sudut: 999px 999px 10px 10px;
+
+  /* Motif kawung emas tipis untuk bagian gelap; ikon kecil = gunungan */
+  --motif: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23D8B064' stroke-opacity='.16' stroke-width='1'%3E%3Cellipse cx='32' cy='16' rx='8.5' ry='14'/%3E%3Cellipse cx='32' cy='48' rx='8.5' ry='14'/%3E%3Cellipse cx='16' cy='32' rx='14' ry='8.5'/%3E%3Cellipse cx='48' cy='32' rx='14' ry='8.5'/%3E%3Ccircle cx='32' cy='32' r='2'/%3E%3C/g%3E%3C/svg%3E");
+  --motif-ukuran: 64px;
+  --ornamen: url("/assets/hiasan/keraton-gunungan.svg");
+
+  --sampul-latar: var(--hitam);
+  --sampul-teks:  var(--gelap);
+  --sampul-lapis: radial-gradient(ellipse at 50% 42%, rgba(52,38,20,.55) 0%, rgba(11,9,7,.96) 70%);
+  --gelap-lapis:  linear-gradient(rgba(11,9,7,.86), rgba(11,9,7,.86));
+
+  /* Hiasan: ranting melati emas di sudut, pita batik di bawah, gunungan di atas nama */
+  --pemisah: url("/assets/hiasan/keraton-pemisah.svg");
+  --pemisah-lebar: 220px;
+  --pemisah-tinggi: 28px;
+  --hiasan-sudut: url("/assets/hiasan/keraton-sudut.svg");
+  --sudut-ukuran: clamp(110px, 34vw, 170px);
+  --hiasan-bawah: url("/assets/hiasan/keraton-batik.svg");
+  --bawah-tinggi: 26px;
+  --bingkai-garis: 1px solid rgba(216,176,100,.35);
+  --ikon-sampul: url("/assets/hiasan/keraton-gunungan.svg");
+  --ikon-tinggi: clamp(72px, 13svh, 110px);
+
+  /* Latar diam: cahaya emas samar dari atas + ranting tipis di sudut */
+  --layar-gambar: radial-gradient(ellipse at 50% 0%, rgba(216,176,100,.13), transparent 62%);
+  --layar-gambar-ukuran: 100% 100%;
+  --layar-sudut-ukuran: clamp(90px, 28vw, 150px);
+  --layar-redup: .3;
+}
+
+/* ---------- Tulisan emas berkilau ---------- */
+.cover__names, .hero__names, .person__name, .section__title, .closing__names, .messages__title {
+  background: var(--emas-kilau);
+  background-size: 200% auto;
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+  animation: kilau 7s linear infinite;
+}
+@keyframes kilau { to { background-position: -200% center; } }
+
+/* Huruf kapital renggang untuk nama & judul */
+.cover__names, .hero__names { font-size: clamp(2.3rem, 11vw, 3.4rem); line-height: 1.1; letter-spacing: .08em; text-transform: uppercase; }
+.person__name { font-size: 1.9rem; line-height: 1.2; letter-spacing: .05em; text-transform: uppercase; }
+.section__title { font-size: 1.9rem; line-height: 1.2; letter-spacing: .08em; text-transform: uppercase; }
+.closing__names { font-size: 1.9rem; letter-spacing: .06em; text-transform: uppercase; }
+.messages__title { font-size: 1.5rem; letter-spacing: .06em; text-transform: uppercase; }
+
+/* Tulisan sambung: "The Wedding of", tanda "&", judul acara */
+.cover__lead, .hero__lead {
+  font-family: var(--font-sambung);
+  font-size: 2.2rem; line-height: 1.1; letter-spacing: 0;
+  color: var(--aksen); opacity: 1;
+}
+.cover__amp, .hero__amp, .couple__amp {
+  font-family: var(--font-sambung); font-style: normal; text-transform: none;
+  letter-spacing: 0; color: var(--aksen); -webkit-text-fill-color: var(--aksen);
+}
+/* Pinyon Script berhuruf kecil: "&" diperbesar supaya terbaca */
+.cover__amp, .hero__amp { font-size: .9em; margin: 0; line-height: .9; }
+.couple__amp { font-size: 3.25rem; }
+
+/* Tanggal diapit garis emas */
+.cover__date, .hero__date {
+  display: flex; align-items: center; justify-content: center; gap: .75rem;
+  font-size: .8rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gelap); opacity: 1;
+}
+.cover__date::before, .cover__date::after, .hero__date::before, .hero__date::after {
+  content: ''; width: 2.25rem; height: 1px; background: var(--aksen); opacity: .7;
+}
+
+/* ---------- Sampul ---------- */
+.cover__inner { gap: 1.1rem; }
+.cover__ikon { display: block; }
+.cover__guest { padding: .9rem 1.5rem; border-top: 1px solid rgba(216,176,100,.35); border-bottom: 1px solid rgba(216,176,100,.35); }
+.cover__guest p:first-child { font-size: .85rem; letter-spacing: .08em; color: var(--redup); }
+.cover__guest-name { font-size: 1.35rem; letter-spacing: .04em; }
+.cover .hiasan > .hiasan__bawah { background-repeat: repeat-x; background-size: auto 100%; opacity: .75; }
+.cover .hiasan__sudut--kiri-bawah, .cover .hiasan__sudut--kanan-bawah { bottom: var(--bawah-tinggi); }
+
+/* Ada foto sampul (diisi undangan.js): foto memenuhi layar, tulisan di bagian bawah */
+.cover--foto {
+  place-items: end center;
+  padding-bottom: calc(2.5rem + var(--bawah-tinggi) + env(safe-area-inset-bottom));
+  background-image:
+    linear-gradient(180deg, rgba(11,9,7,.6) 0%, rgba(11,9,7,.1) 28%, rgba(11,9,7,.45) 52%, rgba(11,9,7,.93) 74%, var(--hitam) 100%),
+    var(--foto-sampul);
+  background-size: cover, cover;
+  background-position: center, center top;
+}
+.cover--foto .cover__ikon, .cover--foto .hiasan__bingkai,
+.cover--foto .hiasan__sudut--kiri-bawah, .cover--foto .hiasan__sudut--kanan-bawah { display: none; }
+
+/* Tombol emas */
+.btn { background: linear-gradient(160deg, #EDD08A, #C3954A); color: #1A130A; box-shadow: 0 8px 22px rgba(0,0,0,.35); }
+.cover .btn--light { background: linear-gradient(160deg, #EDD08A, #C3954A); color: #1A130A; letter-spacing: .04em; }
+.btn--ghost { background: transparent; color: var(--aksen); box-shadow: none; }
+
+/* ---------- Layar pembuka: foto dalam gapura bercahaya ---------- */
+.hero__bingkai {
+  box-shadow:
+    0 0 0 1px var(--aksen), 0 0 0 7px var(--latar), 0 0 0 8px rgba(216,176,100,.6),
+    0 0 46px rgba(216,176,100,.28), 0 22px 48px rgba(0,0,0,.6);
+}
+.hero__hiasan { background-color: var(--hitam); }
+.hero__hiasan::after { inset: 24%; filter: none; }
+
+/* ---------- Bagian gelap (hitung mundur & penutup) ---------- */
+.section--dark { background-color: var(--hitam); color: var(--gelap); }
+/* Gunungan kecil di atas "Menuju hari bahagia" */
+#countdown-section::before {
+  content: ''; display: block; flex: none;
+  width: 56px; height: 76px; margin: 0 auto 1.25rem;
+  background: var(--ornamen) center / contain no-repeat;
+}
+.countdown { gap: .6rem; }
+.countdown div {
+  padding: .85rem .2rem .7rem;
+  border-radius: 10px;
+  background: linear-gradient(160deg, #EDD08A, #B98A40);
+  color: #1A130A;
+  box-shadow: 0 8px 20px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.4);
+}
+/* Angka memakai Jost (angka Marcellus naik-turun, "15" jadi tidak rata) */
+.countdown span { font: 500 2rem/1.1 var(--font-teks); }
+.countdown small { opacity: .8; font-weight: 600; font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; }
+
+/* ---------- Kartu acara: tepi emas bercahaya + pita batik ---------- */
+.event {
+  position: relative; overflow: hidden;
+  padding-bottom: 3.25rem;
+  background: linear-gradient(180deg, #1F1912, #140F0A);
+  border: 1px solid rgba(216,176,100,.6);
+  box-shadow: 0 0 0 4px rgba(216,176,100,.07), 0 0 28px rgba(216,176,100,.2);
+}
+.event::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 26px;
+  background: url("/assets/hiasan/keraton-batik.svg") center / auto 100% repeat-x; opacity: .7;
+}
+.event__title { font: 400 2.6rem/1.1 var(--font-sambung); color: var(--aksen); }
+.event__date { letter-spacing: .06em; text-transform: uppercase; font-size: .9rem; }
+
+/* ---------- Kisah cinta ---------- */
+.story__item { border: 1px solid rgba(216,176,100,.45); background: linear-gradient(180deg, #1F1912, #16110C); }
+.story__title { font-size: 1.15rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gelap); }
+
+/* ---------- Galeri ---------- */
+.gallery button { border-radius: 8px; box-shadow: 0 0 0 1px rgba(216,176,100,.45); }
+
+/* ---------- Amplop: kartu krem keemasan ---------- */
+.gift { background: linear-gradient(160deg, #F6EBD0, #E2C992); color: #2A2015; box-shadow: 0 12px 30px rgba(0,0,0,.4); }
+.gift__holder { color: #5E4B30; }
+.gift .btn--ghost { color: #2A2015; }
+
+/* ---------- RSVP & ucapan ---------- */
+.field input, .field select, .field textarea { border-color: var(--garis); }
+.form-msg--error { background: rgba(163,58,58,.2); color: #F1B9B9; }
+.form-msg--ok { background: rgba(216,176,100,.15); color: var(--aksen); }
+.message { border: 1px solid var(--garis); }
+
+/* ---------- Penutup ---------- */
+.closing .hiasan > .hiasan__bawah { background-repeat: repeat-x; background-size: auto 100%; opacity: .75; }
+.closing .hiasan__sudut--kiri-bawah, .closing .hiasan__sudut--kanan-bawah { bottom: var(--bawah-tinggi); }
+.closing__foto {
+  box-shadow: 0 0 0 1px var(--aksen), 0 0 0 6px var(--hitam), 0 0 0 7px rgba(216,176,100,.6), 0 0 40px rgba(216,176,100,.25);
+}
+
+/* ---------- Tombol musik & menu bawah ---------- */
+.music-btn { background: linear-gradient(160deg, #EDD08A, #B98A40); color: #1A130A; box-shadow: 0 6px 18px rgba(0,0,0,.5); }
+.navigasi { box-shadow: 0 8px 26px rgba(0,0,0,.5), inset 0 0 0 1px rgba(216,176,100,.35); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cover__names, .hero__names, .person__name, .section__title, .closing__names, .messages__title { animation: none; }
+}

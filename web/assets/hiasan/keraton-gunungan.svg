@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 164">
+  <!-- Gunungan emas: pohon kehidupan dan gapura (template Keraton) -->
+  <defs>
+    <linearGradient id="emas" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F8E6B0"/>
+      <stop offset=".45" stop-color="#D3A757"/>
+      <stop offset="1" stop-color="#8C672B"/>
+    </linearGradient>
+  </defs>
+  <path d="M60 4 C76 22 98 46 108 80 C116 106 112 130 100 146 L94 154 H26 L20 146 C8 130 4 106 12 80 C22 46 44 22 60 4Z"
+        fill="url(#emas)"/>
+  <!-- Ukiran di dalam -->
+  <g fill="none" stroke="#2A1E10" stroke-opacity=".6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M60 14 C74 30 92 52 100 80 C106 102 103 124 94 138 L90 144 H30 L26 138 C17 124 14 102 20 80 C28 52 46 30 60 14Z" stroke-opacity=".35"/>
+    <path d="M60 120 V30"/>
+    <path d="M60 44 C54 40 50 36 49 30 M60 44 C66 40 70 36 71 30"/>
+    <path d="M60 60 C50 56 42 50 40 42 C44 42 46 46 46 48 M60 60 C70 56 78 50 80 42 C76 42 74 46 74 48"/>
+    <path d="M60 78 C47 75 36 68 32 58 C37 57 40 61 40 64 M60 78 C73 75 84 68 88 58 C83 57 80 61 80 64"/>
+    <path d="M60 96 C45 94 31 88 26 78 C31 76 35 80 35 83 M60 96 C75 94 89 88 94 78 C89 76 85 80 85 83"/>
+    <!-- Gapura -->
+    <path d="M42 140 V118 H78 V140 M38 118 H82 L76 110 H44 Z M52 140 V126 H68 V140"/>
+  </g>
+  <path d="M10 160 H110" stroke="url(#emas)" stroke-width="2.4" stroke-linecap="round"/>
+</svg>

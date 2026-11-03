@@ -135,6 +135,18 @@ window.APP_CONFIG = {
       color: '#F4F1EA',
       TEXT: { coverLead: 'The Wedding of' },
     },
+    keraton: {
+      label: 'Keraton (Jawa mewah)',
+      description: 'Hitam & emas, foto sampul penuh, bingkai gapura bercahaya, melati emas, gunungan.',
+      color: '#0B0907',
+      TEXT: {
+        coverLead: 'The Wedding of',
+        countdownTitle: 'Save the Date',
+        closing:
+          'Merupakan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan rawuh ' +
+          'dan paring pangestu. Matur nuwun.',
+      },
+    },
   },
 
   ATTENDANCE_LABELS: {

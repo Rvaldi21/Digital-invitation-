@@ -91,7 +91,7 @@ Semua harus memakai paket gratis sampai ada pemasukan.
   hijau daun `#3E5C4A`, emas prada `#B08D57`, motif batik **kawung**;
   huruf Instrument Serif (judul) + Plus Jakarta Sans (teks). Diatur di `:root`
   pada `web/assets/css/undangan.css`.
-- **Sistem template** (6 template: klasik, rustic, islami, jawa, modern, taman):
+- **Sistem template** (7 template: klasik, rustic, islami, jawa, modern, taman, keraton):
   - Daftar & teks khusus tiap template di `config.js → TEMPLATES`
     (label, description, color, TEXT opsional, QUOTE opsional).
   - HTML sama untuk semua template. `undangan.css` = tampilan dasar + klasik,
@@ -114,6 +114,15 @@ Semua harus memakai paket gratis sampai ada pemasukan.
     Taman (terinspirasi referensi punakawandigital.in, gambar buatan sendiri):
     bunga cat air (peach/blush/krem + daun kayu putih), gapura taman berkabut,
     burung, kelopak berjatuhan; huruf Cormorant Garamond + Great Vibes + Quicksand.
+    Keraton / Jawa mewah (3 Nov 2026, terinspirasi video TikTok @king.invitation,
+    gambar buatan sendiri): template GELAP (`--gelap` = krem untuk teks, `--latar` = hitam
+    kopi, `--hitam` untuk sampul/hitung mundur/penutup), tulisan emas berkilau
+    (`--emas-kilau`, background-clip text), ranting melati emas di sudut, gunungan emas,
+    pita batik kawung, kartu acara bertepi emas bercahaya, hitung mundur kotak emas,
+    amplop kartu krem; huruf Marcellus + Pinyon Script + Jost. **Foto sampul memenuhi
+    layar sampul**: undangan.js memberi `#cover` kelas `cover--foto` + variabel
+    `--foto-sampul` bila `cover_photo_path` ada — hanya template yang mengatur
+    `.cover--foto` (sekarang keraton) yang memakainya. Tanpa foto → gunungan di tengah.
     Aturan di file template yang menimpa `.hiasan > span` harus memakai selektor
     `.hiasan > .hiasan__x` (kalau tidak, kalah kuat).
   - **Gambar contoh** tiap template: `web/assets/contoh-template/<nama>.jpg`
@@ -163,7 +172,7 @@ web/assets/js/api.js           penghubung Supabase
 web/assets/js/undangan.js      render halaman (pakai textContent, anti-XSS)
 web/assets/js/demo-data.js     data contoh
 web/assets/css/undangan.css    tampilan dasar + template klasik
-web/assets/css/template-*.css  template rustic, islami, jawa, modern, taman
+web/assets/css/template-*.css  template rustic, islami, jawa, modern, taman, keraton
 web/index.html                 beranda = halaman jualan (hero, fitur, template, paket, cara pesan, FAQ)
 web/assets/css/beranda.css     tampilan beranda (nila + emas)
 web/assets/js/beranda.js       isi beranda dari config.js (TEMPLATES + BERANDA)
@@ -201,7 +210,7 @@ jalankan-lokal.bat             tes lokal di Windows (klik dua kali)
 
 ---
 
-## 6. Status (terakhir diperbarui: 26 Okt 2026)
+## 6. Status (terakhir diperbarui: 3 Nov 2026)
 
 **Selesai**
 - [x] Skema database + keamanan; diuji 45 skenario akses di Postgres lokal (semua lulus)
@@ -254,6 +263,12 @@ jalankan-lokal.bat             tes lokal di Windows (klik dua kali)
         WA/IG/TikTok diambil dari `BERANDA`. `PROMO.TAMPIL: false` untuk mematikan.
       - Diuji 25 skenario baru (admin + undangan + XSS di judul cerita) — lulus.
 
+- [x] **Template ke-7 "Keraton (Jawa mewah)"** (3 Nov 2026): hitam & emas, foto sampul
+      penuh. Diuji di layar HP 390px (dengan & tanpa foto sampul: tiap bagian ≥ 1 layar,
+      semua isi tampil setelah digulir, tidak melebar, menu bawah di dalam layar, tanpa
+      error), laptop, mode kurangi gerakan, template klasik tidak berubah, beranda
+      menampilkan 7 template — lulus. Belum dicek dengan foto prewedding asli.
+
 **Belum / sedang dikerjakan**
 - [ ] **Pemilik menjalankan `supabase/06_cerita_foto_penutup.sql` di Supabase** (wajib,
       tanpa ini tab Cerita & Foto penutup hanya menampilkan petunjuk).
@@ -262,7 +277,7 @@ jalankan-lokal.bat             tes lokal di Windows (klik dua kali)
 
 **Berikutnya**
 1. Tes panel admin & undangan asli dari HP lewat alamat online.
-2. Pemilik menilai 6 template (terutama Taman & tampilan per layar) dari HP; sesuaikan warna/huruf sesuai selera.
+2. Pemilik menilai 7 template (terutama Taman & tampilan per layar) dari HP; sesuaikan warna/huruf sesuai selera.
 3. Pemilik meninjau harga & isi paket di beranda.
 4. Opsi 2 (pelanggan login & edit sendiri) — dibahas 26 Okt 2026, ditunda sampai
    ada pelanggan. Perlu: tampilan khusus pelanggan di panel (sekarang non-admin

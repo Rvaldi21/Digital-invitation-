@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 30">
+  <!-- Garis emas dengan wajik dan bunga melati di tengah (template Keraton) -->
+  <defs>
+    <linearGradient id="kiri" x1="0" x2="1">
+      <stop offset="0" stop-color="#CFA250" stop-opacity="0"/>
+      <stop offset="1" stop-color="#CFA250"/>
+    </linearGradient>
+    <linearGradient id="kanan" x1="1" x2="0">
+      <stop offset="0" stop-color="#CFA250" stop-opacity="0"/>
+      <stop offset="1" stop-color="#CFA250"/>
+    </linearGradient>
+  </defs>
+  <path d="M4 15 H92" stroke="url(#kiri)" stroke-width="1.4"/>
+  <path d="M148 15 H236" stroke="url(#kanan)" stroke-width="1.4"/>
+  <g fill="#D8B064">
+    <path d="M100 15 l5 -5 5 5 -5 5Z"/>
+    <path d="M130 15 l5 -5 5 5 -5 5Z"/>
+    <g transform="translate(120 15)">
+      <ellipse cx="0" cy="-5.5" rx="3.4" ry="5.8"/>
+      <ellipse cx="0" cy="-5.5" rx="3.4" ry="5.8" transform="rotate(72)"/>
+      <ellipse cx="0" cy="-5.5" rx="3.4" ry="5.8" transform="rotate(144)"/>
+      <ellipse cx="0" cy="-5.5" rx="3.4" ry="5.8" transform="rotate(216)"/>
+      <ellipse cx="0" cy="-5.5" rx="3.4" ry="5.8" transform="rotate(288)"/>
+      <circle r="2.2" fill="#FFF4D2"/>
+    </g>
+  </g>
+</svg>
