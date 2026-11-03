@@ -91,9 +91,25 @@
     const input = (value, maxlength) => el('input', { type: 'text', maxlength, value: value || '' });
 
     const groom = input(inv.groom_name, 100);
+    const groomNick = input(inv.groom_nickname, 40);
     const groomParents = input(inv.groom_parents, 200);
     const bride = input(inv.bride_name, 100);
+    const brideNick = input(inv.bride_nickname, 40);
     const brideParents = input(inv.bride_parents, 200);
+
+    // Nama panggilan butuh kolom dari supabase/07_nama_panggilan.sql
+    const hasNick = 'groom_nickname' in inv;
+    const nickHint = 'Tampil di sampul, penutup & pesan WA. Kosongkan untuk memakai nama depan.';
+    const syncNickPlaceholder = () => {
+      groomNick.placeholder = ui.firstName(groom.value);
+      brideNick.placeholder = ui.firstName(bride.value);
+    };
+    groom.addEventListener('input', syncNickPlaceholder);
+    bride.addEventListener('input', syncNickPlaceholder);
+    syncNickPlaceholder();
+    const nickField = (label, control) => (hasNick
+      ? field(label, control, nickHint)
+      : null);
     const opening = el('textarea', { rows: 5, maxlength: 2000, placeholder: cfg.TEXT.openingDefault, value: inv.opening_text || '' });
     const rsvp = el('input', { type: 'checkbox', checked: inv.rsvp_enabled });
     const slug = el('input', {
@@ -116,9 +132,14 @@
       el('section', { class: 'card stack' },
         el('h2', { class: 'card-title' }, 'Mempelai'),
         field('Nama lengkap mempelai pria', groom),
+        nickField('Nama panggilan mempelai pria', groomNick),
         field('Orang tua mempelai pria', groomParents, 'Contoh: Bapak Ahmad & Ibu Siti'),
         field('Nama lengkap mempelai wanita', bride),
+        nickField('Nama panggilan mempelai wanita', brideNick),
         field('Orang tua mempelai wanita', brideParents),
+        !hasNick && el('p', { class: 'muted small' },
+          'Isian nama panggilan belum aktif di database. Buka Supabase → SQL Editor → New query, ' +
+          'tempel isi file supabase/07_nama_panggilan.sql, lalu tekan Run. Setelah itu muat ulang halaman ini.'),
       ),
       el('section', { class: 'card stack' },
         el('h2', { class: 'card-title' }, 'Teks & RSVP'),
@@ -146,6 +167,10 @@
         status: status.value,
         template: template.value(),
       };
+      if (hasNick) {
+        row.groom_nickname = ui.orNull(groomNick.value);
+        row.bride_nickname = ui.orNull(brideNick.value);
+      }
       if (!row.groom_name || !row.bride_name) return ui.toast('Nama kedua mempelai wajib diisi.', 'error');
       if (!ui.isValidSlug(row.slug)) return ui.toast('Link minimal 3 karakter: huruf kecil, angka, tanda -.', 'error');
       if (row.slug !== inv.slug && inv.status === 'published') {

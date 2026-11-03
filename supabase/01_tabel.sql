@@ -59,8 +59,10 @@ create table public.invitations (
                     check (status in ('draft', 'published', 'archived')),
 
   groom_name        text not null check (char_length(groom_name) <= 100),
+  groom_nickname    text check (char_length(groom_nickname) <= 40),   -- nama panggilan (boleh kosong)
   groom_parents     text check (char_length(groom_parents) <= 200),
   bride_name        text not null check (char_length(bride_name) <= 100),
+  bride_nickname    text check (char_length(bride_nickname) <= 40),
   bride_parents     text check (char_length(bride_parents) <= 200),
   opening_text      text check (char_length(opening_text) <= 2000),
 

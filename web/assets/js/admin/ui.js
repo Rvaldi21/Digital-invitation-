@@ -157,6 +157,9 @@
 
   function firstName(full) { return (full || '').trim().split(/\s+/)[0] || ''; }
 
+  // Nama yang tampil di sampul, link & pesan WA: nama panggilan, kalau kosong nama depan
+  function callName(nickname, full) { return (nickname || '').trim() || firstName(full); }
+
   // "Aldi Pratama & Alfin" → "aldi-pratama-alfin"
   function slugify(text) {
     return (text || '')
@@ -228,7 +231,7 @@
   window.Admin.ui = {
     el, field, checkbox, statusBadge,
     toast, confirmBox, busy, filePicker, copyText,
-    orNull, firstName, slugify, isValidSlug, kb, uniqueName, publicLink,
+    orNull, firstName, callName, slugify, isValidSlug, kb, uniqueName, publicLink,
     fmtDate: (iso) => fmtDate.format(new Date(iso)),
     fmtDateTime: (iso) => fmtDateTime.format(new Date(iso)),
     toLocalInput, fromLocalInput,

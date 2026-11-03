@@ -11,7 +11,7 @@
 
   window.Admin.tabs.bagikan = function (inv, body) {
     const storeKey = `undangan-admin-tamu-${inv.id}`;
-    const couple = `${ui.firstName(inv.groom_name)} & ${ui.firstName(inv.bride_name)}`;
+    const couple = `${ui.callName(inv.groom_nickname, inv.groom_name)} & ${ui.callName(inv.bride_nickname, inv.bride_name)}`;
 
     const names = el('textarea', {
       rows: 6,

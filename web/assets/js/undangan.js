@@ -43,6 +43,9 @@
   function setText(id, value) { $(id).textContent = value || ''; }
 
   function firstName(full) { return (full || '').split(' ')[0]; }
+  // Nama yang tampil di sampul & penutup: nama panggilan, kalau kosong nama depan
+  const groomCall = (inv) => (inv.groom_nickname || '').trim() || firstName(inv.groom_name);
+  const brideCall = (inv) => (inv.bride_nickname || '').trim() || firstName(inv.bride_name);
 
   const fmtDate = new Intl.DateTimeFormat(cfg.LOCALE, {
     weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: cfg.TIMEZONE,
@@ -112,14 +115,14 @@
     }
     setText('cover-lead', T.coverLead);
     setText('cover-monogram',
-      `${firstName(inv.groom_name).charAt(0)}${firstName(inv.bride_name).charAt(0)}`.toUpperCase());
-    setText('cover-groom', firstName(inv.groom_name));
-    setText('cover-bride', firstName(inv.bride_name));
+      `${groomCall(inv).charAt(0)}${brideCall(inv).charAt(0)}`.toUpperCase());
+    setText('cover-groom', groomCall(inv));
+    setText('cover-bride', brideCall(inv));
     setText('cover-date', inv.events.length ? fmtDate.format(new Date(inv.events[0].starts_at)) : '');
     setText('cover-greeting', T.coverGreeting);
     setText('cover-guest', guestName || T.coverDefaultGuest);
     setText('open-btn', T.coverOpen);
-    document.title = `${firstName(inv.groom_name)} & ${firstName(inv.bride_name)} | Undangan Pernikahan`;
+    document.title = `${groomCall(inv)} & ${brideCall(inv)} | Undangan Pernikahan`;
   }
 
   // Layar pertama setelah sampul dibuka: foto, nama, tanggal
@@ -131,8 +134,8 @@
       img.hidden = false;
     }
     setText('hero-lead', T.coverLead);
-    setText('hero-groom', firstName(inv.groom_name));
-    setText('hero-bride', firstName(inv.bride_name));
+    setText('hero-groom', groomCall(inv));
+    setText('hero-bride', brideCall(inv));
     setText('hero-date', inv.events.length ? fmtDate.format(new Date(inv.events[0].starts_at)) : '');
   }
 
@@ -160,7 +163,7 @@
       $('closing-mark').hidden = true;
     }
     setText('closing', T.closing);
-    setText('closing-names', `${firstName(inv.groom_name)} & ${firstName(inv.bride_name)}`);
+    setText('closing-names', `${groomCall(inv)} & ${brideCall(inv)}`);
   }
 
   function renderCountdown(inv) {

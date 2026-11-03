@@ -169,6 +169,8 @@ supabase/04_storage.sql        bucket "undangan-media" + aturan upload
 supabase/05_contoh_data.sql    (opsional) undangan contoh slug "contoh"
 supabase/06_cerita_foto_penutup.sql  tambahan: kolom love_story + closing_photo_path,
                                get_invitation diperbarui (01 & 03 juga sudah memuatnya)
+supabase/07_nama_panggilan.sql tambahan: kolom groom_nickname + bride_nickname,
+                               get_invitation diperbarui (01 & 03 juga sudah memuatnya)
 web/undangan/index.html        halaman tamu
 web/assets/js/config.js        ★ semua pengaturan
 web/assets/js/api.js           penghubung Supabase
@@ -272,7 +274,17 @@ jalankan-lokal.bat             tes lokal di Windows (klik dua kali)
       error), laptop, mode kurangi gerakan, template klasik tidak berubah, beranda
       menampilkan 7 template — lulus. Belum dicek dengan foto prewedding asli.
 
+- [x] **Nama panggilan mempelai** (3 Nov 2026): kolom `groom_nickname`/`bride_nickname`
+      (maks 40 huruf, boleh kosong). Dipakai di sampul, layar pembuka, penutup, judul
+      halaman, monogram, link otomatis (halaman Undangan baru) & pesan WA tab Bagikan;
+      kosong → nama depan. Layar Mempelai tetap nama lengkap. Kolom belum ada → isian
+      disembunyikan + petunjuk SQL 07 (undangan baru tetap bisa dibuat). SQL diuji di
+      Postgres lokal (database lama + 07 dua kali, dan database baru); 27 skenario
+      admin + undangan (Supabase tiruan, layar HP, XSS) — lulus.
+
 **Belum / sedang dikerjakan**
+- [ ] **Pemilik menjalankan `supabase/07_nama_panggilan.sql` di Supabase** (tanpa ini
+      isian nama panggilan tidak muncul di panel admin).
 - [ ] **Pemilik menjalankan `supabase/06_cerita_foto_penutup.sql` di Supabase** (wajib,
       tanpa ini tab Cerita & Foto penutup hanya menampilkan petunjuk).
 - [ ] Nomor WA beranda masih SEMENTARA (nomor Jepang +81 70-9233-6911). Ganti dengan nomor usaha + isi akun IG/TikTok di `config.js` → `BERANDA`.
