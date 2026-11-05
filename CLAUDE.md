@@ -215,7 +215,7 @@ jalankan-lokal.bat             tes lokal di Windows (klik dua kali)
 
 ---
 
-## 6. Status (terakhir diperbarui: 3 Nov 2026)
+## 6. Status (terakhir diperbarui: 5 Nov 2026)
 
 **Selesai**
 - [x] Skema database + keamanan; diuji 45 skenario akses di Postgres lokal (semua lulus)
@@ -281,6 +281,13 @@ jalankan-lokal.bat             tes lokal di Windows (klik dua kali)
       disembunyikan + petunjuk SQL 07 (undangan baru tetap bisa dibuat). SQL diuji di
       Postgres lokal (database lama + 07 dua kali, dan database baru); 27 skenario
       admin + undangan (Supabase tiruan, layar HP, XSS) — lulus.
+
+- [x] **Panel admin versi PC** (5 Nov 2026, keluhan pemilik: di PC tab terpotong & samping
+      kosong). Mulai lebar 60rem (±960px): konten sampai 76rem, halaman edit 2 kolom
+      (`.edit__side` kiri: judul, status, menu tab tegak & menempel; `.edit__main` kanan),
+      pilihan template berjajar (grid), daftar undangan 2–3 kolom. Di HP `.edit__side`
+      = `display: contents` → tetap satu tumpukan, tab tetap menempel di atas. Dicek di
+      1366px & 375px (data tiruan).
 
 **Belum / sedang dikerjakan**
 - [ ] **Pemilik menjalankan `supabase/07_nama_panggilan.sql` di Supabase** (tanpa ini

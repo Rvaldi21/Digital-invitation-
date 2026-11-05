@@ -69,21 +69,25 @@
 
     await window.Admin.tabs[current](inv, body);
 
-    return el('div', { class: 'stack' },
-      el('a', { class: 'back', href: '#/' }, '← Semua undangan'),
-      el('div', {},
-        el('h1', { class: 'page-title' }, `${inv.groom_name} & ${inv.bride_name}`),
-        el('p', { class: 'muted small' }, `/${inv.slug}`),
+    // Di HP: semua bertumpuk satu kolom. Di layar lebar (PC): bagian "samping"
+    // (judul, status, menu tab) jadi kolom kiri, isi tab di kanan (lihat admin.css).
+    return el('div', { class: 'edit' },
+      el('div', { class: 'edit__side stack' },
+        el('a', { class: 'back', href: '#/' }, '← Semua undangan'),
+        el('div', {},
+          el('h1', { class: 'page-title' }, `${inv.groom_name} & ${inv.bride_name}`),
+          el('p', { class: 'muted small' }, `/${inv.slug}`),
+        ),
+        statusCard(inv),
+        el('nav', { class: 'tabs', 'aria-label': 'Bagian undangan' },
+          TABS.map(([key, label]) => el('a', {
+            class: key === current ? 'tab is-active' : 'tab',
+            href: `#/u/${inv.id}/${key}`,
+            'aria-current': key === current ? 'page' : null,
+          }, label)),
+        ),
       ),
-      statusCard(inv),
-      el('nav', { class: 'tabs', 'aria-label': 'Bagian undangan' },
-        TABS.map(([key, label]) => el('a', {
-          class: key === current ? 'tab is-active' : 'tab',
-          href: `#/u/${inv.id}/${key}`,
-          'aria-current': key === current ? 'page' : null,
-        }, label)),
-      ),
-      body,
+      el('div', { class: 'edit__main' }, body),
     );
   };
 })();

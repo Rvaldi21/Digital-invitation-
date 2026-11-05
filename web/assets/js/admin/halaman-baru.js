@@ -78,7 +78,7 @@
     });
 
     sync();
-    return el('div', { class: 'stack' },
+    return el('div', { class: 'stack sempit' },
       el('a', { class: 'back', href: '#/' }, '← Semua undangan'),
       el('h1', { class: 'page-title' }, 'Undangan baru'),
       form,

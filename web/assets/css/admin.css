@@ -500,3 +500,79 @@ audio { width: 100%; }
 .confirm > * + * { margin-top: 1rem; }
 .confirm .actions { justify-content: flex-end; }
 .confirm__text { line-height: 1.5; }
+
+/* =====================================================================
+   LAYAR LEBAR (PC / laptop / tablet mendatar)
+   Di HP semua tetap satu kolom seperti di atas. Mulai lebar 60rem (±960px):
+   - konten boleh lebih lebar (tidak banyak ruang kosong di samping)
+   - halaman edit undangan jadi 2 kolom: menu di kiri, isi tab di kanan
+   - pilihan template tampil berjajar (tidak perlu digeser)
+   ===================================================================== */
+
+/* Halaman edit — versi HP: kolom "samping" dilebur, jadi tetap satu tumpukan
+   (dan menu tab tetap menempel di atas saat digulir). */
+.edit { display: grid; gap: 1rem; }
+.edit > * { min-width: 0; }
+.edit__side { display: contents; }
+
+/* Halaman yang isinya cuma satu form: jangan terlalu lebar di PC */
+.sempit { width: 100%; max-width: 40rem; margin-inline: auto; }
+.login { max-width: 28rem; margin-inline: auto; }
+
+@media (min-width: 60rem) {
+  :root { --lebar: 76rem; }
+
+  .app { padding: 1.5rem 2rem 4rem; }
+
+  /* Daftar undangan: kartu berjajar 2–3 kolom */
+  .inv-list { grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); }
+
+  /* Halaman edit: menu kiri (menempel saat digulir) + isi kanan */
+  .edit {
+    grid-template-columns: 17rem minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+  }
+  .edit__side {
+    display: grid;
+    position: sticky;
+    top: calc(56px + 1.5rem);
+    max-height: calc(100vh - 56px - 3rem);
+    overflow-y: auto;
+  }
+  .edit__side .status-card { flex-direction: column; align-items: stretch; }
+  .edit__side .status-card .actions > * { flex: 1; }
+
+  .tabs {
+    position: static;
+    flex-direction: column;
+    gap: .35rem;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    border-bottom: 0;
+    background: none;
+  }
+  .tab { justify-content: flex-start; min-height: 44px; padding: .5rem 1.1rem; }
+  .tab:not(.is-active):hover { border-color: var(--nila); }
+
+  /* Isi tab: kartu-kartu cukup lega */
+  .edit__main .card { padding: 1.5rem; }
+
+  /* Pilihan template: berjajar, tidak perlu digeser */
+  .tpl-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+    margin: 0;
+    padding: .25rem 0 0;
+    overflow: visible;
+  }
+  .tpl:hover { border-color: var(--daun); }
+
+  /* Galeri foto: lebih banyak kolom */
+  .photo-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+  /* Rekap RSVP: angka berjajar satu baris */
+  .stats { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .stat:first-child { grid-column: auto; }
+}

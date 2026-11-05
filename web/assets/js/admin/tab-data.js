@@ -77,7 +77,7 @@
     return {
       node: el('section', { class: 'card stack' },
         el('h2', { class: 'card-title' }, 'Template'),
-        el('p', { class: 'muted small' }, 'Geser untuk melihat semua template, ketuk untuk memilih.'),
+        el('p', { class: 'muted small' }, 'Pilih salah satu template (di HP: geser ke samping untuk melihat semua).'),
         list,
         el('p', { class: 'small' }, 'Terpilih: ', chosenName),
         el('div', { class: 'actions' }, demoLink, previewLink),
