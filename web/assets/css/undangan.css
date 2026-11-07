@@ -89,6 +89,19 @@ body.is-locked { overflow: hidden; }
 /* Setelah undangan dibuka: gulir berhenti pas di awal tiap layar */
 html.is-snap { scroll-snap-type: y proximity; scroll-behavior: smooth; }
 
+/* Mode geser per layar (config.js → GULIR: 'per-layar'): setiap bagian satu
+   layar penuh, dan sekali geser/scroll langsung berhenti di bagian berikutnya
+   (tidak bisa melompati beberapa bagian sekaligus). Bagian yang isinya lebih
+   panjang dari layar (mis. ucapan) tetap bisa digulir sampai habis. */
+html.gulir-layar {
+  --bagian-tinggi: 100svh;
+  --bagian-jarak-atas: 4.5rem;
+  --bagian-jarak-bawah: calc(6.5rem + env(safe-area-inset-bottom));
+}
+html.gulir-layar.is-snap { scroll-snap-type: y mandatory; }
+html.gulir-layar .section,
+html.gulir-layar .closing { scroll-snap-align: start; scroll-snap-stop: always; }
+
 img { max-width: 100%; display: block; }
 
 [hidden] { display: none !important; }

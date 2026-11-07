@@ -144,6 +144,12 @@ Semua harus memakai paket gratis sampai ada pemasukan.
     **7 Nov 2026 (permintaan pemilik: ruang kosong terlalu banyak):** hanya layar
     pembuka & penutup yang tetap 100svh; bagian lain setinggi isinya. Diatur token
     `--bagian-tinggi` (auto / 100svh), `--bagian-jarak-atas/bawah` di `:root` undangan.css.
+    **Lalu (7 Nov 2026, contoh video IG punakawandigital): mode geser per layar** —
+    `config.js → GULIR: 'per-layar'` (bawaan) / `'bebas'`. Per-layar: html diberi kelas
+    `gulir-layar` → tiap bagian 100svh, `scroll-snap-type: y mandatory` + `scroll-snap-stop:
+    always` (HP: sekali geser = satu bagian), dan `setupPaging()` di undangan.js menangani
+    roda mouse/touchpad PC (sekali scroll = pindah bagian; bagian lebih tinggi dari layar
+    digulir dulu sampai ujung). Mode ini tetap aktif walau "kurangi gerakan" menyala.
   - **Latar diam** `.layar` (position fixed di belakang `#main`): token `--layar-gambar`,
     `--layar-sudut` (bawaan = `--hiasan-sudut`), `--layar-atas/bawah`, `--layar-redup`,
     `--layar-kelopak` (kelopak jatuh, hanya taman).

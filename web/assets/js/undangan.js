@@ -462,6 +462,38 @@
   }
 
   // Menu bawah: hanya bagian yang tampil; tombol bagian yang sedang dilihat diberi warna
+  // Mode geser per layar (config.js → GULIR) untuk roda mouse / touchpad di PC:
+  // sekali scroll langsung pindah satu bagian. Di HP, geser jari sudah diatur
+  // CSS (scroll-snap). Bagian yang lebih tinggi dari layar digulir biasa dulu
+  // sampai ujungnya, baru pindah ke bagian berikutnya.
+  function setupPaging() {
+    let jedaSampai = 0;   // selama animasi pindah, scroll berikutnya diabaikan
+    window.addEventListener('wheel', (e) => {
+      if (!document.documentElement.classList.contains('is-snap') || e.ctrlKey) return;
+      if (Math.abs(e.deltaY) < 4 || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+      if (Date.now() < jedaSampai) { e.preventDefault(); return; }
+
+      const parts = [...document.querySelectorAll('#main > section:not([hidden]), #main > footer')];
+      const y = window.scrollY;
+      const h = window.innerHeight;
+      const i = parts.findIndex((p) => p.offsetTop + p.offsetHeight > y + 2);
+      const now = parts[i];
+      if (!now) return;
+      const turun = e.deltaY > 0;
+
+      // Masih ada isi bagian ini di luar layar → gulir biasa
+      if (turun && now.offsetTop + now.offsetHeight > y + h + 2) return;
+      if (!turun && y > now.offsetTop + 2) return;
+
+      const next = parts[turun ? i + 1 : i - 1];
+      if (!next) return;
+      e.preventDefault();
+      const top = turun ? next.offsetTop : Math.max(next.offsetTop, next.offsetTop + next.offsetHeight - h);
+      window.scrollTo({ top, behavior: 'smooth' });
+      jedaSampai = Date.now() + 800;
+    }, { passive: false });
+  }
+
   function setupNav() {
     const nav = $('navigasi');
     const links = [...nav.querySelectorAll('a')];
@@ -523,6 +555,12 @@
     $('status').hidden = true;
     $('cover').hidden = false;
     $('main').hidden = false;
+
+    // Mode geser per layar (config.js → GULIR); dipakai undangan.css
+    if (cfg.GULIR !== 'bebas') {
+      document.documentElement.classList.add('gulir-layar');
+      setupPaging();
+    }
 
     setupNav();
     const animated = prepareAnimations();

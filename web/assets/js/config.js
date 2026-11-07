@@ -159,6 +159,14 @@ window.APP_CONFIG = {
   MAX_MESSAGE: 500,
 
   // -------------------------------------------------------------------
+  // CARA MENGGULIR UNDANGAN
+  // 'per-layar' = sekali geser langsung pindah ke bagian berikutnya
+  //               (seperti geser Story IG; setiap bagian satu layar penuh)
+  // 'bebas'     = digulir biasa, tinggi tiap bagian mengikuti isinya
+  // -------------------------------------------------------------------
+  GULIR: 'per-layar',
+
+  // -------------------------------------------------------------------
   // PANEL ADMIN (/admin/)
   // -------------------------------------------------------------------
   ADMIN: {
