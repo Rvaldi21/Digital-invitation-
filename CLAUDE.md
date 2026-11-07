@@ -126,6 +126,9 @@ Semua harus memakai paket gratis sampai ada pemasukan.
     Di keraton, foto sampul juga jadi **latar diam semua layar** (`html.foto-sampul`,
     lapisan gelap tembus pandang — ketebalannya diatur di template-keraton.css) dan
     kartu acara/cerita/ucapan dibuat kaca buram tembus pandang.
+    Di layar melebar (`min-aspect-ratio: 1/1`, mis. PC) foto sampul & latar diam tampil
+    UTUH di tengah (`contain`, lewat `::after`) + sisi kiri-kanan salinan foto buram gelap
+    (`::before`) — tanpa ini foto tegak diperbesar & hanya bagian atas terlihat (7 Nov 2026).
     Aturan di file template yang menimpa `.hiasan > span` harus memakai selektor
     `.hiasan > .hiasan__x` (kalau tidak, kalah kuat).
   - **Gambar contoh** tiap template: `web/assets/contoh-template/<nama>.jpg`
@@ -215,7 +218,7 @@ jalankan-lokal.bat             tes lokal di Windows (klik dua kali)
 
 ---
 
-## 6. Status (terakhir diperbarui: 5 Nov 2026)
+## 6. Status (terakhir diperbarui: 7 Nov 2026)
 
 **Selesai**
 - [x] Skema database + keamanan; diuji 45 skenario akses di Postgres lokal (semua lulus)

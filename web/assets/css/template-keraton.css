@@ -231,3 +231,53 @@ html.foto-sampul .choice input:checked + span { background: var(--utama); }
 /* Bayangan halus di belakang tulisan supaya tetap terbaca di atas foto */
 html.foto-sampul #main { text-shadow: 0 1px 10px rgba(0,0,0,.65); }
 html.foto-sampul .gift, html.foto-sampul .countdown div, html.foto-sampul .btn { text-shadow: none; }
+
+/* =====================================================================
+   FOTO SAMPUL DI LAYAR LEBAR (PC / laptop / HP miring)
+   Foto prewedding biasanya tegak. Di layar melebar, "cover" membuat foto
+   diperbesar sampai selebar layar → hanya bagian atas yang terlihat.
+   Jadi di layar lebar: foto UTUH di tengah (::after), sisi kiri-kanan diisi
+   salinan foto yang dibuat buram & gelap (::before). Di HP tidak berubah.
+   Atur keburaman di "blur(...)" dan kegelapan sisi di "brightness(...)".
+   ===================================================================== */
+@media (min-aspect-ratio: 1/1) {
+  /* Latar diam di belakang semua layar */
+  html.foto-sampul .layar > .layar__gambar { background: #0B0907; }
+  html.foto-sampul .layar > .layar__gambar::before,
+  html.foto-sampul .layar > .layar__gambar::after {
+    content: "";
+    position: absolute;
+  }
+  html.foto-sampul .layar > .layar__gambar::before {
+    inset: -60px;
+    background: var(--foto-sampul) center / cover no-repeat;
+    filter: blur(28px) brightness(.45);
+  }
+  html.foto-sampul .layar > .layar__gambar::after {
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(11,9,7,.5) 0%, rgba(11,9,7,.62) 55%, rgba(11,9,7,.78) 100%),
+      var(--foto-sampul) center / contain no-repeat;
+  }
+
+  /* Layar sampul (sebelum tombol buka ditekan) */
+  .cover--foto { background-image: none; background-color: #0B0907; overflow: hidden; }
+  .cover--foto::before,
+  .cover--foto::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+  }
+  .cover--foto::before {
+    inset: -60px;
+    background: var(--foto-sampul) center / cover no-repeat;
+    filter: blur(28px) brightness(.45);
+  }
+  .cover--foto::after {
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(11,9,7,.45) 0%, rgba(11,9,7,0) 24%, rgba(11,9,7,.15) 45%, rgba(11,9,7,.75) 70%, rgba(11,9,7,.92) 100%),
+      var(--foto-sampul) center / contain no-repeat;
+  }
+}
