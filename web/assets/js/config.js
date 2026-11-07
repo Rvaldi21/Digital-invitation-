@@ -165,6 +165,7 @@ window.APP_CONFIG = {
   // 'bebas'     = digulir biasa, tinggi tiap bagian mengikuti isinya
   // -------------------------------------------------------------------
   GULIR: 'per-layar',
+  GULIR_LAMA: 800,   // lama animasi pindah bagian, dalam milidetik (1000 = 1 detik)
 
   // -------------------------------------------------------------------
   // PANEL ADMIN (/admin/)

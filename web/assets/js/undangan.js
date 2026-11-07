@@ -462,6 +462,35 @@
   }
 
   // Menu bawah: hanya bagian yang tampil; tombol bagian yang sedang dilihat diberi warna
+  // Animasi gulir buatan sendiri: bergerak halus (pelan di awal & akhir).
+  // Tidak memakai "smooth scroll" bawaan browser, karena itu mati kalau
+  // efek animasi Windows/HP dimatikan → perpindahan jadi loncat (kaku).
+  let meluncur = false;
+  function glideTo(top) {
+    const html = document.documentElement;
+    const lama = Number(cfg.GULIR_LAMA) || 800;
+    const awal = window.scrollY;
+    const jarak = Math.max(0, Math.min(top, html.scrollHeight - window.innerHeight)) - awal;
+    if (Math.abs(jarak) < 2) return;
+    // selama meluncur, "berhenti di tiap bagian" dimatikan supaya tidak menarik balik
+    html.style.scrollSnapType = 'none';
+    html.style.scrollBehavior = 'auto';
+    meluncur = true;
+    const mulai = performance.now();
+    const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+    const langkah = (now) => {
+      const t = Math.min(1, (now - mulai) / lama);
+      window.scrollTo(0, awal + jarak * ease(t));
+      if (t < 1) return requestAnimationFrame(langkah);
+      requestAnimationFrame(() => {
+        html.style.scrollSnapType = '';
+        html.style.scrollBehavior = '';
+        meluncur = false;
+      });
+    };
+    requestAnimationFrame(langkah);
+  }
+
   // Mode geser per layar (config.js → GULIR) untuk roda mouse / touchpad di PC:
   // sekali scroll langsung pindah satu bagian. Di HP, geser jari sudah diatur
   // CSS (scroll-snap). Bagian yang lebih tinggi dari layar digulir biasa dulu
@@ -471,7 +500,7 @@
     window.addEventListener('wheel', (e) => {
       if (!document.documentElement.classList.contains('is-snap') || e.ctrlKey) return;
       if (Math.abs(e.deltaY) < 4 || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
-      if (Date.now() < jedaSampai) { e.preventDefault(); return; }
+      if (meluncur || Date.now() < jedaSampai) { e.preventDefault(); return; }
 
       const parts = [...document.querySelectorAll('#main > section:not([hidden]), #main > footer')];
       const y = window.scrollY;
@@ -489,8 +518,8 @@
       if (!next) return;
       e.preventDefault();
       const top = turun ? next.offsetTop : Math.max(next.offsetTop, next.offsetTop + next.offsetHeight - h);
-      window.scrollTo({ top, behavior: 'smooth' });
-      jedaSampai = Date.now() + 800;
+      glideTo(top);
+      jedaSampai = Date.now() + (Number(cfg.GULIR_LAMA) || 800) + 150;
     }, { passive: false });
   }
 
@@ -499,7 +528,11 @@
     const links = [...nav.querySelectorAll('a')];
     for (const a of links) {
       const target = document.querySelector(a.getAttribute('href'));
-      if (!target || target.hidden) a.remove();
+      if (!target || target.hidden) { a.remove(); continue; }
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        glideTo(target.offsetTop);
+      });
     }
     if (!('IntersectionObserver' in window)) return;
     const observer = new IntersectionObserver((entries) => {

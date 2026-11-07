@@ -150,6 +150,10 @@ Semua harus memakai paket gratis sampai ada pemasukan.
     always` (HP: sekali geser = satu bagian), dan `setupPaging()` di undangan.js menangani
     roda mouse/touchpad PC (sekali scroll = pindah bagian; bagian lebih tinggi dari layar
     digulir dulu sampai ujung). Mode ini tetap aktif walau "kurangi gerakan" menyala.
+    Perpindahan memakai `glideTo()` (animasi rAF buatan sendiri, ease-in-out, lama =
+    `config.js → GULIR_LAMA`), BUKAN smooth scroll bawaan browser — yang bawaan mati
+    kalau efek animasi Windows mati (komputer pemilik) → terasa kaku. Menu bawah juga
+    memakai `glideTo()`. Selama meluncur, scroll-snap dimatikan sementara (inline style).
   - **Latar diam** `.layar` (position fixed di belakang `#main`): token `--layar-gambar`,
     `--layar-sudut` (bawaan = `--hiasan-sudut`), `--layar-atas/bawah`, `--layar-redup`,
     `--layar-kelopak` (kelopak jatuh, hanya taman).
