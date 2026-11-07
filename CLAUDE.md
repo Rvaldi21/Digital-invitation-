@@ -168,6 +168,9 @@ Semua harus memakai paket gratis sampai ada pemasukan.
     bersamaan, layar pertama tidak bergerak.
     `#main` diberi `overflow-x: clip` — WAJIB: tanpa itu elemen yang masuk dari
     samping membuat halaman melebar di HP & menu bawah terdorong keluar layar.
+  - **Menu bawah DIMATIKAN** (7 Nov 2026, permintaan pemilik): `config.js → MENU_BAWAH: false`
+    → html diberi kelas `tanpa-menu` (jarak bawah bagian dikecilkan, tombol musik turun).
+    Ganti `true` untuk menampilkannya lagi.
   - **Menu bawah** `#navigasi` (Awal, Mempelai, Acara, Galeri, Hadiah, Ucapan): tombol
     bagian yang tersembunyi dihapus otomatis; bagian yang sedang dilihat diberi warna.
   - `?t=<nama>` hanya berlaku di demo & pratinjau. Katalog: beranda `/` + `?u=demo&t=`.

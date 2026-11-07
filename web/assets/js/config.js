@@ -167,6 +167,10 @@ window.APP_CONFIG = {
   GULIR: 'per-layar',
   GULIR_LAMA: 800,   // lama animasi pindah bagian, dalam milidetik (1000 = 1 detik)
 
+  // Menu bawah (tombol Awal, Mempelai, Acara, Galeri, Ucapan) yang mengambang
+  // di bawah layar undangan. true = tampil, false = disembunyikan
+  MENU_BAWAH: false,
+
   // -------------------------------------------------------------------
   // PANEL ADMIN (/admin/)
   // -------------------------------------------------------------------

@@ -102,6 +102,12 @@ html.gulir-layar.is-snap { scroll-snap-type: y mandatory; }
 html.gulir-layar .section,
 html.gulir-layar .closing { scroll-snap-align: start; scroll-snap-stop: always; }
 
+/* Menu bawah dimatikan (config.js → MENU_BAWAH: false): jarak bawah yang tadinya
+   disediakan untuk menu dikecilkan, tombol musik turun ke pojok bawah */
+html.tanpa-menu.gulir-layar { --bagian-jarak-bawah: calc(4.5rem + env(safe-area-inset-bottom)); }
+html.tanpa-menu .section--hero { padding-bottom: calc(4.5rem + env(safe-area-inset-bottom)); }
+html.tanpa-menu .music-btn { bottom: calc(1rem + env(safe-area-inset-bottom)); }
+
 img { max-width: 100%; display: block; }
 
 [hidden] { display: none !important; }

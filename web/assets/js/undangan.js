@@ -590,6 +590,9 @@
     $('main').hidden = false;
 
     // Mode geser per layar (config.js → GULIR); dipakai undangan.css
+    // Menu bawah dimatikan (config.js → MENU_BAWAH): ruang untuk menu dipakai isi
+    if (!cfg.MENU_BAWAH) document.documentElement.classList.add('tanpa-menu');
+
     if (cfg.GULIR !== 'bebas') {
       document.documentElement.classList.add('gulir-layar');
       setupPaging();
@@ -602,7 +605,7 @@
       $('cover').classList.add('is-open');
       document.body.classList.remove('is-locked');
       document.documentElement.classList.add('is-snap');
-      $('navigasi').hidden = false;
+      if (cfg.MENU_BAWAH) $('navigasi').hidden = false;
       if (animated) startAnimations();   // dimulai sekarang, supaya animasi layar pertama terlihat
       if (audio) audio.play().catch(() => { /* browser menolak autoplay: biarkan */ });
       setTimeout(() => { $('cover').hidden = true; }, 950);
