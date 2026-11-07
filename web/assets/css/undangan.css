@@ -61,6 +61,14 @@
   --layar-bawah-tinggi: 0px;
   --layar-redup: .45;                    /* ketebalan hiasan latar (0–1) */
   --layar-kelopak: none;                 /* kelopak/daun yang berjatuhan */
+
+  /* Tinggi & jarak tiap bagian undangan (Mempelai, Acara, Galeri, dst.).
+     auto  = setinggi isinya saja (tidak ada ruang kosong besar)
+     100svh = setiap bagian satu layar penuh (isi di tengah layar)
+     Layar pembuka & penutup tetap satu layar penuh. */
+  --bagian-tinggi: auto;
+  --bagian-jarak-atas: 3.5rem;
+  --bagian-jarak-bawah: 3.5rem;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -192,15 +200,21 @@ img { max-width: 100%; display: block; }
 .section {
   position: relative;
   max-width: var(--lebar);
-  min-height: 100vh;
-  min-height: 100svh;
+  min-height: var(--bagian-tinggi);
   margin: 0 auto;
-  padding: 4.5rem 1.5rem calc(6.5rem + env(safe-area-inset-bottom));
+  padding: var(--bagian-jarak-atas) 1.5rem var(--bagian-jarak-bawah);
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
   scroll-snap-align: start;
+}
+/* Layar pembuka & penutup tetap satu layar penuh */
+.section--hero, .closing {
+  min-height: 100vh;
+  min-height: 100svh;
+  padding-top: 4.5rem;
+  padding-bottom: calc(6.5rem + env(safe-area-inset-bottom));
 }
 .section:not(.section--dark):not(.section--hero)::before {
   content: '';

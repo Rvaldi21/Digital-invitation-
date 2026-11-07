@@ -141,6 +141,9 @@ Semua harus memakai paket gratis sampai ada pemasukan.
     (`#s-pembuka`: foto bingkai gapura/motif, nama, tanggal) → ayat (`#quote-section`,
     hanya bila template punya QUOTE) → mempelai (`#s-mempelai`) → hitung mundur →
     acara → galeri → amplop → RSVP & ucapan → penutup.
+    **7 Nov 2026 (permintaan pemilik: ruang kosong terlalu banyak):** hanya layar
+    pembuka & penutup yang tetap 100svh; bagian lain setinggi isinya. Diatur token
+    `--bagian-tinggi` (auto / 100svh), `--bagian-jarak-atas/bawah` di `:root` undangan.css.
   - **Latar diam** `.layar` (position fixed di belakang `#main`): token `--layar-gambar`,
     `--layar-sudut` (bawaan = `--hiasan-sudut`), `--layar-atas/bawah`, `--layar-redup`,
     `--layar-kelopak` (kelopak jatuh, hanya taman).
